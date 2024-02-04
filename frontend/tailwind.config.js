@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -18,7 +19,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
+        royalBlue: "	hsl(216, 91%, 13%)",
+        seaSalt: "hsl(0, 8%, 97%)",
+        steelBlue: "hsl(203, 61%, 45%)",
+        turquoise: "hsl(193, 78%, 45%)",
+        border: "var(--border)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -57,6 +62,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        Outfit: ["Outfit", "sans-serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -67,6 +75,9 @@ module.exports = {
           to: { height: "0" },
         },
       },
+      backgroundImage: {
+        herobg: "url('/src/assets/herobg.svg')",
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -74,4 +85,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
