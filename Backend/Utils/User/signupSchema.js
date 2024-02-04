@@ -7,4 +7,5 @@ const signupSchema = z.object({
   phoneNo: z.string().min(13).max(13),
   gender: z.string(),
 });
+
 module.exports = signupSchema;
