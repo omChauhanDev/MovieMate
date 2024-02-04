@@ -4,7 +4,8 @@
   "description": "A Full Stack Web Application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon backend/index"
   },
   "keywords": [
     "javascript",
@@ -12,5 +13,12 @@
     "backend"
   ],
   "author": "Om Akshat Dhruv",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.4.1",
+    "nodemon": "^3.0.3"
+  },
+  "dependencies": {
+    "mongoose": "^8.1.1"
+  }
 }
