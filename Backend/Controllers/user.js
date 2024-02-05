@@ -56,7 +56,7 @@ router.post("/signin", (req, res) => {
           }
         });
       } else {
-        return res.status(403).json({ message: "User doesn't exist" });
+        return res.status(403).json({ message: "User does not exist" });
       }
     });
   } else {
