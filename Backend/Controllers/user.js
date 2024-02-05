@@ -6,6 +6,9 @@ require("dotenv").config();
 const signupSchema = require("../Utils/User/signupSchema");
 const signinSchema = require("../Utils/User/signinSchema");
 const User = require("../Models/User");
+router.get("/otp", (req, res) => {
+  res.status(201).json({ otp: Math.floor(Math.random() * 900000) + 100000 });
+});
 router.post("/signup", (req, res) => {
   const verify = signupSchema.safeParse(req.body);
   if (verify.success) {
