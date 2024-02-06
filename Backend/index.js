@@ -1,11 +1,12 @@
 const express = require("express");
-const app = express;
+const app = express();
 require("dotenv").config();
 const dbConnect = require("./Config/dbconnect");
 const apiv1Router = require("./Routes/index");
 const errorCatching = require("./Middleware/errorCatching");
 const PORT = process.env.PORT || 3000;
+app.use(express.json());
 app.use("/api/v1", apiv1Router);
-app.use(errorCatching);
-app.listen(PORT, () => console.log("Backend's up and running"));
+// app.use(errorCatching);
+app.listen(PORT, () => console.log(`Backend is running @${PORT}`));
 dbConnect();

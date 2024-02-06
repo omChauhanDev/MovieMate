@@ -6,6 +6,28 @@ require("dotenv").config();
 const signupSchema = require("../Utils/User/signupSchema");
 const signinSchema = require("../Utils/User/signinSchema");
 const User = require("../Models/User");
+const transporter = require("../Config/NodeMailerTransporter");
+const emailSchema = require("../Utils/User/emailSchema");
+
+router.get("/otp", async (req, res) => {
+  const verify = emailSchema.safeParse(req.body);
+  if (verify.success) {
+    const otp = Math.floor(Math.random() * 900000) + 100000;
+    await transporter.sendMail({
+      from: "MovieMate",
+      to: req.body.email,
+      subject: "OTP Verification",
+      html: `<h1>OTP requested for your account</h1>
+    <p>Here is your super secret OTP ${otp}</p>
+    `,
+    });
+    res.status(201).json({ message: "Email sent successfully" });
+  } else {
+    console.log(verify.error.issues);
+    res.status(400).json({ message: "Please send a valid email" });
+  }
+});
+
 router.post("/signup", (req, res) => {
   const verify = signupSchema.safeParse(req.body);
   if (verify.success) {
@@ -38,6 +60,7 @@ router.post("/signup", (req, res) => {
       .json({ message: "Incorrect inputs", errors: verify.error });
   }
 });
+
 router.post("/signin", (req, res) => {
   const verify = signinSchema.safeParse(req.body);
   if (verify.success) {
@@ -56,7 +79,7 @@ router.post("/signin", (req, res) => {
           }
         });
       } else {
-        return res.status(403).json({ message: "User doesn't exist" });
+        return res.status(403).json({ message: "User does not exist" });
       }
     });
   } else {
@@ -65,4 +88,5 @@ router.post("/signin", (req, res) => {
       .json({ message: "Incorrect inputs", errors: verify.error });
   }
 });
+
 module.exports = router;

@@ -1,64 +1,131 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     fullName: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     bio: {
-        type: String
+      type: String,
     },
     email: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    phoneNo:{
-        type: String,
+    phoneNo: {
+      type: String,
     },
-    age:{
-        type: Number,
+    age: {
+      type: Number,
     },
     dateOfBirth: {
-        type: Date
+      type: Date,
     },
     role: {
-        type: String,
-        default: 'user'
+      type: String,
+      default: "user",
     },
     gender: {
-        type: String,
-        enum: ['male', 'female', 'other']
+      type: String,
+      enum: ["male", "female", "other"],
     },
     location: {
-        country: {
-            type: String
-        },
-        city: {
-            type: String
-        },
+      country: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
     },
-    favoriteGenres: [{
+    favoriteGenres: [
+      {
         type: String,
-        enum: ['action', 'adventure', 'comedy', 'crime', 'drama', 'fantasy', 'historical',
-                'horror', 'mystery', 'philosophical', 'political', 'romance', 'saga', 'satire',
-                'science fiction', 'social', 'speculative', 'thriller', 'urban', 'western']
-    }],
-    languagePreferences: [{
+        enum: [
+          "action",
+          "adventure",
+          "comedy",
+          "crime",
+          "drama",
+          "fantasy",
+          "historical",
+          "horror",
+          "mystery",
+          "philosophical",
+          "political",
+          "romance",
+          "saga",
+          "satire",
+          "science fiction",
+          "social",
+          "speculative",
+          "thriller",
+          "urban",
+          "western",
+        ],
+      },
+    ],
+    languagePreferences: [
+      {
         type: String,
-        enum: ['english', 'hindi', 'spanish', 'french', 'german', 'chinese', 'arabic', 'bengali',
-                'russian', 'portuguese', 'japanese', 'urdu', 'punjabi', 'telugu', 'tamil', 'marathi',
-                'turkish', 'korean', 'vietnamese', 'italian', 'thai', 'gujarati', 'polish', 'ukrainian',
-                'malayalam', 'kannada', 'oriya', 'sindhi', 'serbian', 'swedish', 'dutch', 'greek',
-                'czech', 'finnish', 'hungarian', 'hebrew', 'indonesian', 'nepali', 'norwegian', 'persian',
-                'slovak', 'swahili', 'taiwanese', 'tibetan', 'zulu', 'other']
-    }],
+        enum: [
+          "english",
+          "hindi",
+          "spanish",
+          "french",
+          "german",
+          "chinese",
+          "arabic",
+          "bengali",
+          "russian",
+          "portuguese",
+          "japanese",
+          "urdu",
+          "punjabi",
+          "telugu",
+          "tamil",
+          "marathi",
+          "turkish",
+          "korean",
+          "vietnamese",
+          "italian",
+          "thai",
+          "gujarati",
+          "polish",
+          "ukrainian",
+          "malayalam",
+          "kannada",
+          "oriya",
+          "sindhi",
+          "serbian",
+          "swedish",
+          "dutch",
+          "greek",
+          "czech",
+          "finnish",
+          "hungarian",
+          "hebrew",
+          "indonesian",
+          "nepali",
+          "norwegian",
+          "persian",
+          "slovak",
+          "swahili",
+          "taiwanese",
+          "tibetan",
+          "zulu",
+          "other",
+        ],
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-},{
-    timestamps: true
-});
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
