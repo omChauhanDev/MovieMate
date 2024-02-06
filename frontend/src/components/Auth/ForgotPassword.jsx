@@ -27,15 +27,17 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex-1 flex justify-center items-center screen">
-      <div className="w-[25%] min-h-[22rem] flex flex-col justify-center items-center font-Poppins text-center rounded-xl px-6 py-20 bg-white/70 border shadow-xl border-gray-200">
+    <div className="flex-1 px-8 flex justify-center items-center screen">
+      <div className="min-w-[25%] min-h-[22rem] flex flex-col justify-center items-center font-Poppins text-center rounded-xl px-8 py-20 bg-white/70 border shadow-xl border-gray-200">
         {!otpSent && (
           <>
-            <h1 className="text-3xl font-bold">Reset Your Password</h1>
+            <h1 className="md:text-3xl text-2xl font-bold">
+              Reset Your Password
+            </h1>
             <p className="font-[300]">Enter your registered email address</p>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col w-[80%] mx-auto mt-8"
+              className="flex flex-col w-full mx-auto mt-8"
             >
               <input
                 {...register("email")}
