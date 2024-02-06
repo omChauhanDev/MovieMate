@@ -28,7 +28,7 @@ export const ForgotPassword = () => {
 
   return (
     <div className="flex-1 flex justify-center items-center screen">
-      <div className="w-[25%] font-Poppins text-center rounded-xl px-6 py-16 bg-white">
+      <div className="w-[25%] min-h-[22rem] flex flex-col justify-center items-center font-Poppins text-center rounded-xl px-6 py-20 bg-white/70 border shadow-xl border-gray-200">
         {!otpSent && (
           <>
             <h1 className="text-3xl font-bold">Reset Your Password</h1>
