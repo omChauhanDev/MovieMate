@@ -64,6 +64,7 @@ module.exports = {
       },
       fontFamily: {
         Outfit: ["Outfit", "sans-serif"],
+        Poppins: ["Poppins", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
@@ -76,7 +77,9 @@ module.exports = {
         },
       },
       backgroundImage: {
-        herobg: "url('/src/assets/herobg.svg')",
+        herobg: "url('/src/assets/home/herobg.svg')",
+        signupbg: "url('/src/assets/auth/signupbg.jpg')",
+        loginbg: "url('/src/assets/auth/loginbg.jpg')",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
