@@ -36,33 +36,35 @@ export const Signup = () => {
   };
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="w-full mx-auto flex items-center justify-center h-full">
-        <div className="flex-[3] font-Poppins flex flex-col items-center justify-center rounded-l-3xl h-full">
-          <Link to="/" className="absolute top-6 left-6 font-bold text-xl">
+      <div className="w-full mx-auto flex items-center justify-center relative h-full">
+        <div className="flex-[3] bg-signupbg lg:bg-none bg-cover bg-center  font-Poppins flex flex-col items-center justify-center h-full">
+          <Link to="/" className="absolute top-6 text-white lg:text-black left-6 font-bold text-xl">
             Movie Mate
           </Link>
-          <h1 className="font-bold text-4xl">Create your account</h1>
-          <p className="text-md mt-2 font-[300]">
+          <h1 className="font-bold text-2xl sm:text-3xl lg:text-4xl  text-white lg:text-black">
+            Create your account
+          </h1>
+          <p className="text-md mt-2 text-white lg:text-black font-[300]">
             Enter the details below to get started
           </p>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4 mt-8 font-Poppins"
+            className="w-[70%] flex flex-col gap-4 mt-8 font-Poppins"
           >
-            <div className="flex gap-3">
+            <div className="flex sm:flex-row flex-col gap-3">
               <input
                 {...register("firstname")}
                 type="text"
                 required
                 placeholder="First Name"
-                className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
               <input
                 {...register("lastname")}
                 type="text"
                 required
                 placeholder="Last Name"
-                className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
+                className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
               />
             </div>
             <input
@@ -109,7 +111,7 @@ export const Signup = () => {
                   confirmPassword && password === confirmPassword
                     ? "bg-steelBlue active:bg-royalBlue"
                     : "bg-gray-600 cursor-not-allowed"
-                } py-2 text-white px-4 font-[500] outline rounded-md`}
+                } py-2 text-white px-4 font-[500] lg:outline rounded-md`}
                 disabled={password !== confirmPassword}
               >
                 Register
@@ -132,14 +134,17 @@ export const Signup = () => {
             )}
           </form>
         </div>
-        <div className="text-white font-Outfit h-full flex-[4] bg-signupbg bg-cover text-center bg-center">
-          <h1 className="max-w-[26ch] mx-auto mt-24 text-4xl font-[800]">
-            Join others in the road of finding the perfect cinema companion 🍿🎬
-          </h1>
-          <p className="mt-4 text-xl font-semibold">
-            Now you never have to hit the theatres alone!{" "}
-            <span className="block italic font-thin">Signup for free</span>
-          </p>
+        <div className="text-white lg:block hidden font-Outfit h-full flex-[4] bg-signupbg bg-cover text-center bg-center">
+          <div className="px-6">
+            <h1 className="max-w-[26ch] mx-auto mt-24 text-4xl font-[800]">
+              Join others in the road of finding the perfect cinema companion
+              🍿🎬
+            </h1>
+            <p className="mt-4 text-xl font-semibold">
+              Now you never have to hit the theatres alone!{" "}
+              <span className="block italic font-thin">Signup for free</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
