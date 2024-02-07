@@ -8,6 +8,15 @@ const signinSchema = require("../Utils/User/signinSchema");
 const User = require("../Models/User");
 const transporter = require("../Config/NodeMailerTransporter");
 const emailSchema = require("../Utils/User/emailSchema");
+const auth = require("../Middleware/auth");
+const userEditSchema = require("../Utils/User/userEditSchema");
+//not tested
+router.get("/user", auth, async (req, res) => {
+  User.findOne({ _id: req.userId }).then((user) => {
+    //sending relevant items required
+    res.status(200).json({});
+  });
+});
 
 router.get("/otp", async (req, res) => {
   const verify = emailSchema.safeParse(req.body);
@@ -87,6 +96,24 @@ router.post("/signin", (req, res) => {
       .status(400)
       .json({ message: "Incorrect inputs", errors: verify.error });
   }
+});
+//not tested
+router.put("/user", auth, (req, res) => {
+  const verify = userEditSchema.safeParse(req.body);
+  if (verify.success) {
+    //should update the details
+  } else {
+    return res
+      .status(400)
+      .json({ message: "Wrong inputs", error: verify.error.issues });
+  }
+});
+
+//not tested
+router.delete("/user", auth, (req, res) => {
+  User.deleteOne({ _id: req.userId }).then((user) => {
+    res.status(200).json({ message: `${user._id} deleted successfully` });
+  });
 });
 
 module.exports = router;
