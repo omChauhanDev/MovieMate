@@ -90,14 +90,13 @@ export const Login = () => {
               </Link>
             </motion.div>
             <motion.button
-              whileTap={{ scale: 0.99, rotate: "0.1deg" }}
-              whileHover={{ scale: 1.01 }}
               variants={animationVariants}
               initial="initial"
+              type="submit"
               animate="animate"
               transition={(animationVariants.transition, { delay: 1.1 })}
               onClick={loginHandler}
-              className="bg-steelBlue outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
+              className="bg-steelBlue hover:scale-[1.01] active:scale-[0.99] active:bg-royalBlue transition-all outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
             >
               Login
             </motion.button>
