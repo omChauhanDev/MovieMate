@@ -8,17 +8,13 @@ const signinSchema = require("../Utils/User/signinSchema");
 const User = require("../Models/User");
 const transporter = require("../Config/NodeMailerTransporter");
 const emailSchema = require("../Utils/User/emailSchema");
-const auth = require("../Middleware/auth");
 const userEditSchema = require("../Utils/User/userEditSchema");
-//not tested
-router.get("/user", auth, async (req, res) => {
+exports.getDetails = (req, res) => {
   User.findOne({ _id: req.userId }).then((user) => {
-    //sending relevant items required
-    res.status(200).json({});
+    res.status(200).json({ user: user });
   });
-});
-
-router.get("/otp", async (req, res) => {
+};
+exports.postOtp = async (req, res) => {
   const verify = emailSchema.safeParse(req.body);
   if (verify.success) {
     const otp = Math.floor(Math.random() * 900000) + 100000;
@@ -35,14 +31,13 @@ router.get("/otp", async (req, res) => {
     console.log(verify.error.issues);
     res.status(400).json({ message: "Please send a valid email" });
   }
-});
-
-router.post("/signup", (req, res) => {
+};
+exports.postSignup = (req, res) => {
   const verify = signupSchema.safeParse(req.body);
   if (verify.success) {
     User.findOne({ email: req.body.email }).then((user) => {
       if (user) {
-        return res.json(403).json({ message: "User already exists" });
+        return res.status(403).json({ message: "User already exists" });
       } else {
         //hashing the password
         bcrypt.hash(req.body.password, 10).then((hash) => {
@@ -66,11 +61,10 @@ router.post("/signup", (req, res) => {
   } else {
     return res
       .status(400)
-      .json({ message: "Incorrect inputs", errors: verify.error });
+      .json({ message: "Incorrect inputs", errors: verify.error.issues });
   }
-});
-
-router.post("/signin", (req, res) => {
+};
+exports.postSignin = (req, res) => {
   const verify = signinSchema.safeParse(req.body);
   if (verify.success) {
     User.findOne({ email: req.body.email }).then((user) => {
@@ -94,26 +88,25 @@ router.post("/signin", (req, res) => {
   } else {
     return res
       .status(400)
-      .json({ message: "Incorrect inputs", errors: verify.error });
+      .json({ message: "Incorrect inputs", errors: verify.error.issues });
   }
-});
+};
 //not tested
-router.put("/user", auth, (req, res) => {
+exports.putUser = (req, res) => {
   const verify = userEditSchema.safeParse(req.body);
   if (verify.success) {
-    //should update the details
+    User.updateOne({ _id: req.userId }, req.body).then((user) => {
+      return res.redirect("/api/v1/user/details");
+    });
   } else {
     return res
       .status(400)
       .json({ message: "Wrong inputs", error: verify.error.issues });
   }
-});
-
+};
 //not tested
-router.delete("/user", auth, (req, res) => {
+exports.deleteUser = (req, res) => {
   User.deleteOne({ _id: req.userId }).then((user) => {
-    res.status(200).json({ message: `${user._id} deleted successfully` });
+    res.status(200).json({ message: "deleted successfully" });
   });
-});
-
-module.exports = router;
+};
