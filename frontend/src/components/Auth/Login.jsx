@@ -55,13 +55,28 @@ export const Login = () => {
             >
               Forgot Password?
             </Link>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.99, rotate: "0.1deg" }}
+              whileHover={{ scale: 1.01 }}
               onClick={loginHandler}
-              className="bg-steelBlue text-white py-2 px-3 rounded-lg font-[500]"
+              className="bg-steelBlue outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
             >
               Login
-            </button>
+            </motion.button>
           </form>
+          <div className="relative w-full sm:w-[65%] flex py-5 items-center">
+            <div className="flex-grow border-t border-white lg:border-gray-400"></div>
+            <span className="flex-shrink mx-2 text-white lg:text-gray-400">
+              Don&apos;t have an account?
+            </span>
+            <div className="flex-grow border-t border-white lg:border-gray-400"></div>
+          </div>
+          <Link
+            to="/signup"
+            className="w-full sm:w-[65%] text-white lg:text-black border-2 lg:border text-center font-[500] hover:scale-[1.01] active:scale-[0.99] transition-all border-royalBlue hover:bg-royalBlue hover:text-white py-2 rounded-lg "
+          >
+            Signup
+          </Link>
         </div>
       </div>
     </div>

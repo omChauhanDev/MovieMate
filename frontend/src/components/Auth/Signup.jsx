@@ -38,7 +38,10 @@ export const Signup = () => {
     <div className="h-screen flex items-center justify-center">
       <div className="w-full mx-auto flex items-center justify-center relative h-full">
         <div className="flex-[3] bg-signupbg lg:bg-none bg-cover bg-center  font-Poppins flex flex-col items-center justify-center h-full">
-          <Link to="/" className="absolute top-6 text-white lg:text-black left-6 font-bold text-xl">
+          <Link
+            to="/"
+            className="absolute top-6 text-white lg:text-black left-6 font-bold text-xl"
+          >
             Movie Mate
           </Link>
           <h1 className="font-bold text-2xl sm:text-3xl lg:text-4xl  text-white lg:text-black">
@@ -51,11 +54,12 @@ export const Signup = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="w-[70%] flex flex-col gap-4 mt-8 font-Poppins"
           >
-            <div className="flex sm:flex-row flex-col gap-3">
+            <div className="flex sm:flex-row flex-col gap-4">
               <input
                 {...register("firstname")}
                 type="text"
                 required
+                disabled={otpSent}
                 placeholder="First Name"
                 className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
@@ -63,6 +67,7 @@ export const Signup = () => {
                 {...register("lastname")}
                 type="text"
                 required
+                disabled={otpSent}
                 placeholder="Last Name"
                 className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
               />
@@ -71,6 +76,7 @@ export const Signup = () => {
               {...register("email")}
               type="email"
               required
+              disabled={otpSent}
               placeholder="Email Address"
               className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
             />
@@ -79,12 +85,14 @@ export const Signup = () => {
               type="password"
               placeholder="Password"
               required
+              disabled={otpSent}
               onChange={(e) => setPassword(e.target.value)}
               className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
             />
             <input
               type="password"
               placeholder="Confirm Password"
+              disabled={otpSent}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
             />
@@ -93,12 +101,23 @@ export const Signup = () => {
             )}
 
             {otpSent && (
-              <input
-                type="number"
-                onChange={otpVerificationHandler}
-                placeholder="Enter OTP"
-                className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
-              />
+              <div className="w-full flex gap-3">
+                <input
+                  type="number"
+                  onChange={otpVerificationHandler}
+                  placeholder="Enter OTP"
+                  className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
+                />
+                <motion.button
+                  whileTap={{ scale: 0.99, rotate: "0.1deg" }}
+                  whileHover={{ scale: 1.01 }}
+                  className="w-fit px-4 text-sm bg-royalBlue rounded-lg text-white py-1 whitespace-nowrap"
+                  onClick={otpHandler}
+                  type="submit"
+                >
+                  Resend OTP
+                </motion.button>
+              </div>
             )}
 
             {!otpSent && (
@@ -126,13 +145,26 @@ export const Signup = () => {
                   otpMatched
                     ? "bg-steelBlue active:bg-royalBlue"
                     : "bg-gray-600 cursor-not-allowed"
-                } py-2 text-white px-4 font-[500] outline rounded-md`}
+                } py-2 text-white px-4 font-[500] outline-none lg:outline rounded-md`}
                 disabled={password !== confirmPassword}
               >
                 Submit OTP
               </motion.button>
             )}
           </form>
+          <div className="relative w-[70%] flex py-5 items-center">
+            <div className="flex-grow border-t border-white lg:border-gray-400"></div>
+            <span className="flex-shrink mx-2 text-white text-center lg:text-gray-400">
+              Already have an account?
+            </span>
+            <div className="flex-grow border-t border-white lg:border-gray-400"></div>
+          </div>
+          <Link
+            to="/login"
+            className="w-[70%] border-2 lg:border text-white lg:text-black text-center font-[500] hover:scale-[1.01] active:scale-[0.99] transition-all border-royalBlue hover:bg-royalBlue hover:text-white py-2 rounded-lg "
+          >
+            Login
+          </Link>
         </div>
         <div className="text-white lg:block hidden font-Outfit h-full flex-[4] bg-signupbg bg-cover text-center bg-center">
           <div className="px-6">

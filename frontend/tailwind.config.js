@@ -23,6 +23,8 @@ module.exports = {
         seaSalt: "hsl(0, 8%, 97%)",
         steelBlue: "hsl(203, 61%, 45%)",
         turquoise: "hsl(193, 78%, 45%)",
+        pistachioGreen: "hsl(97, 59%, 52%)",
+        imperialRed: "	hsl(357, 86%, 52%)",
         border: "var(--border)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
