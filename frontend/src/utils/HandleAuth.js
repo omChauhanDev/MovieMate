@@ -1,18 +1,32 @@
 import axios from "axios";
 const baseUrl = "http://localhost:3000/api/v1/user";
 
-const signup = async (firstName, lastName, email, password) => {
+const signup = async (fullName, email, password) => {
   try {
     const response = await axios.post(`${baseUrl}/signup`, {
-      firstName,
-      lastName,
+      fullName,
       email,
       password,
     });
-    console.log(response.data.name);
     return response.data;
   } catch (error) {
     console.error("Error occurred while creating account");
+  }
+};
+
+const sendOtp = async (email, name, otp) => {
+  try {
+    const response = await axios.post(`${baseUrl}/otp`, {
+      email,
+      name,
+      otp,
+    });
+    return response;
+  } catch (error) {
+    console.log("Error occoured while sending OTP", error);
+    return {
+      success: error,
+    };
   }
 };
 
@@ -37,4 +51,4 @@ const login = async (email, password) => {
   }
 };
 
-export { signup, login };
+export { signup, login, sendOtp };

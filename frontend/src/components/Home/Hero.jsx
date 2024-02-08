@@ -2,6 +2,7 @@ import heroimg from "../../assets/home/hero.svg";
 import { TypeAnimation } from "react-type-animation";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
@@ -52,9 +53,11 @@ export const Hero = () => {
             whileTap={{ scale: 0.99, rotate: "-0.5deg" }}
             whileHover={{ scale: 1.01 }}
           >
-            <Button className="max-w-fit mt-4 bg-steelBlue shadow-lg text-lg py-[1.3em] px-4 hover:bg-steelBlue active:bg-royalBlue">
-              Get Started
-            </Button>
+            <Link to="/signup">
+              <Button className="max-w-fit mt-4 bg-steelBlue shadow-lg text-lg py-[1.3em] px-4 hover:bg-steelBlue active:bg-royalBlue">
+                Get Started
+              </Button>
+            </Link>
           </motion.div>
         </div>
         <div className="flex-[4] hidden md:inline">

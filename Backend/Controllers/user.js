@@ -23,13 +23,13 @@ exports.sendOTP = async (req, res) => {
   try {
     const { email, name, otp } = req.body;
 
-    // const existingUser = await User.findOne({ email });
-    // if (existingUser) {
-    //   return res.json({
-    //     success: false,
-    //     message: "User already exists",
-    //   });
-    // }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.json({
+        success: false,
+        message: "User already exists!",
+      });
+    }
 
     console.log("Check kar liya");
 
@@ -75,10 +75,9 @@ exports.sendOTP = async (req, res) => {
 
 exports.signup = async (req, res) => {
   try {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, fullName } = req.body;
 
     let hashedPassword;
-    const fullName = firstName + " " + lastName;
     try {
       hashedPassword = await bcrypt.hash(password, 10);
     } catch (error) {
