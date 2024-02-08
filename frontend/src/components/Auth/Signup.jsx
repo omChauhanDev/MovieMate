@@ -12,7 +12,7 @@ export const Signup = () => {
   const [otpMatched, setOtpMatched] = useState(false);
   //TODO: Ask backend to send OTP on Email
   const otpHandler = () => {
-    //if backend was able to send the otp successfully :
+    
     setOtpSent(true);
     toast.success("OTP sent on email!", {
       style: {

@@ -18,22 +18,58 @@ exports.getDetails = (req, res) => {
     res.status(200).json({ user: user });
   });
 };
-exports.postOtp = async (req, res) => {
-  const verify = emailSchema.safeParse(req.body);
-  if (verify.success) {
-    const otp = Math.floor(Math.random() * 900000) + 100000;
-    await transporter.sendMail({
-      from: "MovieMate",
-      to: req.body.email,
-      subject: "OTP Verification",
-      html: `<h1>OTP requested for your account</h1>
-    <p>Here is your super secret OTP ${otp}</p>
-    `,
+
+exports.sendOTP = async (req, res) => {
+  try {
+    const { email, name, otp } = req.body;
+
+    // const existingUser = await User.findOne({ email });
+    // if (existingUser) {
+    //   return res.json({
+    //     success: false,
+    //     message: "User already exists",
+    //   });
+    // }
+
+    console.log("Check kar liya");
+
+    const info = await transporter.sendMail({
+      from: '"Movie Mate 🎬" <taskpilot.app@gmail.com>',
+      to: `${email}`,
+      subject: "Your One Time Password for Registration at Movie Mate",
+      html: `
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          p {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          }
+        </style>
+      </head>
+      <body>
+        <h3>Hello ${name}!</h3>
+        <p>Your one-time password for registering an account at <b>Movie Mate</b> is: <b>${otp}</b></p>
+        <p>Get ready to make unforgettable memories and forge lasting friendships through the magic of cinema with <b>Move Mate</b></p>
+
+        <p>Lights, camera, action!</p>
+        <p>Best regards,<br>
+        Movie Mate Team</p>
+      </body>
+    </html>
+  `,
     });
-    res.status(201).json({ message: "Email sent successfully" });
-  } else {
-    console.log(verify.error.issues);
-    res.status(400).json({ message: "Please send a valid email" });
+    return res.json({
+      success: true,
+      message: "OTP sent successfully.",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };
 

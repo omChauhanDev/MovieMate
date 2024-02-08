@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../Middleware/auth");
 const {
-  postOtp,
+  sendOTP,
   signup,
   login,
   putUser,
@@ -10,7 +10,7 @@ const {
   getDetails,
 } = require("../Controllers/user");
 router.get("/details", auth, getDetails);
-router.post("/otp", postOtp);
+router.post("/otp", sendOTP);
 router.post("/signup", signup);
 router.post("/login", login);
 router.put("/update", auth, putUser);
