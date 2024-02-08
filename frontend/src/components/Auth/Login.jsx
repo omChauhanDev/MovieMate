@@ -4,20 +4,27 @@ import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 
 import { Link } from "react-router-dom";
+import { login } from "@/utils/HandleAuth";
 export const Login = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log("data ->", data);
+
+  const onSubmit = async (data) => {
+    try {
+      let response = await loginHandler(data);
+      console.log("Backend sent me this :", response);
+    } catch (error) {
+      console.error("Error occurred during login:", error);
+    }
+  };
+
+  const loginHandler = (data) => {
+    return login(data.email, data.password);
   };
 
   const animationVariants = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     transition: { duration: 0.3 },
-  };
-
-  const loginHandler = () => {
-    //TODO: verify credentials and generate a token in response
   };
 
   return (
@@ -95,7 +102,6 @@ export const Login = () => {
               type="submit"
               animate="animate"
               transition={(animationVariants.transition, { delay: 1.1 })}
-              onClick={loginHandler}
               className="bg-steelBlue hover:scale-[1.01] active:scale-[0.99] active:bg-royalBlue transition-all outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
             >
               Login

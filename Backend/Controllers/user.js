@@ -2,13 +2,17 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
+
 const signupSchema = require("../Utils/User/signupSchema");
 const signinSchema = require("../Utils/User/signinSchema");
+const userEditSchema = require("../Utils/User/userEditSchema");
+const emailSchema = require("../Utils/User/emailSchema");
+
 const User = require("../Models/User");
 const transporter = require("../Config/NodeMailerTransporter");
-const emailSchema = require("../Utils/User/emailSchema");
-const userEditSchema = require("../Utils/User/userEditSchema");
+
 exports.getDetails = (req, res) => {
   User.findOne({ _id: req.userId }).then((user) => {
     res.status(200).json({ user: user });
@@ -32,65 +36,86 @@ exports.postOtp = async (req, res) => {
     res.status(400).json({ message: "Please send a valid email" });
   }
 };
-exports.postSignup = (req, res) => {
-  const verify = signupSchema.safeParse(req.body);
-  if (verify.success) {
-    User.findOne({ email: req.body.email }).then((user) => {
-      if (user) {
-        return res.status(403).json({ message: "User already exists" });
-      } else {
-        //hashing the password
-        bcrypt.hash(req.body.password, 10).then((hash) => {
-          User.create({
-            fullName: req.body.firstName + " " + req.body.lastName,
-            email: req.body.email,
-            password: hash,
-            phoneNo: req.body.phoneNo,
-            gender: req.body.gender,
-          })
-            .then(() => res.status(201).json({ message: "User created" }))
-            .catch((err) => {
-              console.log(err);
-              return res.status(500).json({
-                message: "Something went wrong. View the logs for more info",
-              });
-            });
-        });
-      }
+
+exports.signup = async (req, res) => {
+  try {
+    const { email, password, firstName, lastName } = req.body;
+
+    let hashedPassword;
+    const fullName = firstName + " " + lastName;
+    try {
+      hashedPassword = await bcrypt.hash(password, 10);
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        message: "Unable to hash password",
+      });
+    }
+
+    const user = await User.create({
+      fullName,
+      email,
+      password: hashedPassword,
     });
-  } else {
-    return res
-      .status(400)
-      .json({ message: "Incorrect inputs", errors: verify.error.issues });
+
+    console.log("Signup Successful");
+    console.log(user);
+    return res.status(200).json({
+      success: true,
+      message: "User created successfully!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };
-exports.postSignin = (req, res) => {
-  const verify = signinSchema.safeParse(req.body);
-  if (verify.success) {
-    User.findOne({ email: req.body.email }).then((user) => {
-      if (user) {
-        //comparing the hashed password
-        bcrypt.compare(req.body.password, user.password).then((result) => {
-          if (result) {
-            return res.status(200).json({
-              token: jwt.sign({ userId: user._id }, process.env.JWT_SECRET),
-            });
-          } else {
-            return res
-              .status(400)
-              .json({ message: "Incorrect username or password" });
-          }
-        });
-      } else {
-        return res.status(403).json({ message: "User does not exist" });
-      }
+
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User Does Not Exists!",
+      });
+    }
+
+    const payload = {
+      email: user.email,
+      id: user.id,
+      name: user.name,
+    };
+
+    if (await bcrypt.compare(password, user.password)) {
+      let token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "15d",
+      });
+
+      console.log("Login Successful");
+
+      return res.status(200).json({
+        success: true,
+        message: "User logged in successfully!",
+        token: token,
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: "Invalid Password!",
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
     });
-  } else {
-    return res
-      .status(400)
-      .json({ message: "Incorrect inputs", errors: verify.error.issues });
   }
 };
+
 //not tested
 exports.putUser = (req, res) => {
   const verify = userEditSchema.safeParse(req.body);
