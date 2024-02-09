@@ -243,7 +243,7 @@ exports.forgotPassword = async (req, res) => {
 };
 
 //not tested
-exports.putUser = (req, res) => {
+exports.updateUser = (req, res) => {
   const verify = userEditSchema.safeParse(req.body);
   if (verify.success) {
     User.updateOne({ _id: req.userId }, req.body).then((user) => {
