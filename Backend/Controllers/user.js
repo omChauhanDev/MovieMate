@@ -258,6 +258,6 @@ exports.putUser = (req, res) => {
 //not tested
 exports.deleteUser = (req, res) => {
   User.deleteOne({ _id: req.userId }).then((user) => {
-    res.status(200).json({ message: "deleted successfully" });
+    res.status(200).json({ success: true, message: "User deleted successfully" });
   });
 };

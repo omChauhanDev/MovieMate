@@ -57,3 +57,29 @@ export const updateUserDetails = async (data, setUser) => {
   }
 };
 
+// delete user
+export const deleteUser = async (setUser) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/delete`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (response.success) {
+      setUser(null);
+      return response;
+    } else {
+      return response;
+    }
+  } catch (error) {
+    console.log("Error occoured while deleting user details", error);
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
