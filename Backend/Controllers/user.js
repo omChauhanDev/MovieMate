@@ -15,6 +15,7 @@ const transporter = require("../Config/NodeMailerTransporter");
 
 exports.getDetails = (req, res) => {
   User.findOne({ _id: req.userId }).then((user) => {
+    user.password = "";
     res.status(200).json({ user: user });
   });
 };
@@ -23,6 +24,7 @@ exports.sendOTP = async (req, res) => {
   try {
     const { email, name, otp } = req.body;
 
+    console.log("itna toh theek hai");
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.json({
@@ -129,7 +131,7 @@ exports.login = async (req, res) => {
       let token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "15d",
       });
-
+      console.log("Yeh lo token", token);
       console.log("Login Successful");
 
       return res.status(200).json({

@@ -21,11 +21,13 @@ const sendOtp = async (email, name, otp) => {
       name,
       otp,
     });
+    console.log("Response is: ", response);
     return response;
   } catch (error) {
     console.log("Error occoured while sending OTP", error);
     return {
-      success: error,
+      success: false,
+      message: error.message,
     };
   }
 };
@@ -38,6 +40,8 @@ const login = async (email, password) => {
       console.log("Error occoured while getting response from backend.");
       return;
     } else {
+      //set in a global user state
+
       return data;
     }
   } catch (error) {

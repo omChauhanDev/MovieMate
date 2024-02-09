@@ -55,6 +55,7 @@ export const Signup = () => {
         },
       });
     } else {
+      console.log(response.data);
       setErrorMessage(response.data.message);
     }
   };
