@@ -15,14 +15,14 @@ const signup = async (fullName, email, password) => {
   }
 };
 
-const sendOtp = async (email, name, otp) => {
+const sendOtp = async (email, otp, purpose, name = "") => {
   try {
     const response = await axios.post(`${baseUrl}/otp`, {
       email,
       name,
       otp,
+      purpose,
     });
-    console.log("Response is: ", response);
     return response;
   } catch (error) {
     console.log("Error occoured while sending OTP", error);
@@ -57,4 +57,29 @@ const login = async (email, password, setUser, setErrorMessage) => {
   }
 };
 
-export { signup, login, sendOtp };
+const forgotPassword = async (email, password, setErrorMessage) => {
+  try {
+    const response = await axios.put(`${baseUrl}/forgot-password`, {
+      email,
+      password,
+    });
+    const data = response.data;
+    if (!data.success) {
+      setErrorMessage(data.message);
+      console.log("Error occoured while getting response from backend.");
+      return;
+    } else {
+      return data;
+    }
+  } catch (error) {
+    console.log("Error occoured while changing password", error);
+    return {
+      data: {
+        success: false,
+        message: "This user is not registered",
+      },
+    };
+  }
+};
+
+export { signup, login, sendOtp, forgotPassword };

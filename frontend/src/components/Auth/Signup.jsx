@@ -41,8 +41,9 @@ export const Signup = () => {
     const name = `${data.firstname} ${data.lastname}`;
     const email = data.email;
     const otp = generateOTP();
+    const purpose = "Signup";
     setLoading(true);
-    const response = await sendOtp(email, name, otp);
+    const response = await sendOtp(email, otp, purpose, name);
     setLoading(false);
 
     if (response.data.success) {
@@ -76,7 +77,9 @@ export const Signup = () => {
     const otp = generateOTP();
     setOtp(otp);
     setLoading(true);
-    const response = await sendOtp(formData.email, formData.name, otp);
+    const purpose = "Signup";
+    const name = `${formData.firstname} ${formData.lastname}`;
+    const response = await sendOtp(formData.email, otp, purpose, name);
     setLoading(false);
     if (response.data.success) {
       console.log("OTP IS: ", otp);
