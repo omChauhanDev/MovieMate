@@ -4,24 +4,29 @@ import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/atoms";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/utils/HandleAuth";
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
   const [user, setUser] = useAtom(userAtom);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (data) => {
     try {
       let response = await loginHandler(data);
       console.log("Response aaya", response);
+      if (response.success) {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Error occurred during login:", error);
     }
   };
 
   const loginHandler = (data) => {
-    return login(data.email, data.password, setUser);
+    return login(data.email, data.password, setUser, setErrorMessage);
   };
 
   const animationVariants = {
@@ -99,6 +104,7 @@ export const Login = () => {
                 Forgot Password?
               </Link>
             </motion.div>
+            <p className="text-red-500 font-[500]">{errorMessage}</p>
             <motion.button
               variants={animationVariants}
               initial="initial"

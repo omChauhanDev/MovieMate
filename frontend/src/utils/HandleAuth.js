@@ -33,11 +33,12 @@ const sendOtp = async (email, name, otp) => {
   }
 };
 
-const login = async (email, password, setUser) => {
+const login = async (email, password, setUser, setErrorMessage) => {
   try {
     const response = await axios.post(`${baseUrl}/login`, { email, password });
     const data = response.data;
     if (!data.success) {
+      setErrorMessage(data.message);
       console.log("Error occoured while getting response from backend.");
       return;
     } else {

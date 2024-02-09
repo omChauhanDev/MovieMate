@@ -72,6 +72,27 @@ export const Signup = () => {
     }
   };
 
+  const resendOtpHandler = async () => {
+    const otp = generateOTP();
+    setOtp(otp);
+    setLoading(true);
+    const response = await sendOtp(formData.email, formData.name, otp);
+    setLoading(false);
+    if (response.data.success) {
+      console.log("OTP IS: ", otp);
+      setOtp(otp);
+      setOtpSent(true);
+      toast.success("OTP sent on email!", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    } else {
+      console.log(response.data);
+      setErrorMessage(response.data.message);
+    }
+  };
+
   const signupHandler = async () => {
     if (otpMatched) {
       console.log(formData);
@@ -219,7 +240,7 @@ export const Signup = () => {
               </div>
             )}
 
-            {otpSent && (
+            {otpSent && !loading && (
               <div className="w-full flex gap-3">
                 <input
                   type="number"
@@ -227,15 +248,16 @@ export const Signup = () => {
                   placeholder="Enter OTP"
                   className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
                 />
-                {/* <motion.button
+                <motion.button
                   whileTap={{ scale: 0.99, rotate: "0.1deg" }}
                   whileHover={{ scale: 1.01 }}
                   className="w-fit px-4 text-sm bg-royalBlue rounded-lg text-white py-1 whitespace-nowrap"
-                  // onClick={otpHandler}
+                  onClick={resendOtpHandler}
+                  disabled={loading}
                   type="button"
                 >
                   Resend OTP
-                </motion.button> */}
+                </motion.button>
               </div>
             )}
 
