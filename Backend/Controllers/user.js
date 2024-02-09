@@ -16,7 +16,7 @@ const transporter = require("../Config/NodeMailerTransporter");
 exports.getDetails = (req, res) => {
   User.findOne({ _id: req.userId }).then((user) => {
     user.password = "";
-    res.status(200).json({ user: user });
+    res.status(200).json({ success: true, user: user });
   });
 };
 

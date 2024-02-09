@@ -1,24 +1,27 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
-
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/atoms";
 import { Link } from "react-router-dom";
 import { login } from "@/utils/HandleAuth";
+
 export const Login = () => {
   const { register, handleSubmit } = useForm();
+  const [user, setUser] = useAtom(userAtom);
 
   const onSubmit = async (data) => {
     try {
       let response = await loginHandler(data);
-      console.log("Backend sent me this :", response);
+      console.log("Response aaya", response);
     } catch (error) {
       console.error("Error occurred during login:", error);
     }
   };
 
   const loginHandler = (data) => {
-    return login(data.email, data.password);
+    return login(data.email, data.password, setUser);
   };
 
   const animationVariants = {

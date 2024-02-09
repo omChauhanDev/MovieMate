@@ -1,3 +1,4 @@
+import { getUserDetails } from "@/actions/userActions";
 import axios from "axios";
 const baseUrl = "http://localhost:3000/api/v1/user";
 
@@ -32,7 +33,7 @@ const sendOtp = async (email, name, otp) => {
   }
 };
 
-const login = async (email, password) => {
+const login = async (email, password, setUser) => {
   try {
     const response = await axios.post(`${baseUrl}/login`, { email, password });
     const data = response.data;
@@ -40,8 +41,8 @@ const login = async (email, password) => {
       console.log("Error occoured while getting response from backend.");
       return;
     } else {
-      //set in a global user state
-
+      localStorage.setItem("token", data.token);
+      getUserDetails(setUser);
       return data;
     }
   } catch (error) {
