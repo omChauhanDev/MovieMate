@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     },
     bio: {
       type: String,
+      default: null,
     },
     email: {
       type: String,
@@ -19,16 +20,20 @@ const userSchema = new mongoose.Schema(
     },
     phoneNo: {
       type: String,
+      default: null,
     },
     age: {
       type: Number,
+      default: null,
     },
     dateOfBirth: {
       type: Date,
+      default: null,
     },
     role: {
       type: String,
       default: "user",
+      enum: ["user", "admin"],
     },
     gender: {
       type: String,
@@ -118,9 +123,23 @@ const userSchema = new mongoose.Schema(
           "taiwanese",
           "tibetan",
           "zulu",
-          "other",
-        ],
+          "malay",
+          "filipino",
+          "burmese",
+          "amharic",
+          "somali",
+          "kurdish",
+          "uzbek",
+          "bhojpuri",
+          "farsi"
+        ]          
       },
+    ],
+    friends: [
+      {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Friendship'
+      }
     ],
   },
   {
