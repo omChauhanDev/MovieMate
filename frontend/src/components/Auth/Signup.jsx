@@ -106,7 +106,7 @@ export const Signup = () => {
       const response = await signup(fullName, email, password);
       if (response.success) {
         toast.success(response.message);
-        navigate("/");
+        navigate("/login");
       } else {
         toast.error("Your account couldn't be created");
       }

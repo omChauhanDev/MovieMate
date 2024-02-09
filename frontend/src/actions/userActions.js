@@ -24,3 +24,36 @@ export const getUserDetails = async (setUser) => {
     };
   }
 };
+
+// update user details
+export const updateUserDetails = async (data, setUser) => {
+  try {
+    const response = await axios.put(`${baseUrl}/update`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (response.success) {
+      setUser(response.user);
+      return{
+        success: true,
+        message: "Profile updated successfully",
+      }
+    } else {
+      return{
+        success: false,
+        message: `${response.message}: ${response.error.message}`,
+      }
+    }
+  } catch (error) {
+    console.log("Error occoured while updating user details", error);
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
