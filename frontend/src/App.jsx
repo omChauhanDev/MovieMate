@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar";
 import { Login } from "./components/Auth/Login";
 import { Toaster } from "react-hot-toast";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
-import { Dashboard } from "./components/Dashboard/dashboard";
+import { Dashboard } from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
