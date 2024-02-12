@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Signup } from "./components/Auth/Signup";
 import { Home } from "./components/Home/Home";
-import { Navbar } from "./components/Navbar";
 import { Login } from "./components/Auth/Login";
 import { Toaster } from "react-hot-toast";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
