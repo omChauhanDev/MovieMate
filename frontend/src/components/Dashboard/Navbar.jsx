@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { isDarkAtom } from "@/store/atoms";
+import { useAtomValue } from "jotai";
+
 export const Navbar = () => {
+  const isDark = useAtomValue(isDarkAtom);
   return (
-    <nav className="w-full h-[64px] font-Outfit flex items-center">
+    <nav
+      className={`w-full h-[64px] font-Outfit flex ${
+        isDark ? "bg-midnightBlack" : "bg-white"
+      } items-center`}
+    >
       <div className="mx-auto h-full w-[90%] flex items-center justify-end">
         <div>
           <div className="flex gap-5">

@@ -1,5 +1,5 @@
 import { atomWithStorage } from "jotai/utils";
 
 const userAtom = atomWithStorage(null);
-
-export { userAtom };
+const isDarkAtom = atomWithStorage(false);
+export { userAtom, isDarkAtom };
