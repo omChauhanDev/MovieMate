@@ -21,6 +21,7 @@ module.exports = {
       colors: {
         royalBlue: "	hsl(216, 91%, 13%)",
         seaSalt: "hsl(0, 8%, 97%)",
+        midnightBlack : "hsl(240, 10%, 4%)",
         steelBlue: "hsl(203, 61%, 45%)",
         turquoise: "hsl(193, 78%, 45%)",
         pistachioGreen: "hsl(97, 59%, 52%)",

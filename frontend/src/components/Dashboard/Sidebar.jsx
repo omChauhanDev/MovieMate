@@ -1,16 +1,19 @@
+import { isDarkAtom } from "@/store/atoms";
 import { useState } from "react";
 import { MdMenu } from "react-icons/md";
 import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useAtomValue } from "jotai";
+import ThemeToggler from "../ui/themeToggler";
 export const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const isDark = useAtomValue(isDarkAtom);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
-    <div className="min-h-screen h-full xl:static absolute w-fit">
+    <div className="min-h-screen h-full xl:static absolute z-[99] w-fit">
       <button
         className="absolute xl:hidden left-6 top-5 z-[100] font-bold"
         onClick={toggleSidebar}
@@ -20,13 +23,13 @@ export const Sidebar = () => {
         </i>
       </button>
       <div
-        className={`min-h-screen h-screen w-screen bg-white sm:w-[22rem] flex items-center transition-transform duration-300 transform ${
+        className={`min-h-screen h-screen w-screen sm:w-[22rem] flex items-center transition-transform duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } xl:translate-x-0`}
+        } ${isDark ? "bg-midnightBlack" : "bg-white"} xl:translate-x-0`}
       >
-        <div className="flex flex-col w-full h-full items-center">
-          <div className="flex flex-col justify-center h-full">
-            <div className="flex flex-col w-full h-full max-h-[75%]">
+        <div className="flex flex-col w-full h-full justify-end mb-24 items-center">
+          <div className="flex w-full flex-col items-center justify-between h-[80%]">
+            <div className="flex flex-col w-full">
               <button>sample nav item</button>
               <button>sample nav item</button>
               <button>sample nav item</button>
@@ -38,7 +41,8 @@ export const Sidebar = () => {
                 Edit Profile
               </Link>
               <button>Logout</button>
-              <button>Dark</button>
+              {/* <button onClick={themeHandler}>Dark</button> */}
+              <ThemeToggler />
             </div>
           </div>
         </div>

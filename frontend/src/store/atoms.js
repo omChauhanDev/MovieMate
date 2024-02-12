@@ -1,5 +1,5 @@
 import { atom } from "jotai";
 
 const userAtom = atom(null);
-
-export { userAtom };
+const isDarkAtom = atom(false);
+export { userAtom, isDarkAtom };
