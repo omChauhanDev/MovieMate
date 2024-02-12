@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MdMenu } from "react-icons/md";
 import { MdOutlineClose } from "react-icons/md";
+import { Link } from "react-router-dom";
 export const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -19,7 +20,7 @@ export const Sidebar = () => {
         </i>
       </button>
       <div
-        className={`min-h-screen h-screen w-screen max-w-[screen] bg-white min-w-[22rem] flex items-center transition-transform duration-300 transform ${
+        className={`min-h-screen h-screen w-screen bg-white sm:w-[22rem] flex items-center transition-transform duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } xl:translate-x-0`}
       >
@@ -32,8 +33,10 @@ export const Sidebar = () => {
               <button>sample nav item</button>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <button>Profile</button>
+            <div className="flex flex-col">
+              <Link to="/dashboard/edit-profile" className="text-center">
+                Edit Profile
+              </Link>
               <button>Logout</button>
               <button>Dark</button>
             </div>
