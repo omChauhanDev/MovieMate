@@ -243,7 +243,7 @@ exports.forgotPassword = async (req, res) => {
 };
 
 //not tested
-exports.putUser = (req, res) => {
+exports.updateUser = (req, res) => {
   const verify = userEditSchema.safeParse(req.body);
   if (verify.success) {
     User.updateOne({ _id: req.userId }, req.body).then((user) => {
@@ -258,6 +258,6 @@ exports.putUser = (req, res) => {
 //not tested
 exports.deleteUser = (req, res) => {
   User.deleteOne({ _id: req.userId }).then((user) => {
-    res.status(200).json({ message: "deleted successfully" });
+    res.status(200).json({ success: true, message: "User deleted successfully" });
   });
 };
