@@ -1,5 +1,5 @@
-import { Button } from "./ui/button";
-export const Navbar = () => {
+import { Button } from "../ui/button";
+export const HomeNavigation = () => {
   return (
     <nav className="w-full h-[64px] font-Outfit flex items-center absolute top-0">
       <div className="mx-auto w-[75%] flex items-center justify-around">

@@ -90,6 +90,7 @@ export const Login = () => {
               placeholder="Password"
               className="p-2 rounded-lg border w-full border-gray-300 bg-white focus:outline-none focus:border-blue-500"
             />
+            <p className="text-red-500 font-[500]">{errorMessage}</p>
             <motion.div
               variants={animationVariants}
               initial="initial"
@@ -104,7 +105,6 @@ export const Login = () => {
                 Forgot Password?
               </Link>
             </motion.div>
-            <p className="text-red-500 font-[500]">{errorMessage}</p>
             <motion.button
               variants={animationVariants}
               initial="initial"
