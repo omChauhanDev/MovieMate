@@ -7,7 +7,7 @@ const ThemeToggler = () => {
   };
 
   return (
-    <div className="mx-auto scale-[0.8]">
+    <div className="py-2 transition-colors scale-[0.89]">
       <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
         <input
           type="checkbox"
@@ -15,9 +15,7 @@ const ThemeToggler = () => {
           onChange={handleTheme}
           className="sr-only"
         />
-        <span className="label flex items-center text-lg font-medium">
-          Light
-        </span>
+        <span className="label flex items-center text-xl">Light</span>
         <span
           className={`slider mx-4 flex h-8 w-[60px] items-center rounded-full p-1 duration-200 ${
             isDark ? "bg-[#212b36]" : "bg-[#CCCCCE]"
@@ -29,9 +27,7 @@ const ThemeToggler = () => {
             }`}
           ></span>
         </span>
-        <span className="label flex items-center text-lg font-medium">
-          Dark
-        </span>
+        <span className="label flex items-center text-xl">Dark</span>
       </label>
     </div>
   );

@@ -11,17 +11,19 @@ export const Dashboard = () => {
   return (
     <div
       className={`${
-        isDark ? "bg-midnightBlack text-white" : "bg-white"
-      } flex-1 flex relative`}
+        isDark ? "bg-black text-white" : "bg-white"
+      } flex-1 flex-col flex relative`}
     >
-      <Sidebar />
-      <div className="flex-1 flex flex-col relative">
-        <Navbar />
-        <div className="text-black flex-1 flex bottom-0 font-bold text-4xl">
-          <Routes>
-            <Route index path="/home" element={<Home />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
-          </Routes>
+      <Navbar />
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-1 flex flex-col relative">
+          <div className="flex-1 flex">
+            <Routes>
+              <Route path="/home" element={<Home />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </div>
