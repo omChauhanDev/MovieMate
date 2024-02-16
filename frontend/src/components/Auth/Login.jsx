@@ -25,6 +25,8 @@ export const Login = () => {
     }
   };
 
+  console.log(user);
+
   const loginHandler = (data) => {
     return login(data.email, data.password, setUser, setErrorMessage);
   };

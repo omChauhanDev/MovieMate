@@ -1,5 +1,7 @@
 import { useAtom } from "jotai";
 import { isDarkAtom } from "@/store/atoms";
+import { FaMoon } from "react-icons/fa";
+import { BsFillSunFill } from "react-icons/bs";
 const ThemeToggler = () => {
   const [isDark, setIsDark] = useAtom(isDarkAtom);
   const handleTheme = () => {
@@ -7,7 +9,7 @@ const ThemeToggler = () => {
   };
 
   return (
-    <div className="py-2 transition-colors scale-[0.89]">
+    <div className="py-1 transition-colors scale-[0.7]">
       <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
         <input
           type="checkbox"
@@ -15,7 +17,9 @@ const ThemeToggler = () => {
           onChange={handleTheme}
           className="sr-only"
         />
-        <span className="label flex items-center text-xl">Light</span>
+        <span className="label ml-[-4px] flex items-center text-2xl">
+          <BsFillSunFill />
+        </span>
         <span
           className={`slider mx-4 flex h-8 w-[60px] items-center rounded-full p-1 duration-200 ${
             isDark ? "bg-[#212b36]" : "bg-[#CCCCCE]"
@@ -27,7 +31,9 @@ const ThemeToggler = () => {
             }`}
           ></span>
         </span>
-        <span className="label flex items-center text-xl">Dark</span>
+        <span className="label flex items-center text-xl">
+          <FaMoon />
+        </span>
       </label>
     </div>
   );
