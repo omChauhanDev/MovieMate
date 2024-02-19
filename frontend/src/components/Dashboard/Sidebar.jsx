@@ -25,7 +25,7 @@ export const Sidebar = () => {
   }`;
 
   return (
-    <div className="xl:h-[calc(100vh-64px)] h-screen shadow-sm xl:static absolute z-[99] w-fit font-sans">
+    <div className="text-lg">
       <button
         className="absolute xl:hidden top-6 left-6 z-[110] font-bold"
         onClick={toggleSidebar}
@@ -35,7 +35,7 @@ export const Sidebar = () => {
         </i>
       </button>
       <div
-        className={`h-full flex-1 w-screen sm:w-[22rem] flex flex-col items-center transition-transform duration-300 transform ${
+        className={`xl:min-h-[calc(100vh-64px)] h-screen md:w-[22rem] bg-red-400 w-screen pt-16 xl:pt-8 absolute xl:static z-[100] justify-between flex flex-col items-center transition-transform duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } ${
           isDark
@@ -43,44 +43,39 @@ export const Sidebar = () => {
             : "bg-white border-black/20"
         } border-r xl:translate-x-0`}
       >
-        <Link
-          to={"/"}
-          className="relative top-10 text-3xl font-Outfit font-black"
-        >
-          Movie <span className="text-steelBlue">Mate</span> 🎥
-        </Link>
-        <div className="flex flex-col mx-auto h-full w-full justify-end mb-4 items-center font-medium">
-          <div className="flex w-full flex-col items-center justify-between h-[80%]">
-            <div className="flex items-start flex-col gap-2 w-[90%] text-lg">
-              <button className={buttonTheme} onClick={toggleSidebar}>
-                <FaHome /> Dashboard
-              </button>
-              <button className={buttonTheme} onClick={toggleSidebar}>
-                <FaUserFriends /> Pending Requests
-              </button>
-              <button className={buttonTheme} onClick={toggleSidebar}>
-                <IoChatboxEllipses /> Chats
-              </button>
-              <button className={buttonTheme} onClick={toggleSidebar}>
-                <BiSolidMoviePlay /> Upcoming Meets
-              </button>
-            </div>
+        <div className="w-[95%] flex flex-col gap-6 justify-center">
+          <Link to={"/"} className="text-3xl mx-auto font-Outfit font-black">
+            Movie <span className="text-steelBlue">Mate</span> 🎥
+          </Link>
+          <div className="flex items-start flex-col gap-2 w-[90%] text-lg">
+            <button className={buttonTheme} onClick={toggleSidebar}>
+              <FaHome /> Dashboard
+            </button>
+            <button className={buttonTheme} onClick={toggleSidebar}>
+              <FaUserFriends /> Pending Requests
+            </button>
+            <button className={buttonTheme} onClick={toggleSidebar}>
+              <IoChatboxEllipses /> Chats
+            </button>
+            <button className={buttonTheme} onClick={toggleSidebar}>
+              <BiSolidMoviePlay /> Upcoming Meets
+            </button>
+          </div>
+        </div>
 
-            <div className="flex items-start flex-col w-[90%] text-lg">
-              <Link
-                to="/dashboard/edit-profile"
-                className={buttonTheme}
-                onClick={toggleSidebar}
-              >
-                <FaGear /> Edit Profile
-              </Link>
-              <div className=" w-full flex items-start justify-start">
-                <ThemeToggler />
-              </div>
-              <div className="w-full" onClick={toggleSidebar}>
-                <Logout />
-              </div>
-            </div>
+        <div className="flex flex-col mx-auto h-fit w-[95%] mb-4 items-center">
+          <Link
+            to="/dashboard/edit-profile"
+            className={buttonTheme}
+            onClick={toggleSidebar}
+          >
+            <FaGear /> Edit Profile
+          </Link>
+          <div className=" w-full flex items-start justify-start">
+            <ThemeToggler />
+          </div>
+          <div className="w-full" onClick={toggleSidebar}>
+            <Logout />
           </div>
         </div>
       </div>

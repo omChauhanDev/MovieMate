@@ -8,7 +8,7 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-seaSalt h-full">
+    <div className="min-h-screen h-full flex flex-col">
       <Toaster />
       {/* <Navbar /> */}
       <Routes>
