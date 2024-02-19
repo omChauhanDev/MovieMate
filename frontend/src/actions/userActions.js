@@ -61,7 +61,6 @@ export const updateUserDetails = async (data, setUser) => {
 export const deleteUser = async (setUser) => {
   try {
     const response = await axios.delete(`${baseUrl}/delete`,
-      data,
       {
         headers: {
           Authorization: `Bearer ${token}`,
