@@ -3,10 +3,13 @@ import { useAtomValue } from "jotai";
 import { useForm } from "react-hook-form";
 import { SelectGenre } from "./SelectGenre";
 import { SelectLanguage } from "./SelectLanguage";
+import { GenderSelection } from "./GenderSelection";
+import { useState } from "react";
 
 export const EditProfile = () => {
   const user = useAtomValue(userAtom);
   const isDark = useAtomValue(isDarkAtom);
+  const [gender, setGender] = useState("");
   const { register, handleSubmit } = useForm();
 
   const getAge = (DOB) => {
@@ -21,24 +24,27 @@ export const EditProfile = () => {
   const onSubmit = (data) => {
     const DOB = data.dateOfBirth;
     data.age = getAge(DOB);
+    data.gender = gender;
     console.log(data);
   };
   const inputStyling = `p-2 ${
-    isDark ? "text-black" : "text-black"
-  } rounded-lg bg-gray-100 border font-normal w-full xl:w-[80%] border-gray-300 focus:outline-none focus:border-blue-500`;
+    isDark ? "text-gray-900" : "text-gray-900"
+  } rounded-lg bg-gray-100 border font-normal w-full border-gray-200 focus:outline-none focus:border-blue-500`;
 
   console.log("User hai: ", user);
 
   return (
-    <div className={`flex-1 static pt-20 px-12`}>
-      <div className="w-full xl:w-[50%]">
-        <h1 className="mb-6 font-bold text-2xl">Edit Profile</h1>
+    <div
+      className={`flex-1 flex justify-center font-Poppins static pt-20 px-16`}
+    >
+      <div className="w-full xl:w-[40%]">
+        <h1 className="mb-6 font-bold text-3xl">Edit Profile</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="text-base w-full flex flex-col gap-3"
+          className="text-base w-full flex flex-col gap-4"
         >
-          <div className="flex flex-col gap-1 justify-between">
-            <label htmlFor="Name" className="w-fit">
+          <div className="flex flex-col justify-between">
+            <label htmlFor="Name" className="w-fit font-medium">
               Name
             </label>
             <input
@@ -51,7 +57,7 @@ export const EditProfile = () => {
             />
           </div>
           <div className="flex flex-col gap-1 justify-between">
-            <label htmlFor="Name" className="w-fit">
+            <label htmlFor="Name" className="w-fit font-medium">
               Email
             </label>
             <input
@@ -64,7 +70,7 @@ export const EditProfile = () => {
             />
           </div>
           <div className="flex flex-col gap-1 justify-between">
-            <label htmlFor="DOB" className="whitespace-nowrap">
+            <label htmlFor="DOB" className="whitespace-nowrap font-medium">
               Date of Birth
             </label>
             <input
@@ -74,8 +80,9 @@ export const EditProfile = () => {
               className={inputStyling}
             />
           </div>
+          <GenderSelection setGender={setGender} />
           <div className="flex flex-col gap-1 justify-between">
-            <label htmlFor="DOB" className="whitespace-nowrap">
+            <label htmlFor="DOB" className="whitespace-nowrap font-medium">
               City
             </label>
             <select
@@ -120,15 +127,14 @@ export const EditProfile = () => {
             </select>
           </div>
           <div className="flex flex-col gap-1 justify-between">
-            <label>Interested Genre</label>
+            <label className="font-medium">Interested Genre</label>
             <SelectGenre />
           </div>
           <div className="flex flex-col gap-1 justify-between">
             <label>Prefered Language</label>
             <SelectLanguage />
           </div>
-
-          <button className="ml-auto mt-2 py-2 px-3 bg-steelBlue w-fit text-white rounded-lg font-medium">
+          <button className="ml-auto mt-2 py-2 px-4 bg-steelBlue w-fit font-medium text-white rounded-lg active:bg-steelBlueDark">
             Submit
           </button>
         </form>

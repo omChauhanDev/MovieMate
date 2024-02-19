@@ -25,7 +25,7 @@ export const Sidebar = () => {
   }`;
 
   return (
-    <div className="text-lg">
+    <div className="text-lg font-medium">
       <button
         className="absolute xl:hidden top-6 left-6 z-[110] font-bold"
         onClick={toggleSidebar}
@@ -48,9 +48,13 @@ export const Sidebar = () => {
             Movie <span className="text-steelBlue">Mate</span> 🎥
           </Link>
           <div className="flex items-start flex-col gap-2 w-[90%] text-lg">
-            <button className={buttonTheme} onClick={toggleSidebar}>
+            <Link
+              to="/dashboard/home"
+              className={buttonTheme}
+              onClick={toggleSidebar}
+            >
               <FaHome /> Dashboard
-            </button>
+            </Link>
             <button className={buttonTheme} onClick={toggleSidebar}>
               <FaUserFriends /> Pending Requests
             </button>

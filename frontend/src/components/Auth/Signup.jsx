@@ -276,7 +276,7 @@ export const Signup = () => {
                 type="submit"
                 className={`${
                   confirmPassword && password === confirmPassword
-                    ? "bg-steelBlue active:bg-royalBlue"
+                    ? "bg-steelBlue active:bg-steelBlueDark"
                     : "bg-gray-600 cursor-not-allowed"
                 } py-2 text-white px-4 font-[500] rounded-md`}
                 disabled={password !== confirmPassword}
@@ -323,7 +323,7 @@ export const Signup = () => {
           >
             <Link
               to="/login"
-              className="w-[70%] mx-auto border-2 lg:border text-white lg:text-black text-center font-[500] hover:scale-[1.01] active:scale-[0.99] transition-all border-royalBlue hover:bg-royalBlue hover:text-white py-2 rounded-lg "
+              className="w-[70%] mx-auto border-2 lg:border text-white lg:text-black text-center font-[500] hover:scale-[1.01] active:scale-[0.99] transition-all border-steelBlueDark hover:bg-steelBlueDark hover:text-white py-2 rounded-lg "
             >
               Login
             </Link>

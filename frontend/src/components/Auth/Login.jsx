@@ -113,7 +113,7 @@ export const Login = () => {
               type="submit"
               animate="animate"
               transition={(animationVariants.transition, { delay: 1.1 })}
-              className="bg-steelBlue hover:scale-[1.01] active:scale-[0.99] active:bg-royalBlue transition-all outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
+              className="bg-steelBlue hover:scale-[1.01] active:scale-[0.99] active:bg-steelBlueDark transition-all outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
             >
               Login
             </motion.button>
@@ -140,7 +140,7 @@ export const Login = () => {
           >
             <Link
               to="/signup"
-              className="w-full sm:w-[65%] text-white lg:text-black border-2 lg:border text-center font-[500] hover:scale-[1.01] active:scale-[0.99] transition-all border-royalBlue hover:bg-royalBlue hover:text-white py-2 rounded-lg "
+              className="w-full sm:w-[65%] text-white lg:text-black border-2 lg:border text-center font-[500] hover:scale-[1.01] active:scale-[0.99] transition-all border-steelBlueDark hover:bg-steelBlueDark hover:text-white py-2 rounded-lg "
             >
               Signup
             </Link>

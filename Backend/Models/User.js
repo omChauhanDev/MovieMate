@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ["male", "female", "other"],
+      default: null,
     },
     location: {
       country: {
@@ -131,15 +132,15 @@ const userSchema = new mongoose.Schema(
           "kurdish",
           "uzbek",
           "bhojpuri",
-          "farsi"
-        ]          
+          "farsi",
+        ],
       },
     ],
     friends: [
       {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Friendship'
-      }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Friendship",
+      },
     ],
   },
   {
