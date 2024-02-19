@@ -42,7 +42,7 @@ export const EditProfile = () => {
 
   return (
     <div
-      className={`flex-1 flex justify-center font-Poppins static transition-colors duration-300 pt-20 px-8 lg:px-16`}
+      className={`flex-1 py-12 flex justify-center font-Poppins static transition-colors duration-300 pt-20 px-8 lg:px-16`}
     >
       <div className="w-full md:w-[40%]">
         <h1 className="mb-6 font-bold text-3xl">Edit Profile</h1>

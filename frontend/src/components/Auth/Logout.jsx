@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { toast } from "react-hot-toast";
 import { isDarkAtom } from "@/store/atoms";
 import { useAtomValue } from "jotai";
 import { IoLogOut } from "react-icons/io5";
@@ -17,6 +18,13 @@ export const Logout = () => {
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.removeItem("user");
+    toast.success("Logged out successfully!", {
+      icon: "🎬",
+      style: {
+        fontWeight: "bold",
+      },
+    });
+
     navigate("/login");
   };
   const isDark = useAtomValue(isDarkAtom);

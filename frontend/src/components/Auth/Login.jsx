@@ -18,6 +18,12 @@ export const Login = () => {
       let response = await loginHandler(data);
       console.log("Response aaya", response);
       if (response.success) {
+        toast.success("Logged in successfully!", {
+          icon: "🍿",
+          style: {
+            fontWeight: "bold",
+          },
+        });
         navigate("/dashboard");
       }
     } catch (error) {
