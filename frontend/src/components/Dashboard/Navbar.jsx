@@ -7,7 +7,7 @@ export const Navbar = () => {
   const isDark = useAtomValue(isDarkAtom);
   return (
     <nav
-      className={`w-full h-[64px] z-[105] border-b xl:inline font-Outfit flex ${
+      className={`w-full h-[64px] hidden z-[5] border-b font-Outfit xl:flex ${
         isDark ? "bg-black border-white/30" : "bg-white border-black/20"
       } items-center`}
     >

@@ -139,7 +139,7 @@ export const EditProfile = () => {
             <SelectGenre setFavouriteGenre={setFavouriteGenres} />
           </div>
           <div className="flex flex-col gap-1 justify-between">
-            <label>Prefered Language</label>
+            <label className="font-medium">Prefered Language</label>
             <SelectLanguage setLanguagePreferences={setLanguagePreferences} />
           </div>
           <button className="ml-auto mt-2 py-2 px-4 bg-steelBlue w-fit font-medium text-white rounded-lg active:bg-steelBlueDark">

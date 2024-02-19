@@ -12,12 +12,12 @@ export const Dashboard = () => {
     <div
       className={`${
         isDark ? "bg-black text-white" : "bg-white"
-      } flex-1 flex-col h-full flex relative`}
+      } flex-1 flex-col min-h-screen h-full flex relative`}
     >
       <Navbar />
       <div className="flex flex-1">
         <Sidebar />
-        <div className="flex-1 bg-yellow-300 flex flex-col relative">
+        <div className="flex-1 flex flex-col relative">
           <div className="flex-1 flex">
             <Routes>
               <Route path="/home" element={<Home />} />
