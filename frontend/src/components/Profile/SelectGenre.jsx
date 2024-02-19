@@ -25,6 +25,7 @@ export const SelectGenre = () => {
         value={selectedGenres}
         onChange={handleGenreChange}
         isMulti={true}
+        
       ></Select>
     </div>
   );

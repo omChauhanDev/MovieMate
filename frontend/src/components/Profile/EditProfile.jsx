@@ -25,13 +25,13 @@ export const EditProfile = () => {
   };
   const inputStyling = `p-2 ${
     isDark ? "text-black" : "text-black"
-  } rounded-lg bg-gray-100 border font-normal w-[80%] border-gray-300 focus:outline-none focus:border-blue-500`;
+  } rounded-lg bg-gray-100 border font-normal w-full xl:w-[80%] border-gray-300 focus:outline-none focus:border-blue-500`;
 
   console.log("User hai: ", user);
 
   return (
-    <div className={`flex-1 p-12`}>
-      <div className="w-[50%]">
+    <div className={`flex-1 static pt-20 px-12`}>
+      <div className="w-full xl:w-[50%]">
         <h1 className="mb-6 font-bold text-2xl">Edit Profile</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -128,7 +128,7 @@ export const EditProfile = () => {
             <SelectLanguage />
           </div>
 
-          <button className="py-2 px-3 bg-steelBlue w-fit text-white rounded-lg font-medium">
+          <button className="ml-auto mt-2 py-2 px-3 bg-steelBlue w-fit text-white rounded-lg font-medium">
             Submit
           </button>
         </form>

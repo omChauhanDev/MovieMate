@@ -12,7 +12,7 @@ export const Dashboard = () => {
     <div
       className={`${
         isDark ? "bg-black text-white" : "bg-white"
-      } flex-1 flex-col flex relative`}
+      } flex-1 flex-col h-full flex relative`}
     >
       <Navbar />
       <div className="flex">
