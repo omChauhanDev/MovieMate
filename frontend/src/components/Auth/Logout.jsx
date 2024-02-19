@@ -55,7 +55,7 @@ export const Logout = () => {
             >
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction className="bg-red-500 hover:bg-red-700">
+            <AlertDialogAction className="bg-red-500 hover:bg-red-700" asChild>
               <button onClick={logoutHandler}>Logout</button>
             </AlertDialogAction>
           </AlertDialogFooter>

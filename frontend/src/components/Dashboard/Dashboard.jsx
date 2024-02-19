@@ -15,9 +15,9 @@ export const Dashboard = () => {
       } flex-1 flex-col h-full flex relative`}
     >
       <Navbar />
-      <div className="flex">
+      <div className="flex flex-1">
         <Sidebar />
-        <div className="flex-1 flex flex-col relative">
+        <div className="flex-1 bg-yellow-300 flex flex-col relative">
           <div className="flex-1 flex">
             <Routes>
               <Route path="/home" element={<Home />} />

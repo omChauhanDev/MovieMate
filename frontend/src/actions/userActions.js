@@ -28,25 +28,23 @@ export const getUserDetails = async (setUser) => {
 // update user details
 export const updateUserDetails = async (data, setUser) => {
   try {
-    const response = await axios.put(`${baseUrl}/update`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    console.log("Data is: ", data);
+    const response = await axios.put(`${baseUrl}/update`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.success) {
       setUser(response.user);
-      return{
+      return {
         success: true,
         message: "Profile updated successfully",
-      }
+      };
     } else {
-      return{
+      return {
         success: false,
         message: `${response.message}: ${response.error.message}`,
-      }
+      };
     }
   } catch (error) {
     console.log("Error occoured while updating user details", error);
@@ -60,13 +58,11 @@ export const updateUserDetails = async (data, setUser) => {
 // delete user
 export const deleteUser = async (setUser) => {
   try {
-    const response = await axios.delete(`${baseUrl}/delete`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.delete(`${baseUrl}/delete`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.success) {
       setUser(null);
       return response;
@@ -81,4 +77,3 @@ export const deleteUser = async (setUser) => {
     };
   }
 };
-

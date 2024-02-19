@@ -1,15 +1,18 @@
 import { isDarkAtom, userAtom } from "@/store/atoms";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useForm } from "react-hook-form";
 import { SelectGenre } from "./SelectGenre";
 import { SelectLanguage } from "./SelectLanguage";
 import { GenderSelection } from "./GenderSelection";
 import { useState } from "react";
+import { updateUserDetails } from "@/actions/userActions";
 
 export const EditProfile = () => {
-  const user = useAtomValue(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const isDark = useAtomValue(isDarkAtom);
   const [gender, setGender] = useState("");
+  const [languagePreferences, setLanguagePreferences] = useState([]);
+  const [favouriteGenres, setFavouriteGenres] = useState([]);
   const { register, handleSubmit } = useForm();
 
   const getAge = (DOB) => {
@@ -18,26 +21,30 @@ export const EditProfile = () => {
     const timeDifference = currentDate - birthDate;
     const ageInMilliseconds = new Date(timeDifference);
     const age = Math.abs(ageInMilliseconds.getUTCFullYear() - 1970);
-    return age;
+    if (age) {
+      return age;
+    }
+    return null;
   };
 
   const onSubmit = (data) => {
     const DOB = data.dateOfBirth;
     data.age = getAge(DOB);
     data.gender = gender;
+    data.favoriteGenres = favouriteGenres;
+    data.languagePreferences = languagePreferences;
     console.log(data);
+    updateUserDetails(data, setUser);
   };
   const inputStyling = `p-2 ${
     isDark ? "text-gray-900" : "text-gray-900"
-  } rounded-lg bg-gray-100 border font-normal w-full border-gray-200 focus:outline-none focus:border-blue-500`;
-
-  console.log("User hai: ", user);
+  } rounded-lg bg-gray-50 border font-normal w-full border-gray-200 focus:outline-none focus:border-blue-500`;
 
   return (
     <div
-      className={`flex-1 flex justify-center font-Poppins static pt-20 px-16`}
+      className={`flex-1 flex justify-center font-Poppins static transition-colors duration-300 pt-20 px-8 lg:px-16`}
     >
-      <div className="w-full xl:w-[40%]">
+      <div className="w-full md:w-[40%]">
         <h1 className="mb-6 font-bold text-3xl">Edit Profile</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -80,17 +87,18 @@ export const EditProfile = () => {
               className={inputStyling}
             />
           </div>
-          <GenderSelection setGender={setGender} />
+          <GenderSelection setGender={setGender} gender={gender} />
           <div className="flex flex-col gap-1 justify-between">
             <label htmlFor="DOB" className="whitespace-nowrap font-medium">
               City
             </label>
             <select
+              defaultValue={""}
               id="cities"
               {...register("location")}
               className={inputStyling}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Select a city
               </option>
               <option value="Mumbai">Mumbai</option>
@@ -128,11 +136,11 @@ export const EditProfile = () => {
           </div>
           <div className="flex flex-col gap-1 justify-between">
             <label className="font-medium">Interested Genre</label>
-            <SelectGenre />
+            <SelectGenre setFavouriteGenre={setFavouriteGenres} />
           </div>
           <div className="flex flex-col gap-1 justify-between">
             <label>Prefered Language</label>
-            <SelectLanguage />
+            <SelectLanguage setLanguagePreferences={setLanguagePreferences} />
           </div>
           <button className="ml-auto mt-2 py-2 px-4 bg-steelBlue w-fit font-medium text-white rounded-lg active:bg-steelBlueDark">
             Submit

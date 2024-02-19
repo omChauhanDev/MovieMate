@@ -1,7 +1,42 @@
+import { isDarkAtom } from "@/store/atoms";
 import { useState } from "react";
 import Select from "react-select";
-export const SelectLanguage = () => {
+import { useAtomValue } from "jotai";
+import PropTypes from "prop-types";
+
+export const SelectLanguage = ({ setLanguagePreferences }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const isDark = useAtomValue(isDarkAtom);
+  const colourStyles = {
+    control: (styles) => ({ ...styles, backgroundColor: "#f9fafb" }),
+    menu: (styles) => ({
+      ...styles,
+
+      backgroundColor: isDark ? "#09090b" : "white",
+      borderColor: isDark ? "white" : "black",
+      color: isDark ? "white" : "black",
+    }),
+    option: (styles, { isFocused }) => ({
+      ...styles,
+      backgroundColor: isFocused ? (isDark ? "gray" : "#e6e6e6") : null,
+      color: isFocused ? (isDark ? "white" : "black") : null,
+      borderBottom: isDark
+        ? "1px solid rgba(255, 255, 255, 0.3)"
+        : "1px solid rgba(0, 0, 0, 0.3)",
+    }),
+    multiValueLabel: (styles) => ({
+      ...styles,
+      backgroundColor: isDark ? "#09090b" : "", // Set the background color for the selected option label
+      color: isDark ? "white" : "", // Set the color for the selected option label
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      //suggest me colors based on dark and light mode
+      marginLeft: "-1px",
+      backgroundColor: isDark ? "#09090b" : "", // Set the background color for the selected option label
+      color: isDark ? "white" : "", // Set the color for the selected option label
+    }),
+  };
   const languages = [
     { value: "english", label: "English" },
     { value: "hindi", label: "Hindi" },
@@ -61,6 +96,8 @@ export const SelectLanguage = () => {
 
   const handleGenreChange = (selectedOption) => {
     setSelectedGenres(selectedOption);
+    const selectedValues = selectedOption.map((option) => option.value);
+    setLanguagePreferences(selectedValues);
   };
   return (
     <div>
@@ -69,8 +106,14 @@ export const SelectLanguage = () => {
         value={selectedGenres}
         onChange={handleGenreChange}
         isMulti={true}
-        maxMenuHeight={150}
+        styles={colourStyles}
+        menuPlacement="top"
+        maxMenuHeight={250}
       ></Select>
     </div>
   );
+};
+
+SelectLanguage.propTypes = {
+  setLanguagePreferences: PropTypes.func.isRequired,
 };

@@ -244,13 +244,24 @@ exports.forgotPassword = async (req, res) => {
 exports.updateUser = (req, res) => {
   const verify = userEditSchema.safeParse(req.body);
   if (verify.success) {
-    User.updateOne({ _id: req.userId }, req.body).then((user) => {
-      return res.redirect("/api/v1/user/details");
-    });
+    User.updateOne({ _id: req.userId }, req.body)
+      .then(() => {
+        // Fetch the updated user and send it back in the response
+        User.findOne({ _id: req.userId }).then((user) => {
+          res.status(200).json({ success: true, user: user });
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({ success: false, message: error.message });
+      });
   } else {
-    return res
+    res
       .status(400)
-      .json({ message: "Wrong inputs", error: verify.error.issues });
+      .json({
+        success: false,
+        message: "Wrong inputs",
+        error: verify.error.issues,
+      });
   }
 };
 //not tested
