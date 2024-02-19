@@ -35,7 +35,7 @@ export const Sidebar = () => {
         </i>
       </button>
       <div
-        className={`xl:min-h-[calc(100vh-64px)] h-screen md:w-[22rem] bg-red-400 w-screen pt-16 xl:pt-8 absolute xl:static z-[100] justify-between flex flex-col items-center transition-transform duration-300 transform ${
+        className={`xl:min-h-[calc(100vh-64px)] h-full md:w-[22rem] w-screen pt-16 xl:pt-8 absolute xl:static z-[100] justify-between flex flex-col items-center transition-transform duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } ${
           isDark
