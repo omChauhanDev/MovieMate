@@ -1,7 +1,36 @@
 import { useState } from "react";
 import Select from "react-select";
+import { useAtomValue } from "jotai";
+import { isDarkAtom } from "@/store/atoms";
+
 export const SelectGenre = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const isDark = useAtomValue(isDarkAtom);
+  const colourStyles = {
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
+    menu: (styles) => ({
+      ...styles,
+      backgroundColor: isDark ? "black" : "white",
+      color: isDark ? "white" : "black",
+    }),
+    option: (styles, { isFocused }) => ({
+      ...styles,
+      backgroundColor: isFocused ? (isDark ? "gray" : "lightgray") : null,
+      color: isFocused ? (isDark ? "white" : "black") : null,
+    }),
+    multiValueLabel: (styles) => ({
+      ...styles,
+      backgroundColor: isDark ? "gray" : "", // Set the background color for the selected option label
+      color: isDark ? "white" : "", // Set the color for the selected option label
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      //suggest me colors based on dark and light mode
+      backgroundColor: isDark ? "gray" : "", // Set the background color for the selected option label
+      color: isDark ? "white" : "", // Set the color for the selected option label
+    }),
+  };
+
   const genres = [
     { value: "action", label: "Action" },
     { value: "adventure", label: "Adventure" },
@@ -25,7 +54,7 @@ export const SelectGenre = () => {
         value={selectedGenres}
         onChange={handleGenreChange}
         isMulti={true}
-        
+        styles={colourStyles}
       ></Select>
     </div>
   );
