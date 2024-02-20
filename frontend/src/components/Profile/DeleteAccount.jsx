@@ -36,7 +36,6 @@ export const DeleteAccount = () => {
         icon: "😔",
       });
       resetLogin();
-      console.log(response);
       navigate("/signup");
     } else {
       toast.error("Something went wrong", {
@@ -105,13 +104,10 @@ export const DeleteAccount = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction asChild>
-              <button
-                onClick={deleteAccountHandler}
-                className="bg-imperialRed hover:bg-[#bb151d]"
-              >
+            <AlertDialogAction className="bg-[#ee1b26] hover:bg-[#bb152f]" onClick={deleteAccountHandler}>
+              
                 Continue
-              </button>
+             
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
