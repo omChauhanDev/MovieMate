@@ -1,10 +1,9 @@
 import axios from "axios";
 const baseUrl = "http://localhost:3000/api/v1/user";
 
-//get token from local storage
-const token = localStorage.getItem("token");
 export const getUserDetails = async (setUser) => {
   try {
+    const token = localStorage.getItem("token");
     const user = await axios.get(`${baseUrl}/details`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,6 +34,7 @@ export const getUserDetails = async (setUser) => {
 export const updateUserDetails = async (data, setUser) => {
   try {
     // delete data.location;
+    const token = localStorage.getItem("token");
     console.log("Data is: ", data);
     const response = await axios.put(`${baseUrl}/update`, data, {
       headers: {
@@ -68,6 +68,7 @@ export const updateUserDetails = async (data, setUser) => {
 // delete user
 export const deleteUser = async (setUser) => {
   try {
+    const token = localStorage.getItem("token");
     const response = await axios.delete(`${baseUrl}/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,

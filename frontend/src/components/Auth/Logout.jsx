@@ -18,9 +18,9 @@ export const Logout = () => {
   const navigate = useNavigate();
   const [, resetLogin] = useAtom(resetLoginAtom);
   const logoutHandler = () => {
+    resetLogin();
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    resetLogin();
     toast.success("Logged out successfully!", {
       icon: "🎬",
       style: {

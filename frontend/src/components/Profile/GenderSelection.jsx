@@ -28,7 +28,7 @@ export const GenderSelection = ({ setGender }) => {
       >
         Gender
       </p>
-      <div className="flex gap-4 w-full">
+      <div className="flex gap-4 h-12 w-full">
         <div
           className="flex flex-1 items-center ps-4 border border-gray-200 bg-gray-50 rounded-lg"
           onClick={() => handleGenderSelection("Male")} // Update selected gender to Male

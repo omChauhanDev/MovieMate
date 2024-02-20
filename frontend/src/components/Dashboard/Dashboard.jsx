@@ -12,12 +12,14 @@ export const Dashboard = () => {
   const isDark = useAtomValue(isDarkAtom);
   const navigate = useNavigate();
   const isLoggedIn = useAtomValue(isLoggedInAtom);
+
   useEffect(() => {
-    // if (!isLoggedIn) {
-    //   navigate("/login");
-    // }
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn]);
+
   return (
     <div
       className={`${

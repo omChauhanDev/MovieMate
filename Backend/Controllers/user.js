@@ -255,13 +255,11 @@ exports.updateUser = (req, res) => {
         res.status(500).json({ success: false, message: error.message });
       });
   } else {
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Wrong inputs",
-        error: verify.error.issues,
-      });
+    res.status(400).json({
+      success: false,
+      message: "Wrong inputs",
+      error: verify.error.issues,
+    });
   }
 };
 //not tested

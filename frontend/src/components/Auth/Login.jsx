@@ -38,10 +38,11 @@ export const Login = () => {
             fontWeight: "bold",
           },
         });
-        setLoading(false);
+        await setLoading(false);
         navigate("/dashboard");
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error occurred during login:", error);
     }
   };
@@ -146,18 +147,19 @@ export const Login = () => {
                 </svg>
               </div>
             )}
-            {!loading && (
-              <motion.button
-                variants={animationVariants}
-                initial="initial"
-                type="submit"
-                animate="animate"
-                transition={(animationVariants.transition, { delay: 1.1 })}
-                className="bg-steelBlue hover:scale-[1.01] active:scale-[0.99] active:bg-steelBlueDark transition-all outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
-              >
-                Login
-              </motion.button>
-            )}
+
+            <motion.button
+              variants={animationVariants}
+              initial="initial"
+              type="submit"
+              disabled={loading}
+              animate="animate"
+              viewport={{ once: true }}
+              transition={(animationVariants.transition, { delay: 1.1 })}
+              className="bg-steelBlue hover:scale-[1.01] active:scale-[0.99] active:bg-steelBlueDark transition-all outline-none lg:outline text-white py-2 px-3 rounded-lg font-[500]"
+            >
+              Login
+            </motion.button>
           </form>
           <motion.div
             variants={animationVariants}
