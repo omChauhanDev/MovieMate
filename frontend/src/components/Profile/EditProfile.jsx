@@ -7,6 +7,13 @@ import { GenderSelection } from "./GenderSelection";
 import { useEffect, useState } from "react";
 import { updateUserDetails } from "@/actions/userActions";
 import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
 export const EditProfile = () => {
   const [user, setUser] = useAtom(userAtom);
   const [loading, setLoading] = useState(false);
@@ -15,6 +22,26 @@ export const EditProfile = () => {
   const [languagePreferences, setLanguagePreferences] = useState([]);
   const [favoriteGenres, setfavoriteGenres] = useState([]);
   const { register, handleSubmit } = useForm();
+
+  function isEmptyObject(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+
+  function filterEmptyObjects(data) {
+    const filteredData = {};
+    for (const key in data) {
+      if (data[key] !== null && data[key] !== "") {
+        if (typeof data[key] === "object" && !Array.isArray(data[key])) {
+          if (!isEmptyObject(data[key])) {
+            filteredData[key] = filterEmptyObjects(data[key]);
+          }
+        } else {
+          filteredData[key] = data[key];
+        }
+      }
+    }
+    return filteredData;
+  }
 
   useEffect(() => {
     if (user && Object.keys(user).length > 0) {
@@ -42,11 +69,9 @@ export const EditProfile = () => {
     data.favoriteGenres = favoriteGenres;
     data.languagePreferences = languagePreferences;
     console.log("Data", data);
-    const filteredData = {};
-    for (const key in data) {
-      if (data[key] !== null && data[key] !== "") {
-        filteredData[key] = data[key];
-      }
+    const filteredData = filterEmptyObjects(data);
+    if (isEmptyObject(filteredData.location)) {
+      delete filteredData.location;
     }
     console.log("Filtered", filteredData);
     const response = await updateUserDetails(filteredData, setUser);
@@ -70,14 +95,21 @@ export const EditProfile = () => {
   } rounded-lg bg-gray-50 border font-normal w-full border-gray-200 focus:outline-none focus:border-blue-500`;
 
   return (
-    <div
-      className={`flex-1 py-12 flex justify-center font-Poppins static transition-colors duration-300 pt-20 px-8 lg:px-16`}
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, scale: 1, x: -40 },
+        visible: { opacity: 1, scale: 1, x: 0 },
+      }}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.4, delay: 0.15 }}
+      className={`flex-1 flex justify-center select-none static transition-colors duration-300 pt-8 px-8 lg:px-16`}
     >
       <div className="w-full md:w-[60%] 2xl:w-[40%]">
-        <h1 className="mb-6 font-bold text-3xl">Edit Profile</h1>
+        <h1 className="mb-6 font-bold text-3xl font-Poppins">Edit Profile</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="text-base w-full flex flex-col gap-4"
+          className="text-base font-Poppins w-full flex flex-col gap-4"
         >
           <div className="flex flex-col justify-between">
             <label htmlFor="Name" className="w-fit font-medium">
@@ -87,6 +119,7 @@ export const EditProfile = () => {
               id="Name"
               type="text"
               disabled
+              readOnly
               value={user.fullName}
               {...register}
               className={`${inputStyling} cursor-not-allowed`}
@@ -100,6 +133,7 @@ export const EditProfile = () => {
               id="Name"
               type="text"
               disabled
+              readOnly
               value={user.email}
               {...register}
               className={`${inputStyling} cursor-not-allowed`}
@@ -113,6 +147,7 @@ export const EditProfile = () => {
               {...register("dateOfBirth")}
               id="DOB"
               type="date"
+              required
               defaultValue={
                 user.dateOfBirth ? user.dateOfBirth.split("T")[0] : ""
               }
@@ -120,51 +155,61 @@ export const EditProfile = () => {
             />
           </div>
           <GenderSelection setGender={setGender} gender={gender} />
-          <div className="flex flex-col gap-1 justify-between">
-            <label htmlFor="DOB" className="whitespace-nowrap font-medium">
-              City
+          <div className="flex gap-4">
+            <div className="flex w-full flex-col gap-1 justify-between">
+              <label htmlFor="city" className="whitespace-nowrap font-medium">
+                City
+              </label>
+              <input
+                {...register("location.city")}
+                id="city"
+                type="text"
+                required
+                defaultValue={user.location ? user.location.city : ""}
+                className={inputStyling}
+              />
+            </div>
+            <div className="flex w-full flex-col gap-1 justify-between">
+              <label htmlFor="state" className="whitespace-nowrap font-medium">
+                State
+              </label>
+              <input
+                {...register("location.state")}
+                id="state"
+                type="text"
+                required
+                defaultValue={user.location ? user.location.state : ""}
+                className={inputStyling}
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-col gap-1 justify-between">
+            <label htmlFor="country" className="whitespace-nowrap font-medium">
+              Country
             </label>
-            <select
-              defaultValue={""}
-              id="cities"
-              // {...register("location")}
+            <input
+              {...register("location.country")}
+              id="country"
+              type="text"
+              required
+              defaultValue={user.location ? user.location.country : ""}
               className={inputStyling}
-            >
-              <option value="" disabled>
-                Select a city
-              </option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Bangalore">Bangalore</option>
-              <option value="Hyderabad">Hyderabad</option>
-              <option value="Ahmedabad">Ahmedabad</option>
-              <option value="Chennai">Chennai</option>
-              <option value="Kolkata">Kolkata</option>
-              <option value="Pune">Pune</option>
-              <option value="Jaipur">Jaipur</option>
-              <option value="Surat">Surat</option>
-              <option value="Lucknow">Lucknow</option>
-              <option value="Kanpur">Kanpur</option>
-              <option value="Nagpur">Nagpur</option>
-              <option value="Patna">Patna</option>
-              <option value="Indore">Indore</option>
-              <option value="Thane">Thane</option>
-              <option value="Bhopal">Bhopal</option>
-              <option value="Visakhapatnam">Visakhapatnam</option>
-              <option value="Vadodara">Vadodara</option>
-              <option value="Firozabad">Firozabad</option>
-              <option value="Ludhiana">Ludhiana</option>
-              <option value="Agra">Agra</option>
-              <option value="Nashik">Nashik</option>
-              <option value="Faridabad">Faridabad</option>
-              <option value="Meerut">Meerut</option>
-              <option value="Rajkot">Rajkot</option>
-              <option value="Kalyan-Dombivali">Kalyan-Dombivali</option>
-              <option value="Vasai-Virar">Vasai-Virar</option>
-              <option value="Varanasi">Varanasi</option>
-              <option value="Noida">Noida</option>
-              <option value="Ghaziabad">Ghaziabad</option>
-            </select>
+            />
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <p className="cursor-pointer ml-auto mt-2 -mb-3 hidden lg:inline text-blue-500 font-medium">
+                  Why are we asking for your address?
+                </p>
+              </HoverCardTrigger>
+              <HoverCardContent asChild>
+                <p className="text-sm min-w-[50ch]">
+                  Your city and state information is required to facilitate
+                  matching you with movie companions in your vicinity. We use
+                  your location details solely for the purpose of connecting you
+                  with potential movie buddies within your area.
+                </p>
+              </HoverCardContent>
+            </HoverCard>
           </div>
           <div className="flex flex-col gap-1 justify-between">
             <label className="font-medium">Interested Genre</label>
@@ -201,12 +246,12 @@ export const EditProfile = () => {
             </div>
           )}
           {!loading && (
-            <button className="ml-auto mt-2 py-2 px-4 bg-steelBlue w-fit font-medium text-white rounded-lg active:bg-steelBlueDark">
+            <button className="ml-auto mt-2 py-2 px-4 bg-steelBlue w-fit font-medium hover:bg-steelBlueDark text-white rounded-lg active:bg-steelBlueDark">
               Submit
             </button>
           )}
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -33,7 +33,6 @@ export const getUserDetails = async (setUser) => {
 // update user details
 export const updateUserDetails = async (data, setUser) => {
   try {
-    // delete data.location;
     const token = localStorage.getItem("token");
     console.log("Data is: ", data);
     const response = await axios.put(`${baseUrl}/update`, data, {

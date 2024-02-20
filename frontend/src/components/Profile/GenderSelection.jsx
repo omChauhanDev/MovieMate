@@ -28,7 +28,7 @@ export const GenderSelection = ({ setGender }) => {
       >
         Gender
       </p>
-      <div className="flex gap-4 h-12 w-full">
+      <div className="flex gap-4 h-10 w-full">
         <div
           className="flex flex-1 items-center ps-4 border border-gray-200 bg-gray-50 rounded-lg"
           onClick={() => handleGenderSelection("Male")} // Update selected gender to Male
@@ -44,7 +44,7 @@ export const GenderSelection = ({ setGender }) => {
           />
           <label
             htmlFor="bordered-radio-1"
-            className="w-full py-4 ms-2 text-sm text-black font-medium"
+            className="w-full py-4 ms-2 text-sm text-black"
           >
             Male
           </label>
@@ -64,7 +64,7 @@ export const GenderSelection = ({ setGender }) => {
           />
           <label
             htmlFor="bordered-radio-2"
-            className="w-full py-4 ms-2 text-sm text-black font-medium"
+            className="w-full py-4 ms-2 text-sm text-black"
           >
             Female
           </label>

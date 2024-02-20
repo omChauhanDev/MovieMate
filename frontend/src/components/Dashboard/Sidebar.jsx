@@ -69,11 +69,11 @@ export const Sidebar = () => {
 
         <div className="flex flex-col mx-auto h-fit w-[95%] mb-4 items-center">
           <Link
-            to="/dashboard/edit-profile"
+            to="/dashboard/account-settings"
             className={buttonTheme}
             onClick={toggleSidebar}
           >
-            <FaGear /> Edit Profile
+            <FaGear /> Account Settings
           </Link>
           <div className=" w-full flex items-start justify-start">
             <ThemeToggler />

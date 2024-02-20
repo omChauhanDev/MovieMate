@@ -46,6 +46,7 @@ export const Signup = () => {
     const name = `${data.firstname} ${data.lastname}`;
     const email = data.email;
     const otp = generateOTP();
+    console.log("OTP is:", otp);
     const purpose = "Signup";
     setLoading(true);
     const response = await sendOtp(email, otp, purpose, name);
@@ -109,7 +110,11 @@ export const Signup = () => {
 
       const response = await signup(fullName, email, password);
       if (response.success) {
-        toast.success(response.message);
+        toast.success(response.message, {
+          style: {
+            fontWeight: "bold",
+          },
+        });
         navigate("/login");
       } else {
         toast.error("Your account couldn't be created");
