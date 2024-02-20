@@ -10,11 +10,17 @@ export const getUserDetails = async (setUser) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(user.data);
     if (user.data.success) {
       setUser(user.data.user);
+      return {
+        success: true,
+      };
     } else {
       console.error(user.data.message);
-      return;
+      return {
+        success: false,
+      };
     }
   } catch (error) {
     console.log("Error occoured while fetching user details", error);
@@ -28,19 +34,23 @@ export const getUserDetails = async (setUser) => {
 // update user details
 export const updateUserDetails = async (data, setUser) => {
   try {
+    // delete data.location;
     console.log("Data is: ", data);
     const response = await axios.put(`${baseUrl}/update`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    if (response.success) {
-      setUser(response.user);
+    console.log(response);
+    if (response.data.success) {
+      console.log("Success");
+      setUser(response.data.user);
       return {
         success: true,
         message: "Profile updated successfully",
       };
     } else {
+      console.log("Failed!");
       return {
         success: false,
         message: `${response.message}: ${response.error.message}`,

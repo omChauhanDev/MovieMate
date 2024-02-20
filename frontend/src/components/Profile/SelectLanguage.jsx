@@ -1,11 +1,24 @@
 import { isDarkAtom } from "@/store/atoms";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
 import { useAtomValue } from "jotai";
 import PropTypes from "prop-types";
 
-export const SelectLanguage = ({ setLanguagePreferences }) => {
-  const [selectedGenres, setSelectedGenres] = useState([]);
+export const SelectLanguage = ({
+  setLanguagePreferences,
+  languagePreferences,
+}) => {
+  useEffect(() => {
+    if (languagePreferences) {
+      const temp = languagePreferences.map((item) => ({
+        value: item,
+        label: item.charAt(0).toUpperCase() + item.slice(1),
+      }));
+      setTempLanguages(temp);
+    }
+  }, [languagePreferences]);
+
+  const [tempLanguages, setTempLanguages] = useState([]);
   const isDark = useAtomValue(isDarkAtom);
   const colourStyles = {
     control: (styles) => ({ ...styles, backgroundColor: "#f9fafb" }),
@@ -94,8 +107,8 @@ export const SelectLanguage = ({ setLanguagePreferences }) => {
     { value: "farsi", label: "Farsi" },
   ];
 
-  const handleGenreChange = (selectedOption) => {
-    setSelectedGenres(selectedOption);
+  const handleLanguageChange = (selectedOption) => {
+    setTempLanguages(selectedOption);
     const selectedValues = selectedOption.map((option) => option.value);
     setLanguagePreferences(selectedValues);
   };
@@ -103,8 +116,8 @@ export const SelectLanguage = ({ setLanguagePreferences }) => {
     <div>
       <Select
         options={languages}
-        value={selectedGenres}
-        onChange={handleGenreChange}
+        value={tempLanguages}
+        onChange={handleLanguageChange}
         isMulti={true}
         styles={colourStyles}
         menuPlacement="top"
@@ -116,4 +129,5 @@ export const SelectLanguage = ({ setLanguagePreferences }) => {
 
 SelectLanguage.propTypes = {
   setLanguagePreferences: PropTypes.func.isRequired,
+  languagePreferences: PropTypes.array,
 };

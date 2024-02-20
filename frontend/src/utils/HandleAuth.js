@@ -37,13 +37,13 @@ const login = async (email, password, setUser, setErrorMessage) => {
   try {
     const response = await axios.post(`${baseUrl}/login`, { email, password });
     const data = response.data;
+    console.log("Data is", data);
     if (!data.success) {
       setErrorMessage(data.message);
       console.log("Error occoured while getting response from backend.");
       return;
     } else {
       localStorage.setItem("token", data.token);
-      getUserDetails(setUser);
       return data;
     }
   } catch (error) {

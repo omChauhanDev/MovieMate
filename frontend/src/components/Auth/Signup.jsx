@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { sendOtp, signup } from "@/utils/HandleAuth";
 import { useNavigate } from "react-router-dom";
-
+import { isLoggedInAtom } from "@/store/atoms";
+import { useAtomValue } from "jotai";
 export const Signup = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -18,6 +19,13 @@ export const Signup = () => {
   const [otpMatched, setOtpMatched] = useState(false);
   const [loading, setLoading] = useState(false);
   const passwordRegex = /^\S{6,}$/;
+  const isLoggedIn = useAtomValue(isLoggedInAtom);
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function generateOTP() {
     return Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join(
@@ -28,10 +36,7 @@ export const Signup = () => {
   const onSubmit = async (data) => {
     //first we validate the data
     const password = data.password;
-    if (passwordRegex.test(password)) {
-      console.log("Password is valid.");
-    } else {
-      console.log("Password is invalid.");
+    if (!passwordRegex.test(password)) {
       setErrorMessage("Your password must contain atleast 6 characters");
       return;
     }
@@ -56,7 +61,6 @@ export const Signup = () => {
         },
       });
     } else {
-      console.log(response.data);
       setErrorMessage(response.data.message);
     }
   };

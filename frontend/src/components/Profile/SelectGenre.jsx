@@ -3,9 +3,18 @@ import Select from "react-select";
 import { useAtomValue } from "jotai";
 import { isDarkAtom } from "@/store/atoms";
 import PropTypes from "prop-types";
-export const SelectGenre = ({ setFavouriteGenre }) => {
-  const [selectedGenres, setSelectedGenres] = useState([]);
+export const SelectGenre = ({ setfavoriteGenres, favoriteGenres }) => {
+  const [tempGenre, setTempGenre] = useState([]);
   const isDark = useAtomValue(isDarkAtom);
+  useEffect(() => {
+    if (favoriteGenres) {
+      const temp = favoriteGenres.map((item) => ({
+        value: item,
+        label: item.charAt(0).toUpperCase() + item.slice(1),
+      }));
+      setTempGenre(temp);
+    }
+  }, [favoriteGenres]);
 
   const colourStyles = {
     control: (styles) => ({ ...styles, backgroundColor: "#f9fafb" }),
@@ -62,16 +71,16 @@ export const SelectGenre = ({ setFavouriteGenre }) => {
   ];
 
   const handleGenreChange = (selectedOption) => {
-    setSelectedGenres(selectedOption);
+    setTempGenre(selectedOption);
     const selectedValues = selectedOption.map((option) => option.value);
-    setFavouriteGenre(selectedValues);
+    setfavoriteGenres(selectedValues);
   };
 
   return (
     <div>
       <Select
         options={genres}
-        value={selectedGenres}
+        value={tempGenre}
         onChange={handleGenreChange}
         maxMenuHeight={250}
         isMulti={true}
@@ -83,5 +92,6 @@ export const SelectGenre = ({ setFavouriteGenre }) => {
 };
 
 SelectGenre.propTypes = {
-  setFavouriteGenre: PropTypes.func.isRequired,
+  setfavoriteGenres: PropTypes.func.isRequired,
+  favoriteGenres: PropTypes.array,
 };
