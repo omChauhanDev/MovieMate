@@ -5,19 +5,22 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
+  const animationVariants = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0 },
+  };
   return (
     <div className="flex-1 h-full min-h-[calc(100vh-64px)] w-full flex flex-col bg-herobg bg-cover lg:bg-top">
-      <motion.div
-        className="flex-1 md:mx-auto px-8 md:px-12 xl:max-w-[80%] w-full text-center lg:text-left flex justify-between gap-4 items-center"
-        variants={{
-          hidden: { opacity: 0, scale: 0.95 },
-          visible: { opacity: 1, scale: 1 },
-        }}
-        initial="hidden"
-        animate="visible"
-        transition={{ duration: 0.3, delay: 0.25 }}
-      >
-        <div className="flex-[4] font-Outfit mx-auto flex justify-center items-center lg:items-start flex-col gap-3">
+      <div className="flex-1 md:mx-auto px-8 md:px-12 xl:max-w-[80%] w-full text-center lg:text-left flex justify-between gap-4 items-center">
+        <motion.div
+          variants={animationVariants}
+          initial="hidden"
+          animate={animationVariants}
+          whileInView="visible"
+          transition={{ transition: 2, type: "spring", stiffness: 100 }}
+          viewport={{ once: true }}
+          className="flex-[4] font-Outfit mx-auto flex justify-center items-center lg:items-start flex-col gap-3"
+        >
           <div>
             <h1 className="font-extrabold text-6xl xl:text-7xl">Movie Mate</h1>
             <div className="flex gap-1 text-xl xl:text-3xl font-semibold">
@@ -60,15 +63,25 @@ export const Hero = () => {
               </Button>
             </Link>
           </motion.div>
-        </div>
-        <div className="flex-[4] hidden z-[-10] lg:inline">
+        </motion.div>
+        <motion.div
+          variants={animationVariants}
+          initial="hidden"
+          animate={animationVariants}
+          whileInView="visible"
+          transition={
+            ({ transition: 3, type: "spring", stiffness: 100 }, { delay: 0.25 })
+          }
+          viewport={{ once: true }}
+          className="flex-[4] hidden z-[-10] lg:inline"
+        >
           <img
             src={heroimg}
             className="w-full scale-110"
             alt="friends-enjoying-movie"
           />
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 };
