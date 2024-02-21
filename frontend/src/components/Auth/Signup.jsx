@@ -50,14 +50,12 @@ export const Signup = () => {
     const name = `${data.firstname} ${data.lastname}`;
     const email = data.email;
     const otp = generateOTP();
-    console.log("OTP is:", otp);
     const purpose = "Signup";
     setLoading(true);
     const response = await sendOtp(email, otp, purpose, name);
     setLoading(false);
 
     if (response.data.success) {
-      console.log("OTP IS: ", otp);
       setOtp(otp);
       setOtpSent(true);
       toast.success("OTP sent on email!", {
@@ -91,7 +89,6 @@ export const Signup = () => {
     const response = await sendOtp(formData.email, otp, purpose, name);
     setLoading(false);
     if (response.data.success) {
-      console.log("OTP IS: ", otp);
       setOtp(otp);
       setOtpSent(true);
       toast.success("OTP sent on email!", {
@@ -100,14 +97,12 @@ export const Signup = () => {
         },
       });
     } else {
-      console.log(response.data);
       setErrorMessage(response.data.message);
     }
   };
 
   const signupHandler = async () => {
     if (otpMatched) {
-      console.log(formData);
       const fullName = `${formData.firstname} ${formData.lastname}`;
       const email = formData.email;
       const password = formData.password;

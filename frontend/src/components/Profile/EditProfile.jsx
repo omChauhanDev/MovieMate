@@ -68,12 +68,10 @@ export const EditProfile = () => {
     data.gender = gender;
     data.favoriteGenres = favoriteGenres;
     data.languagePreferences = languagePreferences;
-    console.log("Data", data);
     const filteredData = filterEmptyObjects(data);
     if (isEmptyObject(filteredData.location)) {
       delete filteredData.location;
     }
-    console.log("Filtered", filteredData);
     const response = await updateUserDetails(filteredData, setUser);
     setLoading(false);
     if (response.success) {

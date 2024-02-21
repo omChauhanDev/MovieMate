@@ -115,7 +115,7 @@ exports.sendOTP = async (req, res) => {
       message: "OTP sent successfully.",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -143,8 +143,6 @@ exports.signup = async (req, res) => {
       password: hashedPassword,
     });
 
-    console.log("Signup Successful");
-    console.log(user);
     return res.status(200).json({
       success: true,
       message: "User created successfully!",
@@ -179,8 +177,6 @@ exports.login = async (req, res) => {
       let token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "15d",
       });
-      console.log("Yeh lo token", token);
-      console.log("Login Successful");
 
       return res.status(200).json({
         success: true,
