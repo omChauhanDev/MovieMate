@@ -9,7 +9,6 @@ export const getUserDetails = async (setUser) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(user.data);
     if (user.data.success) {
       setUser(user.data.user);
       return {
@@ -22,7 +21,7 @@ export const getUserDetails = async (setUser) => {
       };
     }
   } catch (error) {
-    console.log("Error occoured while fetching user details", error);
+    console.error("Error occoured while fetching user details", error);
     return {
       success: false,
       message: error.message,
@@ -34,29 +33,25 @@ export const getUserDetails = async (setUser) => {
 export const updateUserDetails = async (data, setUser) => {
   try {
     const token = localStorage.getItem("token");
-    console.log("Data is: ", data);
     const response = await axios.put(`${baseUrl}/update`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     if (response.data.success) {
-      console.log("Success");
       setUser(response.data.user);
       return {
         success: true,
         message: "Profile updated successfully",
       };
     } else {
-      console.log("Failed!");
       return {
         success: false,
         message: `${response.message}: ${response.error.message}`,
       };
     }
   } catch (error) {
-    console.log("Error occoured while updating user details", error);
+    console.error("Error occoured while updating user details", error);
     return {
       success: false,
       message: error.message,
@@ -80,7 +75,7 @@ export const deleteUser = async (setUser) => {
       return response;
     }
   } catch (error) {
-    console.log("Error occoured while deleting user details", error);
+    console.error("Error occoured while deleting user details", error);
     return {
       success: false,
       message: error.message,

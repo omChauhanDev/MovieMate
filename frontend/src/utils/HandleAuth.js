@@ -25,7 +25,7 @@ const sendOtp = async (email, otp, purpose, name = "") => {
     });
     return response;
   } catch (error) {
-    console.log("Error occoured while sending OTP", error);
+    console.error("Error occoured while sending OTP", error);
     return {
       success: false,
       message: error.message,
@@ -37,17 +37,16 @@ const login = async (email, password, setUser, setErrorMessage) => {
   try {
     const response = await axios.post(`${baseUrl}/login`, { email, password });
     const data = response.data;
-    console.log("Data is", data);
     if (!data.success) {
       setErrorMessage(data.message);
-      console.log("Error occoured while getting response from backend.");
+      console.error("Error occoured while getting response from backend.");
       return;
     } else {
       localStorage.setItem("token", data.token);
       return data;
     }
   } catch (error) {
-    console.log("Error occoured while logging in:", error);
+    console.error("Error occoured while logging in:", error);
     return {
       data: {
         success: false,
@@ -66,13 +65,13 @@ const forgotPassword = async (email, password, setErrorMessage) => {
     const data = response.data;
     if (!data.success) {
       setErrorMessage(data.message);
-      console.log("Error occoured while getting response from backend.");
+      console.error("Error occoured while getting response from backend.");
       return;
     } else {
       return data;
     }
   } catch (error) {
-    console.log("Error occoured while changing password", error);
+    console.error("Error occoured while changing password", error);
     return {
       data: {
         success: false,

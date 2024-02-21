@@ -25,7 +25,6 @@ export const ForgotPassword = () => {
   }
 
   const otpHandler = async (data) => {
-    console.log("Otp handler called");
     const email = data.email;
     const otp = generateOTP();
     const purpose = "forgotPassword";
@@ -34,7 +33,6 @@ export const ForgotPassword = () => {
     setLoading(false);
 
     if (response.data.success) {
-      console.log("OTP IS: ", otp);
       setOtp(otp);
       setOtpSent(true);
       toast.success("OTP sent on email!", {
@@ -43,7 +41,6 @@ export const ForgotPassword = () => {
         },
       });
     } else {
-      console.log(response.data);
       setErrorMessage(response.data.message);
     }
   };
@@ -54,13 +51,9 @@ export const ForgotPassword = () => {
   };
 
   const changePasswordHandler = async (data) => {
-    console.log(data);
     const password = data.password;
 
-    if (passwordRegex.test(password)) {
-      console.log("Password is valid.");
-    } else {
-      console.log("Password is invalid.");
+    if (!passwordRegex.test(password)) {
       setErrorMessage("Your password must contain atleast 6 characters");
       return;
     }
