@@ -23,10 +23,12 @@ export const DeleteAccount = () => {
   const resetLogin = useSetAtom(resetLoginAtom);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const deleteAccountHandler = async () => {
     setLoading(true);
     const response = await deleteUser(setUser);
     if (response.data.success) {
+      resetLogin();
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       toast(response.data.message, {
@@ -35,7 +37,6 @@ export const DeleteAccount = () => {
         },
         icon: "😔",
       });
-      resetLogin();
       navigate("/signup");
     } else {
       toast.error("Something went wrong", {
@@ -104,10 +105,11 @@ export const DeleteAccount = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-[#ee1b26] hover:bg-[#bb152f]" onClick={deleteAccountHandler}>
-              
-                Continue
-             
+            <AlertDialogAction
+              className="bg-[#ee1b26] hover:bg-[#bb152f]"
+              onClick={deleteAccountHandler}
+            >
+              Continue
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

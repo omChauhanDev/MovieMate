@@ -11,7 +11,7 @@ export const PageNotFound = () => {
         isDark ? "bg-[#030303] text-white" : ""
       }`}
     >
-      <div className="max-w-[30%] w-full">
+      <div className="max-w-[30%] flex-4 w-full">
         <h1 className="font-black text-7xl md:text-9xl text-center">404</h1>
         <div
           className={`h-[1px] ${isDark ? "bg-white/60" : "bg-black"} my-4`}
@@ -27,7 +27,9 @@ export const PageNotFound = () => {
           </Link>
         </div>
       </div>
-      <div className="bg-notFound"></div>
+      <div className="bg-notFound flex-3 bg-no-repeat bg-yellow-300 h-full">
+        Hi
+      </div>
     </div>
   );
 };
