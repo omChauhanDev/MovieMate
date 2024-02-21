@@ -84,6 +84,7 @@ module.exports = {
         herobg: "url('/src/assets/home/herobg.svg')",
         signupbg: "url('/src/assets/auth/signupbg.jpg')",
         loginbg: "url('/src/assets/auth/loginbg.jpg')",
+        notFound: "url('/src/assets/others/notfound.svg')",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
