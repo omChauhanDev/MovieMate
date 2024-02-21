@@ -1,6 +1,7 @@
 import { getUserDetails } from "@/actions/userActions";
 import axios from "axios";
 const baseUrl = `${import.meta.env.VITE_BASEURL}/user`;
+// This commit is to trigger redeployment on vercel
 
 const signup = async (fullName, email, password) => {
   try {
