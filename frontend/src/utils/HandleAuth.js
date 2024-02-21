@@ -1,6 +1,6 @@
 import { getUserDetails } from "@/actions/userActions";
 import axios from "axios";
-const baseUrl = "http://localhost:3000/api/v1/user";
+const baseUrl = `${import.meta.env.VITE_BASEURL}/user`;
 
 const signup = async (fullName, email, password) => {
   try {
