@@ -2,7 +2,7 @@ import { EditProfile } from "../Profile/EditProfile";
 import { Home } from "./Home";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { isDarkAtom } from "@/store/atoms";
 import { useAtomValue } from "jotai";
 import { isLoggedInAtom } from "@/store/atoms";
@@ -33,8 +33,10 @@ export const Dashboard = () => {
         <div className="flex-1 flex flex-col relative">
           <div className="flex-1 flex">
             <Routes>
-              <Route path="/home" element={<Home />} />
+              <Route index element={<Home />} />
               <Route path="/account-settings" element={<AccountSettings />} />
+              <Route path="/account-settings" element={<AccountSettings />} />
+              <Route path="*" element={<Navigate to="/not-found" replace />} />
             </Routes>
           </div>
         </div>

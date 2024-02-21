@@ -82,8 +82,12 @@ module.exports = {
       },
       backgroundImage: {
         herobg: "url('/src/assets/home/herobg.svg')",
-        signupbg: "url('/src/assets/auth/signupbg.jpg')",
+        features: "url('/src/assets/home/features.svg')",
+        driveIn: "url('/src/assets/home/drive-in.svg')",
+        homeTheatre: "url('/src/assets/home/home-theatre.svg')",
+        featuresBg: "url('/src/assets/home/featuresBg.svg')",
         loginbg: "url('/src/assets/auth/loginbg.jpg')",
+        signupbg: "url('/src/assets/auth/signupbg.jpg')",
         notFound: "url('/src/assets/others/notfound.svg')",
       },
       animation: {

@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
-    <div className="flex-1 w-full flex md:bg-herobg bg-cover bg-top">
+    <div className="flex-1 h-full min-h-[calc(100vh-64px)] w-full flex flex-col bg-herobg bg-cover lg:bg-top">
       <motion.div
-        className="flex-1 mx-auto max-w-[70%] flex justify-between gap-4 items-center"
+        className="flex-1 md:mx-auto px-8 md:px-12 xl:max-w-[80%] w-full text-center lg:text-left flex justify-between gap-4 items-center"
         variants={{
           hidden: { opacity: 0, scale: 0.95 },
           visible: { opacity: 1, scale: 1 },
@@ -17,10 +17,10 @@ export const Hero = () => {
         animate="visible"
         transition={{ duration: 0.3, delay: 0.25 }}
       >
-        <div className="flex-[4] font-Outfit mx-auto flex justify-center flex-col gap-3">
+        <div className="flex-[4] font-Outfit mx-auto flex justify-center items-center lg:items-start flex-col gap-3">
           <div>
-            <h1 className="font-extrabold text-7xl">Movie Mate</h1>
-            <div className="flex gap-1 text-3xl font-semibold">
+            <h1 className="font-extrabold text-6xl xl:text-7xl">Movie Mate</h1>
+            <div className="flex gap-1 text-xl xl:text-3xl font-semibold">
               <h3 className="text-black/80">For all the</h3>
               <TypeAnimation
                 sequence={[
@@ -41,7 +41,7 @@ export const Hero = () => {
             </div>
           </div>
 
-          <p className="max-w-[56ch] font-[500] text-black/80">
+          <p className="max-w-[56ch] mx-auto lg:mx-0 z-[-10] font-Poppins font-[500] text-black/85">
             Welcome to Movie Mate! Join a vibrant community of movie lovers,
             connect with fellow cinephiles, plan cinema outings, and create
             unforgettable film memories together. Whether you&apos;re looking
@@ -52,15 +52,16 @@ export const Hero = () => {
           <motion.div
             whileTap={{ scale: 0.99, rotate: "-0.5deg" }}
             whileHover={{ scale: 1.01 }}
+            className="mt-3 z-[-1]"
           >
             <Link to="/signup">
-              <Button className="max-w-fit mt-4 bg-steelBlue shadow-lg text-lg py-[1.3em] px-4 hover:bg-steelBlue active:bg-royalBlue">
+              <Button className="max-w-fit h-fit bg-steelBlue shadow-lg text-lg px-4 hover:bg-steelBlue active:bg-steelBlueDark focus:outline-none">
                 Get Started
               </Button>
             </Link>
           </motion.div>
         </div>
-        <div className="flex-[4] hidden md:inline">
+        <div className="flex-[4] hidden z-[-10] lg:inline">
           <img
             src={heroimg}
             className="w-full scale-110"
