@@ -4,7 +4,7 @@ import { MdMenu } from "react-icons/md";
 import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useAtomValue } from "jotai";
-import ThemeToggler from "../ui/themeToggler";
+import ThemeToggler from "../ui/ThemeToggler";
 import { Logout } from "../Auth/Logout";
 import { FaHome } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
