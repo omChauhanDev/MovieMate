@@ -7,6 +7,9 @@ import { sendOtp, signup } from "@/utils/HandleAuth";
 import { useNavigate } from "react-router-dom";
 import { isLoggedInAtom } from "@/store/atoms";
 import { useAtomValue } from "jotai";
+import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa";
+
 export const Signup = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -18,6 +21,7 @@ export const Signup = () => {
   const [otp, setOtp] = useState("");
   const [otpMatched, setOtpMatched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const passwordRegex = /^\S{6,}$/;
   const isLoggedIn = useAtomValue(isLoggedInAtom);
   useEffect(() => {
@@ -192,22 +196,33 @@ export const Signup = () => {
               placeholder="Email Address"
               className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
             />
-            <motion.input
-              {...register("password")}
-              type="password"
-              placeholder="Password"
-              required
+            <motion.div
               variants={animationVariants}
               initial="initial"
               animate="animate"
               transition={(animationVariants.transition, { delay: 1.2 })}
-              disabled={otpSent}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setErrorMessage("");
-              }}
-              className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
-            />
+              className="relative"
+            >
+              <motion.input
+                {...register("password")}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+                disabled={otpSent}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setErrorMessage("");
+                }}
+                className="p-2 w-full rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
+              />
+              <i
+                className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </i>
+            </motion.div>
+
             <motion.input
               type="password"
               placeholder="Confirm Password"

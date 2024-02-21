@@ -7,6 +7,8 @@ import { isLoggedInAtom, resetLoginAtom, userAtom } from "@/store/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/utils/HandleAuth";
 import { getUserDetails } from "@/actions/userActions";
+import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa";
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -15,6 +17,7 @@ export const Login = () => {
   const isLoggedIn = useAtomValue(isLoggedInAtom);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [, resetLogin] = useAtom(resetLoginAtom);
 
   useEffect(() => {
@@ -101,17 +104,28 @@ export const Login = () => {
               placeholder="Email Address"
               className="p-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:border-blue-500"
             />
-            <motion.input
-              {...register("password")}
-              type="password"
-              required
+            <motion.div
               variants={animationVariants}
               initial="initial"
               animate="animate"
               transition={(animationVariants.transition, { delay: 0.8 })}
-              placeholder="Password"
-              className="p-2 rounded-lg border w-full border-gray-300 bg-white focus:outline-none focus:border-blue-500"
-            />
+              className="relative"
+            >
+              <input
+                {...register("password")}
+                type={showPassword ? "text" : "password"}
+                required
+                placeholder="Password"
+                className="p-2 rounded-lg border w-full border-gray-300 bg-white focus:outline-none focus:border-blue-500"
+              />
+              <i
+                className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </i>
+            </motion.div>
+
             <p className="text-red-500 font-[500]">{errorMessage}</p>
             <motion.div
               variants={animationVariants}
