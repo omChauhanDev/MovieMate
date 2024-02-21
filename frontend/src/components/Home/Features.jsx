@@ -67,7 +67,7 @@ export const Features = () => {
       </div>
 
       <div className="w-full h-full bg-gray-100 py-4 lg:py-0 lg:-mt-24">
-        <div className="max-w-[75%] mx-auto flex flex-col lg:flex-row justify-center lg:gap-6">
+        <div className="max-w-[75%] mx-auto flex flex-col lg:flex-row justify-center items-center lg:gap-6">
           <motion.div
             variants={animationVariants}
             initial="hidden"
