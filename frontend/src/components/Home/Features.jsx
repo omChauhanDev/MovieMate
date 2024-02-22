@@ -1,6 +1,5 @@
 import features from "../../assets/home/features.svg";
 import homeTheatre from "../../assets/home/home-theatre.svg";
-import featuresUnderline from "../../assets/home/featuresUnderline.svg";
 import driveIn from "../../assets/home/drive-in.svg";
 import { motion } from "framer-motion";
 
@@ -26,7 +25,7 @@ export const Features = () => {
         Together!
       </motion.h1>
       <div className="relative"></div>
-      <div className="flex justify-center items-end mx-auto overflow-hidden lg:max-w-[80%] w-full">
+      <div className="flex justify-center items-end mx-auto overflow-hidden lg:max-w-[100vw] w-full">
         <motion.img
           src={homeTheatre}
           alt="home theatres"
