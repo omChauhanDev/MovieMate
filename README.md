@@ -12,4 +12,4 @@ To get started with Movie Mate, follow these steps:
 
 ## Feedback
 
-We value your feedback! If you have any questions, suggestions, or concerns, please don't hesitate to reach out to us. You can contact us through GitHub or email us at [contact@moviemate.com](mailto:contact@moviemate.com).
+We value your feedback! If you have any questions, suggestions, or concerns, please don't hesitate to reach out to us. You can contact us through GitHub or email us at [moviemate.web@gmail.com](mailto:moviemate.web@gmail.com).
