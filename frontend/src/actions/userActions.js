@@ -82,3 +82,20 @@ export const deleteUser = async (setUser) => {
     };
   }
 };
+
+export const sendContactUsEmail = async (email, subject, message) => {
+  try {
+    const response = await axios.post(`${baseUrl}/contact`, {
+      email,
+      subject,
+      message,
+    });
+    return response;
+  } catch (error) {
+    console.error("Error occoured while sending OTP", error);
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};

@@ -3,6 +3,7 @@ import { Footer } from "./Footer";
 import { Hero } from "./Hero";
 import { Navigation } from "./Navigation";
 import { Faq } from "./FAQ";
+import { Contact } from "./Contact";
 
 export const Home = () => {
   return (
@@ -11,6 +12,7 @@ export const Home = () => {
       <Hero />
       <Features />
       <Faq />
+      <Contact />
       <Footer />
     </div>
   );

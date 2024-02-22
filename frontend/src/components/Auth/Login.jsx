@@ -41,7 +41,7 @@ export const Login = () => {
             fontWeight: "bold",
           },
         });
-        await setLoading(false);
+        setLoading(false);
         navigate("/dashboard");
       }
     } catch (error) {

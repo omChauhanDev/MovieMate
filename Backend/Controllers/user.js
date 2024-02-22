@@ -104,7 +104,7 @@ exports.sendOTP = async (req, res) => {
     }
 
     const info = await transporter.sendMail({
-      from: '"Movie Mate 🎬" <taskpilot.app@gmail.com>',
+      from: '"Movie Mate 🎬" <moviemate.web@gmail.com>',
       to: `${email}`,
       subject: subject,
       html: htmlContent,
@@ -265,4 +265,28 @@ exports.deleteUser = (req, res) => {
       .status(200)
       .json({ success: true, message: "User deleted successfully" });
   });
+};
+
+exports.contactUs = async (req, res) => {
+  try {
+    const { email, subject, message } = req.body;
+
+    const info = await transporter.sendMail({
+      from: email,
+      to: `moviemate.web@gmail.com`,
+      subject: subject,
+      html: `<p>This message was received from ${email}</p> <br> ${message}`,
+    });
+
+    return res.json({
+      success: true,
+      message: "Message sent successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 };

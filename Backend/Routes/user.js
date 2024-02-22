@@ -9,9 +9,11 @@ const {
   deleteUser,
   getDetails,
   forgotPassword,
+  contactUs,
 } = require("../Controllers/user");
 router.get("/details", auth, getDetails);
 router.post("/otp", sendOTP);
+router.post("/contact", contactUs);
 router.post("/signup", signup);
 router.post("/login", login);
 router.put("/update", auth, updateUser);
