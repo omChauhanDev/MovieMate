@@ -55,7 +55,7 @@ export const Hero = () => {
           <motion.div
             whileTap={{ scale: 0.99, rotate: "-0.5deg" }}
             whileHover={{ scale: 1.01 }}
-            className="mt-3 z-[-1]"
+            className="mt-3"
           >
             <Link to="/signup">
               <Button className="max-w-fit h-fit bg-steelBlue shadow-lg text-lg px-4 hover:bg-steelBlue active:bg-steelBlueDark focus:outline-none">

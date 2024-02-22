@@ -1,5 +1,6 @@
 import features from "../../assets/home/features.svg";
 import homeTheatre from "../../assets/home/home-theatre.svg";
+import featuresUnderline from "../../assets/home/featuresUnderline.svg";
 import driveIn from "../../assets/home/drive-in.svg";
 import { motion } from "framer-motion";
 
@@ -10,20 +11,21 @@ export const Features = () => {
   };
 
   return (
-    <div className="bg-featuresBg bg-cover bg-no-repeat h-fit flex flex-col relative items-center">
+    <div className="h-fit bg-featuresBg bg-seaSalt flex flex-col relative items-center">
       <motion.h1
         variants={animationVariants}
         initial="hidden"
-        animate={animationVariants}
         whileInView="visible"
         transition={
           ({ transition: 2, type: "spring", stiffness: 100 }, { delay: 0.2 })
         }
         viewport={{ once: true }}
-        className="text-2xl px-3 lg:text-5xl mt-12 lg:mt-24 font-bold tracking-wide text-white max-w-[35ch] font-Outfit text-center"
+        className="text-2xl px-3 lg:text-5xl mt-24 font-bold tracking-wide font-Poppins text-center text-black/90"
       >
-        Your Ticket to Friendship: Movie Mate, Your Ultimate Companion App!
+        Two Tickets, One Friendship <br /> Movie Mate, Where Movies Are Better
+        Together!
       </motion.h1>
+      <div className="relative"></div>
       <div className="flex justify-center items-end mx-auto overflow-hidden lg:max-w-[80%] w-full">
         <motion.img
           src={homeTheatre}
@@ -54,9 +56,11 @@ export const Features = () => {
         <motion.img
           src={driveIn}
           alt="drive in"
-          variants={animationVariants}
+          variants={{
+            hidden: { opacity: 0, x: +80 },
+            visible: { opacity: 1, x: 0 },
+          }}
           initial="hidden"
-          animate={animationVariants}
           whileInView="visible"
           transition={
             ({ transition: 2, type: "spring", stiffness: 100 }, { delay: 0.5 })
@@ -66,7 +70,7 @@ export const Features = () => {
         />
       </div>
 
-      <div className="w-full h-full bg-gray-100 py-4 lg:py-0 lg:-mt-24">
+      <div className="w-full h-full bg-white py-4 lg:py-0 lg:-mt-24">
         <div className="max-w-[75%] mx-auto flex flex-col lg:flex-row justify-center items-center lg:gap-6">
           <motion.div
             variants={animationVariants}
