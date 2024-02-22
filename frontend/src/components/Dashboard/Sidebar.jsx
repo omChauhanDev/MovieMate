@@ -10,7 +10,7 @@ import { FaHome } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
 import { BiSolidMoviePlay } from "react-icons/bi";
-import { FaGear } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa";
 export const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const isDark = useAtomValue(isDarkAtom);
@@ -35,7 +35,7 @@ export const Sidebar = () => {
         </i>
       </button>
       <div
-        className={`xl:min-h-[calc(100vh-64px)] h-full md:w-[22rem] w-screen pt-16 xl:pt-8 absolute xl:static z-[100] justify-between flex flex-col items-center transition-transform duration-300 transform ${
+        className={`min-h-[calc(100vh-64px)] md:w-[22rem] w-screen pt-16 xl:pt-8 absolute xl:static z-[100] justify-between flex flex-col items-center transition-transform duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } ${
           isDark
@@ -44,12 +44,15 @@ export const Sidebar = () => {
         } border-r xl:translate-x-0`}
       >
         <div className="w-[95%] flex flex-col gap-6 justify-center">
-          <Link to={"/"} className="text-3xl mx-auto font-Outfit font-black">
+          <Link
+            to={"/dashboard"}
+            className="text-3xl mx-auto font-Outfit font-black"
+          >
             Movie <span className="text-steelBlue">Mate</span> 🎥
           </Link>
           <div className="flex items-start flex-col gap-2 w-[90%] text-lg">
             <Link
-              to="/dashboard/home"
+              to="/dashboard/"
               className={buttonTheme}
               onClick={toggleSidebar}
             >
@@ -69,17 +72,14 @@ export const Sidebar = () => {
 
         <div className="flex flex-col mx-auto h-fit w-[95%] mb-4 items-center">
           <Link
-            to="/dashboard/account-settings"
+            to="/dashboard/edit-profile"
             className={buttonTheme}
             onClick={toggleSidebar}
           >
-            <FaGear /> Account Settings
+            <FaUser /> Your Profile
           </Link>
           <div className=" w-full flex items-start justify-start">
             <ThemeToggler />
-          </div>
-          <div className="w-full" onClick={toggleSidebar}>
-            <Logout />
           </div>
         </div>
       </div>

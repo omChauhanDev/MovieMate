@@ -12,7 +12,6 @@ import {
 import { toast } from "react-hot-toast";
 import { isDarkAtom, resetLoginAtom } from "@/store/atoms";
 import { useAtom, useAtomValue } from "jotai";
-import { IoLogOut } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 export const Logout = () => {
   const navigate = useNavigate();
@@ -36,13 +35,9 @@ export const Logout = () => {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <button
-            className={`px-4 flex w-full items-center gap-3 py-2 text-left rounded-lg transition-colors ${
-              isDark
-                ? "hover:bg-red-300/20 rounded-lg transition-colors"
-                : "hover:bg-red-500/20"
-            }`}
+            className={`px-2 flex w-full items-center gap-3 text-sm font-medium py-1.5 hover:text-red-500 text-left rounded-lg transition-colors`}
           >
-            <IoLogOut /> Logout
+            Logout
           </button>
         </AlertDialogTrigger>
         <AlertDialogContent

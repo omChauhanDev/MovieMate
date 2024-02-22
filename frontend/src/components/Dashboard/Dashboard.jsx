@@ -1,4 +1,3 @@
-import { EditProfile } from "../Profile/EditProfile";
 import { Home } from "./Home";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
@@ -25,16 +24,19 @@ export const Dashboard = () => {
     <div
       className={`${
         isDark ? "bg-black text-white" : "bg-white"
-      } flex-1 flex-col min-h-screen h-full flex relative`}
+      } flex-col flex w-full  min-h-screen h-full relative overflow-hidden `}
     >
       <Navbar />
-      <div className="flex flex-1">
+      <div className="flex w-full h-full">
         <Sidebar />
-        <div className="flex-1 flex flex-col relative">
-          <div className="flex-1 flex">
+        <div className="flex flex-col bg-black w-full h-full relative overflow-auto">
+          <div className="flex w-full h-full">
             <Routes>
               <Route index element={<Home />} />
-              <Route path="/account-settings" element={<AccountSettings />} />
+              <Route
+                path="/dashboard/account-settings"
+                element={<AccountSettings />}
+              />
               <Route path="/account-settings" element={<AccountSettings />} />
               <Route path="*" element={<Navigate to="/not-found" replace />} />
             </Routes>
