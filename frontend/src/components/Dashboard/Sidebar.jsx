@@ -116,7 +116,7 @@ export const Sidebar = () => {
         </i>
       </button>
       <div
-        className={`min-h-[calc(100vh-64px)] md:w-[22rem] w-screen pt-16 xl:pt-8 absolute xl:static z-[49] justify-between flex flex-col items-center transition-transform duration-300 transform ${
+        className={`min-h-[calc(100vh-64px)] md:w-[22rem] w-[101vw] pt-16 xl:pt-8 absolute xl:static z-[49] justify-between flex flex-col items-center transition-transform duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } ${
           isDark
