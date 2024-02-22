@@ -2,7 +2,12 @@ import { sendContactUsEmail } from "@/actions/userActions";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";
 export const Contact = () => {
+  const animationVariants = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0 },
+  };
   const { register, handleSubmit } = useForm();
 
   const [loading, setLoading] = useState(false);
@@ -34,14 +39,45 @@ export const Contact = () => {
     <div>
       <section className="bg-white">
         <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900">
+          <motion.h2
+            variants={animationVariants}
+            initial="hidden"
+            whileInView="visible"
+            transition={
+              ({ transition: 2, type: "spring", stiffness: 100 },
+              { delay: 0.25 })
+            }
+            viewport={{ once: true }}
+            className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900"
+          >
             Contact Us
-          </h2>
-          <p className="mb-8 lg:mb-16 font-[400] text-center text-gray-500 sm:text-xl">
+          </motion.h2>
+          <motion.p
+            variants={animationVariants}
+            initial="hidden"
+            whileInView="visible"
+            transition={
+              ({ transition: 2, type: "spring", stiffness: 100 },
+              { delay: 0.4 })
+            }
+            viewport={{ once: true }}
+            className="mb-8 lg:mb-16 font-[400] text-center text-gray-500 sm:text-xl"
+          >
             Still have any questions for us? Want to give us some feedback? Wish
             to raise any complaints? Let us know.
-          </p>
-          <form onSubmit={handleSubmit(submitHandler)} className="space-y-8">
+          </motion.p>
+          <motion.form
+            variants={animationVariants}
+            initial="hidden"
+            whileInView="visible"
+            transition={
+              ({ transition: 2, type: "spring", stiffness: 100 },
+              { delay: 0.55 })
+            }
+            viewport={{ once: true }}
+            onSubmit={handleSubmit(submitHandler)}
+            className="space-y-8"
+          >
             <div>
               <label
                 htmlFor="email"
@@ -118,7 +154,7 @@ export const Contact = () => {
                 Send message
               </button>
             )}
-          </form>
+          </motion.form>
         </div>
       </section>
     </div>

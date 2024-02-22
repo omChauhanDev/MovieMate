@@ -4,15 +4,38 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion } from "framer-motion";
 export const Faq = () => {
+  const animationVariants = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0 },
+  };
   return (
     <div className="w-full py-8 lg:py-0 bg-seaSalt">
       <div className="w-[90%] lg:w-[70%] mx-auto lg:flex-row flex-col flex">
-        <div className="font-bold flex-[2] py-4 flex justify-center items-center">
+        <motion.div
+          variants={animationVariants}
+          initial="hidden"
+          whileInView="visible"
+          transition={
+            ({ transition: 2, type: "spring", stiffness: 100 }, { delay: 0.25 })
+          }
+          viewport={{ once: true }}
+          className="font-bold flex-[2] py-4 flex justify-center items-center"
+        >
           <h1 className="font-Poppins text-2xl">What is Movie Mate, again?</h1>
-        </div>
+        </motion.div>
 
-        <div className="flex-[2] py-5">
+        <motion.div
+          variants={animationVariants}
+          initial="hidden"
+          whileInView="visible"
+          transition={
+            ({ transition: 2, type: "spring", stiffness: 100 }, { delay: 0.4 })
+          }
+          viewport={{ once: true }}
+          className="flex-[2] py-5"
+        >
           <Accordion
             type="single"
             collapsible
@@ -73,7 +96,7 @@ export const Faq = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
