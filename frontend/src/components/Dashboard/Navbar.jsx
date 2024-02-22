@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import { isDarkAtom, userAtom } from "@/store/atoms";
 import { useAtomValue } from "jotai";
 import { FaBell } from "react-icons/fa";
-import { MdMenu } from "react-icons/md";
-import { MdOutlineClose } from "react-icons/md";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,16 +18,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logout } from "../Auth/Logout";
 import { toast } from "react-hot-toast";
-import { useState } from "react";
-import { Sidebar } from "./Sidebar";
 
 export const Navbar = () => {
   const isDark = useAtomValue(isDarkAtom);
   const user = useAtomValue(userAtom);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+
   const clipboardHandler = () => {
     const text =
       "I wanted to share a discovery with you. Movie Mate, an excellent app for finding movie buddies. It's free and quite enjoyable! Here is the link to their website : https://moviemate-web.vercel.app/ ";
@@ -48,7 +41,7 @@ export const Navbar = () => {
   };
   return (
     <nav
-      className={`w-full h-[64px] z-[5] border-b font-Outfit xl:flex ${
+      className={`w-full min-h-[64px] z-[1] border-b font-Outfit xl:flex ${
         isDark ? "bg-black border-white/30" : "bg-white border-black/20"
       } items-center`}
     >

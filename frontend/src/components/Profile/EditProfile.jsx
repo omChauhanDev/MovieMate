@@ -101,7 +101,7 @@ export const EditProfile = () => {
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.4, delay: 0.15 }}
-      className={`flex-1 flex justify-center select-none static transition-colors duration-300 pt-8 px-8 lg:px-16`}
+      className={`flex-1 flex justify-center select-none static transition-colors duration-300 pt-6 pb-12 px-8 lg:px-16`}
     >
       <div className="w-full md:w-[60%] 2xl:w-[40%]">
         <h1 className="mb-6 font-bold text-3xl font-Poppins">Edit Profile</h1>

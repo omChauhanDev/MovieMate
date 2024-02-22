@@ -24,13 +24,13 @@ export const Dashboard = () => {
     <div
       className={`${
         isDark ? "bg-black text-white" : "bg-white"
-      } flex-col flex w-full  min-h-screen h-full relative overflow-hidden `}
+      } flex-col flex w-full h-screen overflow-hidden relative`}
     >
       <Navbar />
-      <div className="flex w-full h-full">
+      <div className="flex w-full h-full overflow-hidden">
         <Sidebar />
-        <div className="flex flex-col bg-black w-full h-full relative overflow-auto">
-          <div className="flex w-full h-full">
+        <div className="flex flex-col w-full h-full relative">
+          <div className="flex w-full overflow-auto">
             <Routes>
               <Route index element={<Home />} />
               <Route

@@ -4,7 +4,7 @@ import { DeleteAccount } from "./DeleteAccount";
 
 export const AccountSettings = () => {
   return (
-    <div className="flex-1 pt-16 md:pt-8 pb-6 w-full">
+    <div className="flex-1 py-8 md:pt-8 pb-6 w-full">
       <Tabs
         defaultValue="edit-details"
         className="flex flex-col pt-2 justify-center items-center"
