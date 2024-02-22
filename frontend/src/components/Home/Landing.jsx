@@ -2,7 +2,7 @@ import { Features } from "./Features";
 import { Footer } from "./Footer";
 import { Hero } from "./Hero";
 import { Navigation } from "./Navigation";
-import { Faq } from "./FAQ";
+import { Faq } from "./Faq";
 import { Contact } from "./Contact";
 
 export const Home = () => {
