@@ -15,6 +15,7 @@ export const ProfileHeader = () => {
 
   const [createdAt, setCreatedAt] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
+  const [bio, setBio] = useState("");
   const [location, setLocation] = useState(null);
   const [friendsCount, setFriendsCount] = useState(null);
 
@@ -39,6 +40,7 @@ export const ProfileHeader = () => {
       const monthName = months[date.getMonth()];
       const year = date.getFullYear();
       const formattedDate = `${monthName} ${year}`;
+      const bio = user.bio;
       const location = user.location
         ? `${user.location.city}, ${user.location.country}`
         : null;
@@ -49,6 +51,7 @@ export const ProfileHeader = () => {
       setCreatedAt(user.createdAt);
       setFormattedDate(formattedDate);
       setLocation(location);
+      setBio(bio);
       setFriendsCount(friendsCount);
     }
   }, [user]);
@@ -83,7 +86,7 @@ export const ProfileHeader = () => {
         <div className="mx-10 flex justify-between font-Poppins">
           <div className="py-4">
             <h1 className="font-bold text-2xl">{user.fullName}</h1>
-            <p className="my-1 max-w-[80ch] ">{user.bio}</p>
+            <p className="my-1 max-w-[80ch] ">{bio}</p>
             <div className="flex flex-wrap gap-5 mt-4 items-center opacity-80">
               <h1 className="flex items-center gap-2">
                 <IoCalendarOutline className="size-5" />

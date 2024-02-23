@@ -15,16 +15,29 @@ import { isDarkAtom, userAtom } from "@/store/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import { MdEdit } from "react-icons/md";
 import TextareaAutosize from "react-textarea-autosize";
+import { updateUserDetails } from "@/actions/userActions";
+import { toast } from "react-hot-toast";
 export const UpdationModal = () => {
   const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit } = useForm();
   // const [newHeader, setNewHeader] = useState(user.)
   const isDark = useAtomValue(isDarkAtom);
-  const onSubmit = (data) => {
-    const updatedUser = user;
-    updatedUser.bio = data.bio;
-    console.log(updatedUser);
-    setUser(updatedUser);
+  const onSubmit = async (data) => {
+    const response = await updateUserDetails(data, setUser);
+    console.log(response);
+    if (response.success) {
+      toast.success("Profile updated successfully!", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    } else {
+      toast.error("There was an error while updating", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    }
   };
   console.log(user);
   return (
