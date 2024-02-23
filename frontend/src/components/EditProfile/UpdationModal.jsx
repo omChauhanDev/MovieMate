@@ -22,9 +22,11 @@ export const UpdationModal = () => {
   const { register, handleSubmit } = useForm();
   // const [newHeader, setNewHeader] = useState(user.)
   const isDark = useAtomValue(isDarkAtom);
+
   const onSubmit = async (data) => {
+    console.log(data);
     const response = await updateUserDetails(data, setUser);
-    console.log(response);
+    // console.log(response);
     if (response.success) {
       toast.success("Profile updated successfully!", {
         style: {
@@ -39,7 +41,7 @@ export const UpdationModal = () => {
       });
     }
   };
-  console.log(user);
+
   return (
     <div>
       <AlertDialog>
@@ -53,8 +55,8 @@ export const UpdationModal = () => {
             isDark ? "bg-black text-white " : ""
           } `}
         >
-          <AlertDialogHeader className="p-0 m-0 gap-0">
-            <AlertDialogTitle className="font-bold">
+          <AlertDialogHeader className="p-0 mb-1 gap-0">
+            <AlertDialogTitle className="font-bold text-xl text-left">
               Edit Profile
             </AlertDialogTitle>
           </AlertDialogHeader>
@@ -71,8 +73,9 @@ export const UpdationModal = () => {
                   <MdEdit size={28} />
                   <input
                     type="file"
+                    {...register("headerImage")}
                     accept=".png, .jpg, .jpeg .heic"
-                    className="w-full cursor-pointer h-full opacity-0 bg-green-900 absolute"
+                    className="w-full cursor-pointer h-full opacity-0 absolute"
                   />
                 </div>
               </div>
@@ -87,7 +90,8 @@ export const UpdationModal = () => {
                   <input
                     type="file"
                     accept=".png, .jpg, .jpeg"
-                    className="w-full cursor-pointer h-full opacity-0 rounded-full bg-green-900 absolute"
+                    {...register("profileImage")}
+                    className="w-full cursor-pointer h-full opacity-0 rounded-full absolute"
                   />
                 </div>
               </div>
@@ -103,8 +107,8 @@ export const UpdationModal = () => {
                   isDark ? "bg-gray-800/50 text-white" : "bg-gray-50"
                 } w-full resize-none min-h-[2.5rem] h-auto text-wrap mb-6 py-3 px-3 text-black border border-gray-400/60 rounded-lg`}
               />
-              <div className="flex gap-2 w-full justify-end">
-                <AlertDialogCancel className="text-black hover:bg-gray-200">
+              <div className="flex items-center gap-2 w-full justify-end">
+                <AlertDialogCancel className="text-black m-0 hover:bg-gray-200">
                   Cancel
                 </AlertDialogCancel>
                 <AlertDialogAction

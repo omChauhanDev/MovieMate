@@ -48,7 +48,7 @@ exports.imageUpload = async (req, res) => {
             success:true,
             url:response.secure_url,
             userFiles: user.files,
-            message:'Image Uploaded Successfully',
+            message:'Image Uploaded Successfully', 
         })
 
     } catch (error) {

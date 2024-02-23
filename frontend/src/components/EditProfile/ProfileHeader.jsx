@@ -75,16 +75,15 @@ export const ProfileHeader = () => {
         <img
           src="https://i.scdn.co/image/ab67616100005174a11b2a6b38822c822f2fdf40"
           content="center"
-          style={{ width: "20%", height: "auto" }}
-          className="bg-gray-500 rounded-full outline outline-2 aspect-square object-cover object-center outline-gray-100 max-w-48 -bottom-20 left-8 absolute "
+          className="min-w-[6rem] w-[35%] h-auto bg-gray-500 rounded-full outline outline-2 aspect-square object-cover object-center outline-gray-100 max-w-48  md:w-[20%] -bottom-16 sm:-bottom-20 left-4 sm:left-8 absolute "
         ></img>
       </div>
       <div className="w-full pb-4 border-b-gray-300/60 shadow-sm border-b realtive">
         <div className="w-full flex py-6 px-8 justify-end">
           <UpdationModal />
         </div>
-        <div className="mx-10 flex justify-between font-Poppins">
-          <div className="py-4">
+        <div className="mx-4 sm:mx-10 flex justify-between font-Poppins">
+          <div className="py-2 sm:py-4">
             <h1 className="font-bold text-2xl">{user.fullName}</h1>
             <p className="my-1 max-w-[80ch] ">{bio}</p>
             <div className="flex flex-wrap gap-5 mt-4 items-center opacity-80">

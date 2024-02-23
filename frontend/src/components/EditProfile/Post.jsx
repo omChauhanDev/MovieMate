@@ -8,7 +8,7 @@ export const Post = ({ imageLink, caption }) => {
     setShowPopup(!showPopup);
   };
   return (
-    <div className={`w-[300px] h-[300px] mx-auto cursor-pointer relative`}>
+    <div className={`flex-1 mx-auto cursor-pointer relative`}>
       <div className="relative" onClick={togglePopup}>
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-0 hover:opacity-20"></div>
         <img

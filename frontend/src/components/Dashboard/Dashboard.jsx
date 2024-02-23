@@ -14,12 +14,12 @@ export const Dashboard = () => {
   const navigate = useNavigate();
   const isLoggedIn = useAtomValue(isLoggedInAtom);
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate("/login");
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoggedIn]);
 
   return (
     <div
