@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { EditProfile } from "./EditProfile";
+import { UpdateDetails } from "./UpdateDetails";
 import { DeleteAccount } from "./DeleteAccount";
 
 export const AccountSettings = () => {
@@ -18,7 +18,7 @@ export const AccountSettings = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="edit-details" className="w-full">
-          <EditProfile />
+          <UpdateDetails />
         </TabsContent>
         <TabsContent value="danger-zone" className="w-[90%] md:w-[40%]">
           <DeleteAccount />

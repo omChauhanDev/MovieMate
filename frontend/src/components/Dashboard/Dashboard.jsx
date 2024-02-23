@@ -7,7 +7,8 @@ import { useAtomValue } from "jotai";
 import { isLoggedInAtom } from "@/store/atoms";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AccountSettings } from "../Profile/AccountSettings";
+import { AccountSettings } from "../AccountSettings/AccountSettings";
+import { EditProfile } from "../EditProfile/EditProfile";
 export const Dashboard = () => {
   const isDark = useAtomValue(isDarkAtom);
   const navigate = useNavigate();
@@ -30,13 +31,10 @@ export const Dashboard = () => {
       <div className="flex w-full h-full overflow-hidden">
         <Sidebar />
         <div className="flex flex-col w-full h-full relative">
-          <div className="flex w-full overflow-auto">
+          <div className="flex w-full h-full overflow-auto">
             <Routes>
               <Route index element={<Home />} />
-              <Route
-                path="/dashboard/account-settings"
-                element={<AccountSettings />}
-              />
+              <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/account-settings" element={<AccountSettings />} />
               <Route path="*" element={<Navigate to="/not-found" replace />} />
             </Routes>

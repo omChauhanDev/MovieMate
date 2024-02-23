@@ -14,7 +14,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-export const EditProfile = () => {
+export const UpdateDetails = () => {
   const [user, setUser] = useAtom(userAtom);
   const [loading, setLoading] = useState(false);
   const isDark = useAtomValue(isDarkAtom);

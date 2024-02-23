@@ -66,7 +66,7 @@ export const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src="https://i.scdn.co/image/ab67616100005174a11b2a6b38822c822f2fdf40" />
                   <AvatarFallback>User</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
