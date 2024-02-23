@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../Middleware/auth");
+
 const {
     sendFriendReq,
     cancelFriendReq,
@@ -11,16 +11,16 @@ const {
 } = require("../Controllers/friendship");
 
 // Create
-router.post("/sendFriendRequest", auth, sendFriendReq);
+router.post("/sendFriendRequest", sendFriendReq);
 
 // Read
-router.get("/getAllFriends", auth, getAllFriends);
+router.get("/getAllFriends", getAllFriends);
 
 // Update
-router.post("/acceptFriendRequest", auth, acceptFriendReq);
-router.post("/rejectFriendRequest", auth, rejectFriendReq);
+router.post("/acceptFriendRequest", acceptFriendReq);
+router.post("/rejectFriendRequest", rejectFriendReq);
 
 // Delete
-router.delete("/removeFriend", auth, removeFriend);
-router.delete("/cancelFriendRequest", auth, cancelFriendReq,);
+router.delete("/removeFriend", removeFriend);
+router.delete("/cancelFriendRequest", cancelFriendReq,);
 module.exports = router;
