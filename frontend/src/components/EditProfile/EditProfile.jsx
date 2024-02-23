@@ -6,7 +6,7 @@ export const EditProfile = () => {
   const user = useAtomValue(userAtom);
 
   return (
-    <div className="w-full h-full">
+    <div className="flex-1 h-full overflow-y-auto">
       <ProfileHeader />
       <Photos />
     </div>
