@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const { app } = require("./Config/socket");
+const { server } = require("./Config/socket");
 require("dotenv").config();
 const dbConnect = require("./Config/dbconnect");
 const apiv1Router = require("./Routes/index");
@@ -13,5 +14,5 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "The backend is up and running" });
 });
 // app.use(errorCatching);
-app.listen(PORT, () => console.log(`Backend is running @${PORT}`));
+server.listen(PORT, () => console.log(`Backend is running @${PORT}`));
 dbConnect();
