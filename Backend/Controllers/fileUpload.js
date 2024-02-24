@@ -22,7 +22,6 @@ const uploadFileToCloudinary = async (file, folder) => {
 exports.imageUpload = async (req, res) => {
   try {
     // Data Fetch
-    console.log("Request is: ", req);
     const userId = req.userId;
     const { tag } = req.body;
     const file = req.files["file"];
@@ -32,14 +31,24 @@ exports.imageUpload = async (req, res) => {
     const fileType = file.name.split(".")[1].toLowerCase();
 
     if (!isSupportedFile(fileType, supportedTypes)) {
-      res.status(415).json({
+      return res.status(415).json({
         success: false,
         message: "Unsupported Media Type",
       });
     }
 
-    const user = await User.findById(userId).populate("files");
+    // Fetch the user document
+    let user = await User.findById(userId).populate("files");
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
     const userFiles = user.files;
+
+    // Remove existing file if tag is "profile" or "header"
     if (tag == "profile" || tag == "header") {
       const existingFile = userFiles.find((obj) => obj.tag === tag);
       if (existingFile) {
@@ -47,23 +56,39 @@ exports.imageUpload = async (req, res) => {
           const publicId = extractPublicId(existingFile.url);
           await cloudinary.uploader.destroy(publicId);
           await File.deleteOne({ _id: existingFile._id });
+          // Remove the deleted file from user's files array
+          user = await User.findByIdAndUpdate(
+            userId,
+            { $pull: { files: existingFile._id } },
+            { new: true }
+          );
         } catch (error) {
           console.error("Error deleting existing file:", error);
+          return res.status(500).json({
+            success: false,
+            message: "Error deleting existing file",
+          });
         }
       }
     }
+
+    // Upload new file to Cloudinary
     console.log("Uploading to Cloudinary");
     const response = await uploadFileToCloudinary(file, "Images");
     console.log(response);
 
+    // Create new file document
     const fileData = await File.create({
       user: userId,
       tag,
       url: response.secure_url,
     });
 
-    user.files.push(fileData._id);
+    user.files.push(fileData);
     await user.save();
+
+    // Fetch updated user details
+    user = await User.findById(userId).populate("files");
 
     res.json({
       success: true,
@@ -72,10 +97,10 @@ exports.imageUpload = async (req, res) => {
       message: "Image Uploaded Successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error occurred while uploading image", error);
     res.status(500).json({
       success: false,
-      message: "Internal Server Error: While uploading image.",
+      message: "Internal Server Error",
     });
   }
 };

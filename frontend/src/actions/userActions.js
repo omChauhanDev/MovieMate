@@ -144,7 +144,6 @@ export const sendContactUsEmail = async (email, subject, message) => {
 export const imageUpload = async (tag, file, setUser) => {
   try {
     const token = localStorage.getItem("token");
-
     const formData = new FormData();
     formData.append("tag", tag);
     formData.append("file", file);

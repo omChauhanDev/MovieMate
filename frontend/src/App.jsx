@@ -6,8 +6,13 @@ import { Toaster } from "react-hot-toast";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { PageNotFound } from "./components/PageNotFound/PageNotFound";
+import { getUserDetails } from "./actions/userActions";
+import { userAtom } from "./store/atoms";
+import { useSetAtom } from "jotai";
 
 function App() {
+  const setUser = useSetAtom(userAtom);
+  getUserDetails(setUser);
   return (
     <div className="min-h-screen h-full flex flex-col">
       <Toaster />
