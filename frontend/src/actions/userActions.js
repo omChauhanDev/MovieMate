@@ -40,9 +40,10 @@ export const updateUserDetails = async (data, setUser) => {
       },
     });
     if (response.data.success) {
-      setUser(response.data.user);
+      getUserDetails(setUser);
       return {
         success: true,
+        
         message: "Profile updated successfully",
       };
     } else {
