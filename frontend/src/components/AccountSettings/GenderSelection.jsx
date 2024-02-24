@@ -31,15 +31,15 @@ export const GenderSelection = ({ setGender }) => {
       <div className="flex gap-4 h-10 w-full">
         <div
           className="flex flex-1 items-center ps-4 border border-gray-200 bg-gray-50 rounded-lg"
-          onClick={() => handleGenderSelection("Male")} // Update selected gender to Male
+          onClick={() => handleGenderSelection("male")} // Update selected gender to male
         >
           <input
             id="bordered-radio-1"
             type="radio"
-            value="Male"
+            value="male"
             name="bordered-radio"
-            checked={selectedGender === "Male"} // Check if selected gender is Male
-            onChange={() => handleGenderSelection("Male")} // Update selected gender on change
+            checked={selectedGender === "male"} // Check if selected gender is male
+            onChange={() => handleGenderSelection("male")} // Update selected gender on change
             className="w-4 h-4 text-steelBlue bg-gray-100 border-gray-300"
           />
           <label
@@ -51,15 +51,15 @@ export const GenderSelection = ({ setGender }) => {
         </div>
         <div
           className="flex flex-1 items-center ps-4 border bg-gray-50 border-gray-200 rounded-lg"
-          onClick={() => handleGenderSelection("Female")} // Update selected gender to Female
+          onClick={() => handleGenderSelection("female")} // Update selected gender to female
         >
           <input
             id="bordered-radio-2"
             type="radio"
-            value="Female"
+            value="female"
             name="bordered-radio"
-            checked={selectedGender === "Female"} // Check if selected gender is Female
-            onChange={() => handleGenderSelection("Female")} // Update selected gender on change
+            checked={selectedGender === "female"} // Check if selected gender is female
+            onChange={() => handleGenderSelection("female")} // Update selected gender on change
             className="w-4 h-4 text-steelBlue bg-gray-100 border-gray-300 focus"
           />
           <label

@@ -1,10 +1,10 @@
 import axios from "axios";
-const baseUrl = `${import.meta.env.VITE_BASEURL}/user`;
+const baseUrl = `${import.meta.env.VITE_BASEURL}`;
 
 export const getUserDetails = async (setUser) => {
   try {
     const token = localStorage.getItem("token");
-    const user = await axios.get(`${baseUrl}/details`, {
+    const user = await axios.get(`${baseUrl}/user/details`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -33,7 +33,7 @@ export const getUserDetails = async (setUser) => {
 export const updateUserDetails = async (data, setUser) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.put(`${baseUrl}/update`, data, {
+    const response = await axios.put(`${baseUrl}/user/update`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -63,7 +63,7 @@ export const updateUserDetails = async (data, setUser) => {
 export const deleteUser = async (setUser) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.delete(`${baseUrl}/delete`, {
+    const response = await axios.delete(`${baseUrl}/user/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -85,7 +85,7 @@ export const deleteUser = async (setUser) => {
 
 export const sendContactUsEmail = async (email, subject, message) => {
   try {
-    const response = await axios.post(`${baseUrl}/contact`, {
+    const response = await axios.post(`${baseUrl}/user/contact`, {
       email,
       subject,
       message,
@@ -93,6 +93,73 @@ export const sendContactUsEmail = async (email, subject, message) => {
     return response;
   } catch (error) {
     console.error("Error occoured while sending OTP", error);
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+// export const imageUpload = async (data) => {
+//   try {
+//     const response = await axios.post(`${baseUrl}/image`, {});
+//     return response;
+//   } catch (error) {
+//     console.error("Error occoured while sending OTP", error);
+//     return {
+//       success: false,
+//       message: error.message,
+//     };
+//   }
+// };
+
+// export const imageUpload = async (tag, file) => {
+//   try {
+//     const token = localStorage.getItem("token");
+//     console.log("imageupload call hua");
+//     console.log("tag:", tag);
+//     console.log("file:", file);
+//     const response = await axios.post(
+//       `${baseUrl}/upload/image`,
+//       { tag, file },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     return response;
+//   } catch (error) {
+//     console.error("Error occurred while uploading image", error);
+//     return {
+//       success: false,
+//       message: error.message,
+//     };
+//   }
+// };
+
+export const imageUpload = async (tag, file, setUser) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const formData = new FormData();
+    formData.append("tag", tag);
+    formData.append("file", file);
+
+    const response = await axios.post(`${baseUrl}/upload/image`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data", // Use multipart/form-data
+      },
+    });
+    console.log("Response in backend: ", response);
+    if (response.data.success) {
+      getUserDetails(setUser);
+    }
+    return response;
+  } catch (error) {
+    console.error("Error occurred while uploading image", error);
     return {
       success: false,
       message: error.message,

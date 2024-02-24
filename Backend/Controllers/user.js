@@ -11,12 +11,17 @@ const emailSchema = require("../Utils/User/emailSchema");
 const User = require("../Models/User");
 const transporter = require("../Config/NodeMailerTransporter");
 
-exports.getDetails = (req, res) => {
+exports.getDetails = async (req, res) => {
   try {
-    User.findOne({ _id: req.userId }).then((user) => {
-      user.password = "";
-      res.status(200).json({ success: true, user: user });
-    });
+    const user = await User.findOne({ _id: req.userId }).populate("files");
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    user.password = "";
+    res.status(200).json({ success: true, user: user });
   } catch (error) {
     console.error(error);
     return res.status(500).json({

@@ -15,19 +15,60 @@ import { isDarkAtom, userAtom } from "@/store/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import { MdEdit } from "react-icons/md";
 import TextareaAutosize from "react-textarea-autosize";
-import { updateUserDetails } from "@/actions/userActions";
+import { imageUpload, updateUserDetails } from "@/actions/userActions";
 import { toast } from "react-hot-toast";
 export const UpdationModal = () => {
   const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit } = useForm();
   // const [newHeader, setNewHeader] = useState(user.)
   const isDark = useAtomValue(isDarkAtom);
+  console.log(user);
+  const uploadImages = async (imageData) => {
+    try {
+      const responses = await Promise.all(
+        Object.entries(imageData).map(async ([tag, file]) => {
+          try {
+            const response = await imageUpload(tag, file, setUser);
+            return response;
+          } catch (error) {
+            console.error(
+              `Error occurred while uploading ${tag} image:`,
+              error
+            );
+            return {
+              success: false,
+              message: `Error occurred while uploading ${tag} image: ${error.message}`,
+            };
+          }
+        })
+      );
+
+      return responses;
+    } catch (error) {
+      console.error("Error occurred while uploading images:", error);
+      return [
+        {
+          success: false,
+          message: `Error occurred while uploading images: ${error.message}`,
+        },
+      ];
+    }
+  };
 
   const onSubmit = async (data) => {
-    console.log(data);
-    const response = await updateUserDetails(data, setUser);
-    // console.log(response);
-    if (response.success) {
+    const imageData = {};
+    imageData.header = data.header[0];
+    imageData.profile = data.profile[0];
+
+    const imageResponse = await uploadImages(imageData);
+    // console.log(data);
+    const bioObject = {};
+    if ("bio" in data) {
+      bioObject.bio = data.bio;
+    }
+
+    const bioResponse = await updateUserDetails(bioObject, setUser);
+    if (bioResponse.success) {
       toast.success("Profile updated successfully!", {
         style: {
           fontWeight: "bold",
@@ -73,7 +114,7 @@ export const UpdationModal = () => {
                   <MdEdit size={28} />
                   <input
                     type="file"
-                    {...register("headerImage")}
+                    {...register("header")}
                     accept=".png, .jpg, .jpeg .heic"
                     className="w-full cursor-pointer h-full opacity-0 absolute"
                   />
@@ -90,7 +131,7 @@ export const UpdationModal = () => {
                   <input
                     type="file"
                     accept=".png, .jpg, .jpeg"
-                    {...register("profileImage")}
+                    {...register("profile")}
                     className="w-full cursor-pointer h-full opacity-0 rounded-full absolute"
                   />
                 </div>
