@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -27,6 +26,7 @@ export const UpdationModal = ({ headerUrl, profileUrl }) => {
 
   const uploadImages = async (imageData) => {
     try {
+      console.log(imageData);
       const responses = await Promise.all(
         Object.entries(imageData).map(async ([tag, file]) => {
           try {
@@ -206,4 +206,8 @@ export const UpdationModal = ({ headerUrl, profileUrl }) => {
       </AlertDialog>
     </div>
   );
+};
+UpdationModal.propTypes = {
+  headerUrl: PropTypes.string,
+  profileUrl: PropTypes.string,
 };

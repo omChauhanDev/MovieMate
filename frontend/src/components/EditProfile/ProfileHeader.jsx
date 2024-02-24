@@ -16,7 +16,7 @@ export const ProfileHeader = () => {
 
   const navigate = useNavigate();
 
-  const [createdAt, setCreatedAt] = useState(null);
+  const [, setCreatedAt] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
   const [headerUrl, setHeaderUrl] = useState(dummyHeader);
   const [profileUrl, setprofileUrl] = useState(dummyProfile);
@@ -95,7 +95,7 @@ export const ProfileHeader = () => {
       <div className="w-full relative">
         <img
           src={headerUrl}
-          className="h-[30vh] object-center w-full object-cover bg-gray-200"
+          className="h-[30vh] object-cover aspect-square w-full bg-gray-200"
         ></img>
         <img
           src={profileUrl}

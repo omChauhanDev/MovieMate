@@ -43,7 +43,7 @@ export const ViewPost = ({ togglePopup, imageLink, postId }) => {
         />
         <i
           onClick={deleteImageHandler}
-          className="absolute text-white top-4 size-8 right-4 hover:bg-white/20 rounded-lg transition-colors flex items-center justify-center hover:text-red-500"
+          className="absolute text-white top-4 size-8 right-4 bg-white/20 hover:bg-white/50 rounded-lg transition-colors flex items-center justify-center hover:text-red-600"
         >
           <FaTrash />
         </i>

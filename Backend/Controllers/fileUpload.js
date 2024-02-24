@@ -19,7 +19,10 @@ function isSupportedFile(fileType, supportedTypes) {
 }
 
 const uploadFileToCloudinary = async (file, folder) => {
-  const options = { folder };
+  const options = {
+    folder,
+    quality: 85, // image quality
+  };
   options.resource_type = "auto";
   return await cloudinary.uploader.upload(file.tempFilePath, options);
 };
@@ -132,7 +135,7 @@ exports.imageDelete = async (req, res) => {
 
     const publicId = extractPublicId(imageLink);
     if (publicId) {
-      await cloudinary.uploader.destroy(publciId);
+      await cloudinary.uploader.destroy(publicId);
       user = await User.findByIdAndUpdate(
         userId,
         { $pull: { files: postToDelete._id } },
@@ -173,12 +176,12 @@ exports.deleteFiles = async (userFiles) => {
     return {
       success: true,
       message: "User Files are deleted successfully",
-    }
+    };
   } catch (error) {
     console.error("Error occurred while deleting user files", error);
     return {
       success: false,
       message: "Internal Server Error",
-    }
+    };
   }
-}
+};
