@@ -20,7 +20,6 @@ export const ProfileHeader = () => {
   const [formattedDate, setFormattedDate] = useState("");
   const [headerUrl, setHeaderUrl] = useState(dummyHeader);
   const [profileUrl, setprofileUrl] = useState(dummyProfile);
-  console.log(headerUrl);
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState(null);
   const [friendsCount, setFriendsCount] = useState(null);
@@ -45,7 +44,6 @@ export const ProfileHeader = () => {
 
       let headerFile;
       if (user && Object.keys(user).length > 0) {
-        console.log("BRO", user);
         headerFile = user.files.find((file) => file.tag === "header");
       }
 
@@ -56,7 +54,6 @@ export const ProfileHeader = () => {
 
       let profileFile;
       if (user && Object.keys(user).length > 0) {
-        console.log("BRO", user);
         profileFile = user.files.find((file) => file.tag === "profile");
       }
 

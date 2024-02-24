@@ -29,7 +29,6 @@ export const Navbar = () => {
   useEffect(() => {
     let profileFile;
     if (user && Object.keys(user).length > 0) {
-      console.log("BRO", user);
       profileFile = user.files.find((file) => file.tag === "profile");
     }
     if (profileFile) {

@@ -59,7 +59,6 @@ exports.imageUpload = async (req, res) => {
       if (existingFile) {
         try {
           const publicId = extractPublicId(existingFile.url);
-          console.log("Public ID: ", publicId);
           await cloudinary.uploader.destroy(publicId);
           await File.deleteOne({ _id: existingFile._id });
           // Remove the deleted file from user's files array

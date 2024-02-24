@@ -7,8 +7,6 @@ import { toast } from "react-hot-toast";
 export const ViewPost = ({ togglePopup, imageLink, postId }) => {
   const setUser = useSetAtom(userAtom);
   const deleteImageHandler = async () => {
-    console.log(postId);
-    console.log(imageLink);
     toast("Deleting your post...", {
       icon: "⏳",
       style: {

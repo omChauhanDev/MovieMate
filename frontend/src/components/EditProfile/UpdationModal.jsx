@@ -25,7 +25,6 @@ export const UpdationModal = ({ headerUrl, profileUrl }) => {
   const [newHeader, setNewHeader] = useState(null);
   const [newProfile, setNewProfile] = useState(null);
 
-  console.log(user);
   const uploadImages = async (imageData) => {
     try {
       const responses = await Promise.all(
@@ -75,7 +74,6 @@ export const UpdationModal = ({ headerUrl, profileUrl }) => {
         },
       });
       const imageResponse = await uploadImages(imageData);
-      console.log("BHAI DEKH", imageResponse);
       imageResponse.forEach((imageResponse) => {
         if (imageResponse.data.success) {
           toast.success("Image uploaded successfully!", {

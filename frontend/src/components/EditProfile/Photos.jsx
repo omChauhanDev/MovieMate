@@ -35,7 +35,6 @@ export const Photos = () => {
         },
       });
     }
-    console.log("response for upload: ", response);
   };
 
   useEffect(() => {
