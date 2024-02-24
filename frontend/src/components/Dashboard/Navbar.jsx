@@ -15,13 +15,27 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+const dummyProfile = `${import.meta.env.VITE_DUMMY_PROFILE}`;
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logout } from "../Auth/Logout";
 import { toast } from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
   const isDark = useAtomValue(isDarkAtom);
   const user = useAtomValue(userAtom);
+  const [profileUrl, setprofileUrl] = useState(dummyProfile);
+
+  useEffect(() => {
+    let profileFile;
+    if (user && Object.keys(user).length > 0) {
+      console.log("BRO", user);
+      profileFile = user.files.find((file) => file.tag === "profile");
+    }
+    if (profileFile) {
+      setprofileUrl(profileFile.url);
+    }
+  }, [user]);
 
   const clipboardHandler = () => {
     const text =
@@ -66,7 +80,7 @@ export const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://i.scdn.co/image/ab67616100005174a11b2a6b38822c822f2fdf40" />
+                  <AvatarImage src={profileUrl} />
                   <AvatarFallback>User</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>

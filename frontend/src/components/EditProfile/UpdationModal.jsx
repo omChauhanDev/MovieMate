@@ -17,11 +17,14 @@ import { MdEdit } from "react-icons/md";
 import TextareaAutosize from "react-textarea-autosize";
 import { imageUpload, updateUserDetails } from "@/actions/userActions";
 import { toast } from "react-hot-toast";
-export const UpdationModal = () => {
+
+export const UpdationModal = ({ headerUrl, profileUrl }) => {
   const [user, setUser] = useAtom(userAtom);
   const { register, handleSubmit } = useForm();
-  // const [newHeader, setNewHeader] = useState(user.)
   const isDark = useAtomValue(isDarkAtom);
+  const [newHeader, setNewHeader] = useState(null);
+  const [newProfile, setNewProfile] = useState(null);
+
   console.log(user);
   const uploadImages = async (imageData) => {
     try {
@@ -57,34 +60,64 @@ export const UpdationModal = () => {
 
   const onSubmit = async (data) => {
     const imageData = {};
-    if (data.header && data.header[0]) {
+    if (data?.header?.[0]) {
       imageData.header = data.header[0];
     }
-    if (data.profile && data.profile[0]) {
+    if (data?.profile?.[0]) {
       imageData.profile = data.profile[0];
     }
 
     if (Object.keys(imageData).length !== 0) {
+      toast("Uploading your images...", {
+        icon: "⏳",
+        style: {
+          fontWeight: "bold",
+        },
+      });
       const imageResponse = await uploadImages(imageData);
-    }
-    const bioObject = {};
-    if ("bio" in data) {
-      bioObject.bio = data.bio ? data.bio : "";
+      console.log("BHAI DEKH", imageResponse);
+      imageResponse.forEach((imageResponse) => {
+        if (imageResponse.data.success) {
+          toast.success("Image uploaded successfully!", {
+            style: {
+              fontWeight: "bold",
+            },
+          });
+        } else {
+          toast.error("There was an error while uploading your images", {
+            style: {
+              fontWeight: "bold",
+            },
+          });
+        }
+      });
     }
 
-    const bioResponse = await updateUserDetails(bioObject, setUser);
-    if (bioResponse.success) {
-      toast.success("Profile updated successfully!", {
+    if (data.bio != user.bio) {
+      const bioObject = {};
+      if ("bio" in data) {
+        bioObject.bio = data.bio ? data.bio : "";
+      }
+      toast("Upadting your bio...", {
+        icon: "⏳",
         style: {
           fontWeight: "bold",
         },
       });
-    } else {
-      toast.error("There was an error while updating", {
-        style: {
-          fontWeight: "bold",
-        },
-      });
+      const bioResponse = await updateUserDetails(bioObject, setUser);
+      if (bioResponse.success) {
+        toast.success("Bio updated successfully!", {
+          style: {
+            fontWeight: "bold",
+          },
+        });
+      } else {
+        toast.error("There was an error while updating your bio", {
+          style: {
+            fontWeight: "bold",
+          },
+        });
+      }
     }
   };
 
@@ -111,7 +144,7 @@ export const UpdationModal = () => {
             <div className="w-full mt-2 mb-4 relative">
               <div className="w-full">
                 <img
-                  src="https://wallpaperswide.com/download/code_2-wallpaper-2560x2048.jpg"
+                  src={newHeader ? URL.createObjectURL(newHeader) : headerUrl}
                   alt="header"
                   className="h-[150px] object-cover w-full relative"
                 />
@@ -120,14 +153,17 @@ export const UpdationModal = () => {
                   <input
                     type="file"
                     {...register("header")}
-                    accept=".png, .jpg, .jpeg .heic"
+                    accept=".png, .jpg, .jpeg, .heic"
+                    onChange={(event) => setNewHeader(event.target.files[0])}
                     className="w-full cursor-pointer h-full opacity-0 absolute"
                   />
                 </div>
               </div>
               <div className="w-[25%] aspect-square h-auto max-w-48 rounded-full left-4 bottom-0 translate-y-1/2 absolute outline outline-white outline-2">
                 <img
-                  src="https://i.scdn.co/image/ab67616100005174a11b2a6b38822c822f2fdf40"
+                  src={
+                    newProfile ? URL.createObjectURL(newProfile) : profileUrl
+                  }
                   content="center"
                   className="bg-gray-500 rounded-full object-cover aspect-square outline-gray-100 relative"
                 />
@@ -135,8 +171,10 @@ export const UpdationModal = () => {
                   <MdEdit size={28} />
                   <input
                     type="file"
-                    accept=".png, .jpg, .jpeg"
+                    alt="profile"
+                    accept=".png, .jpg, .jpeg, .heic"
                     {...register("profile")}
+                    onChange={(event) => setNewProfile(event.target.files[0])}
                     className="w-full cursor-pointer h-full opacity-0 rounded-full absolute"
                   />
                 </div>
