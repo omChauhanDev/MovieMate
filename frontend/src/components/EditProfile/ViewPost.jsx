@@ -3,12 +3,33 @@ import { userAtom } from "@/store/atoms";
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa6";
 import { useSetAtom } from "jotai";
+import { toast } from "react-hot-toast";
 export const ViewPost = ({ togglePopup, imageLink, postId }) => {
   const setUser = useSetAtom(userAtom);
   const deleteImageHandler = async () => {
     console.log(postId);
     console.log(imageLink);
-    await imageDelete(postId, imageLink, setUser);
+    toast("Deleting your post...", {
+      icon: "⏳",
+      style: {
+        fontWeight: "bold",
+      },
+    });
+    const response = await imageDelete(postId, imageLink, setUser);
+
+    if (response.data.success) {
+      toast.success("Post deleted successfully!", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    } else {
+      toast.error("We couldn't delete your post", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    }
   };
   return (
     <div
@@ -24,7 +45,7 @@ export const ViewPost = ({ togglePopup, imageLink, postId }) => {
         />
         <i
           onClick={deleteImageHandler}
-          className="absolute top-4 size-8 right-4 hover:bg-white/20 rounded-lg transition-colors flex items-center justify-center hover:text-red-500"
+          className="absolute text-white top-4 size-8 right-4 hover:bg-white/20 rounded-lg transition-colors flex items-center justify-center hover:text-red-500"
         >
           <FaTrash />
         </i>

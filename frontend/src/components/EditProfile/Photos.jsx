@@ -4,45 +4,38 @@ import { userAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 import { imageUpload } from "@/actions/userActions";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 export const Photos = () => {
   const [user, setUser] = useAtom(userAtom);
-  const [userPhotos, setUserPhotos] = useState([{}]);
-  // const photos = [
-  //   {
-  //     id: 1,
-  //     imageLink:
-  //       "https://www.thesun.co.uk/wp-content/uploads/2022/02/NINTCHDBPICT000712084356.jpg",
-  //   },
-  //   {
-  //     id: 2,
-  //     imageLink:
-  //       "https://cloudfront-eu-central-1.images.arcpublishing.com/leparisien/XCBSBSI3XZHYRMALPNPRH54ULM.jpg",
-  //   },
-  //   {
-  //     id: 3,
-  //     imageLink:
-  //       "https://nofilmschool.com/media-library/read-the-batman-screenplay.jpg?id=34049851&width=1245&height=700&quality=90&coordinates=0%2C0%2C0%2C0",
-  //   },
-  //   {
-  //     id: 4,
-  //     imageLink:
-  //       "https://www.dexerto.com/cdn-cgi/image/width=3840,quality=75,format=auto/https://editors.dexerto.com/wp-content/uploads/2023/06/20/oppenheimer-1.jpg",
-  //   },
-  //   {
-  //     id: 5,
-  //     imageLink:
-  //       "https://www.telegraph.co.uk/content/dam/films/2023/07/19/TELEMMGLPICT000341390453_16897694776250_trans_NvBQzQNjv4Bqc3IxSbjMmXltPISQXxZkAKCFjM66479QldWRZZliqmY.jpeg",
-  //   },
-  //   {
-  //     id: 6,
-  //     imageLink:
-  //       "https://media.wired.com/photos/64bae9eedaed59ebbf460ca6/master/pass/Oppenheimer-and-the-Dharma-of-Death-Culture.jpg",
-  //   },
-  // ];
+  const [userPhotos, setUserPhotos] = useState([]);
 
   const uploadPostHandler = async (event) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) {
+      return;
+    }
     const file = event.target.files[0];
-    await imageUpload("general", file, setUser);
+    toast("Uploading your image...", {
+      icon: "⏳",
+      style: {
+        fontWeight: "bold",
+      },
+    });
+    const response = await imageUpload("general", file, setUser);
+    if (response.data.success) {
+      toast.success("Post created successfully!", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    } else {
+      toast.error("We couldn't upload your image.", {
+        style: {
+          fontWeight: "bold",
+        },
+      });
+    }
+    console.log("response for upload: ", response);
   };
 
   useEffect(() => {
