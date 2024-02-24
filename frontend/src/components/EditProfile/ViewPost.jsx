@@ -1,6 +1,15 @@
-import React from "react";
-
-export const ViewPost = ({ togglePopup, imageLink }) => {
+import { imageDelete } from "@/actions/userActions";
+import { userAtom } from "@/store/atoms";
+import PropTypes from "prop-types";
+import { FaTrash } from "react-icons/fa6";
+import { useSetAtom } from "jotai";
+export const ViewPost = ({ togglePopup, imageLink, postId }) => {
+  const setUser = useSetAtom(userAtom);
+  const deleteImageHandler = async () => {
+    console.log(postId);
+    console.log(imageLink);
+    await imageDelete(postId, imageLink, setUser);
+  };
   return (
     <div
       onClick={togglePopup}
@@ -13,7 +22,19 @@ export const ViewPost = ({ togglePopup, imageLink }) => {
           alt="post"
           onClick={(e) => e.stopPropagation()}
         />
+        <i
+          onClick={deleteImageHandler}
+          className="absolute top-4 size-8 right-4 hover:bg-white/20 rounded-lg transition-colors flex items-center justify-center hover:text-red-500"
+        >
+          <FaTrash />
+        </i>
       </div>
     </div>
   );
+};
+
+ViewPost.propTypes = {
+  togglePopup: PropTypes.func,
+  imageLink: PropTypes.string,
+  postId: PropTypes.string,
 };

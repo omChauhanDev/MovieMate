@@ -10,7 +10,6 @@ export const getUserDetails = async (setUser) => {
       },
     });
     if (user.data.success) {
-      
       setUser(user.data.user);
       return {
         success: true,
@@ -43,7 +42,7 @@ export const updateUserDetails = async (data, setUser) => {
       getUserDetails(setUser);
       return {
         success: true,
-        
+
         message: "Profile updated successfully",
       };
     } else {
@@ -109,19 +108,49 @@ export const imageUpload = async (tag, file, setUser) => {
     formData.append("tag", tag);
     formData.append("file", file);
 
-    const response = await axios.post(`${baseUrl}/upload/image`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    
+    const response = await axios.post(
+      `${baseUrl}/upload/imageUpload`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
     if (response.data.success) {
       getUserDetails(setUser);
     }
     return response;
   } catch (error) {
     console.error("Error occurred while uploading image", error);
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+export const imageDelete = async (postId, imageLink, setUser) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      `${baseUrl}/upload/imageDelete`,
+      { postId, imageLink },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.success) {
+      getUserDetails(setUser);
+    }
+    return response;
+  } catch (error) {
+    console.error("Error occurred while deleting image", error);
     return {
       success: false,
       message: error.message,

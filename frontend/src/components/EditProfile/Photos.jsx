@@ -1,9 +1,12 @@
 import { FaCamera } from "react-icons/fa";
 import { Post } from "./Post";
 import { userAtom } from "@/store/atoms";
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
+import { imageUpload } from "@/actions/userActions";
+import { useEffect, useState } from "react";
 export const Photos = () => {
-  const user = useAtomValue(userAtom);
+  const [user, setUser] = useAtom(userAtom);
+  const [userPhotos, setUserPhotos] = useState([{}]);
   // const photos = [
   //   {
   //     id: 1,
@@ -37,21 +40,25 @@ export const Photos = () => {
   //   },
   // ];
 
-  const userPhotos = user.files
-    ? user.files.filter((post) => post.tag === "general")
-    : [{}];
+  const uploadPostHandler = async (event) => {
+    const file = event.target.files[0];
+    await imageUpload("general", file, setUser);
+  };
+
+  useEffect(() => {
+    setUserPhotos(
+      user.files ? user.files.filter((post) => post.tag === "general") : []
+    );
+  }, [user]);
 
   return (
     <div className="flex-1 mx-4 lg:mx-10 my-6 font-Poppins">
       <h1 className="my-3 opacity-90 font-bold text-xl">Pictures</h1>
       <div className="md:max-w-[85%] mx-auto my-6 grid grid-cols-3 md:flex-row gap-1">
-        {userPhotos.map((post) => (
-          <Post
-            key={post.id}
-            imageLink={post.imageLink}
-            caption={post.caption}
-          />
-        ))}
+        {userPhotos &&
+          userPhotos.map((post) => (
+            <Post key={post._id} postId={post._id} imageLink={post.url} />
+          ))}
       </div>
       <div className="max-w-full relative border border-dashed cursor-pointer border-gray-500 flex items-center gap-2 justify-center font-medium py-6">
         <FaCamera className="opacity-90 " />
@@ -59,7 +66,8 @@ export const Photos = () => {
         <input
           type="file"
           accept=".png, .jpg, .jpeg, .heic"
-          className="absolute bg-green-400 w-full h-full opacity-0 cursor-pointer"
+          className="absolute w-full h-full opacity-0 cursor-pointer"
+          onChange={uploadPostHandler}
         />
       </div>
     </div>

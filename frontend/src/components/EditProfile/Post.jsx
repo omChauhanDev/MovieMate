@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { ViewPost } from "./ViewPost";
-export const Post = ({ imageLink, caption }) => {
+export const Post = ({ imageLink, postId }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const togglePopup = () => {
@@ -18,12 +18,16 @@ export const Post = ({ imageLink, caption }) => {
         />
       </div>
       {showPopup && (
-        <ViewPost togglePopup={togglePopup} imageLink={imageLink} />
+        <ViewPost
+          togglePopup={togglePopup}
+          postId={postId}
+          imageLink={imageLink}
+        />
       )}
     </div>
   );
 };
 Post.propTypes = {
   imageLink: PropTypes.string,
-  caption: PropTypes.string,
+  postId: PropTypes.string,
 };

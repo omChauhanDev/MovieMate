@@ -79,9 +79,8 @@ exports.imageUpload = async (req, res) => {
     }
 
     // Upload new file to Cloudinary
-    
+
     const response = await uploadFileToCloudinary(file, "Images");
-    
 
     // Create new file document
     const fileData = await File.create({
@@ -104,6 +103,50 @@ exports.imageUpload = async (req, res) => {
     });
   } catch (error) {
     console.error("Error occurred while uploading image", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+exports.imageDelete = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { postId, imageLink } = req.body;
+
+    if (!postId) {
+      return res.status(400).json({
+        success: false,
+        message: "Post ID is required",
+      });
+    }
+
+    const postToDelete = await File.findById(postId);
+
+    if (!postToDelete) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+    }
+
+    const publicId = extractPublicId(imageLink);
+    if (publicId) {
+      await cloudinary.uploader.destroy(publicId);
+      user = await User.findByIdAndUpdate(
+        userId,
+        { $pull: { files: postToDelete._id } },
+        { new: true }
+      );
+      await File.deleteOne({ _id: postId });
+    }
+    res.json({
+      success: true,
+      message: "Post deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error occurred while deleting image", error);
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
