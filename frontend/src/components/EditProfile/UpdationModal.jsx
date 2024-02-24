@@ -67,7 +67,6 @@ export const UpdationModal = () => {
     if (Object.keys(imageData).length !== 0) {
       const imageResponse = await uploadImages(imageData);
     }
-    // console.log(data);
     const bioObject = {};
     if ("bio" in data) {
       bioObject.bio = data.bio ? data.bio : "";

@@ -3,9 +3,15 @@ const User = require("../Models/User");
 const cloudinary = require("cloudinary").v2;
 
 function extractPublicId(url) {
-  const startIndex = url.indexOf("upload/") + "upload/".length;
-  const endIndex = url.lastIndexOf(".");
-  return url.substring(startIndex, endIndex);
+  // Regular expression to match the filename
+  const regex = /\/Images\/(.*?)\./;
+  const match = url.match(regex);
+  if (match && match[1]) {
+    return "Images/" + match[1];
+  } else {
+    // If no match is found, return null or handle the error accordingly
+    return null;
+  }
 }
 
 function isSupportedFile(fileType, supportedTypes) {
@@ -15,7 +21,6 @@ function isSupportedFile(fileType, supportedTypes) {
 const uploadFileToCloudinary = async (file, folder) => {
   const options = { folder };
   options.resource_type = "auto";
-  console.log("temp file path", file.tempFilePath);
   return await cloudinary.uploader.upload(file.tempFilePath, options);
 };
 
@@ -54,6 +59,7 @@ exports.imageUpload = async (req, res) => {
       if (existingFile) {
         try {
           const publicId = extractPublicId(existingFile.url);
+          console.log("Public ID: ", publicId);
           await cloudinary.uploader.destroy(publicId);
           await File.deleteOne({ _id: existingFile._id });
           // Remove the deleted file from user's files array
@@ -73,9 +79,9 @@ exports.imageUpload = async (req, res) => {
     }
 
     // Upload new file to Cloudinary
-    console.log("Uploading to Cloudinary");
+    
     const response = await uploadFileToCloudinary(file, "Images");
-    console.log(response);
+    
 
     // Create new file document
     const fileData = await File.create({

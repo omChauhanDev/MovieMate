@@ -10,7 +10,7 @@ export const getUserDetails = async (setUser) => {
       },
     });
     if (user.data.success) {
-      console.log("Naya User hai: ", user.data.user);
+      
       setUser(user.data.user);
       return {
         success: true,
@@ -102,45 +102,6 @@ export const sendContactUsEmail = async (email, subject, message) => {
   }
 };
 
-// export const imageUpload = async (data) => {
-//   try {
-//     const response = await axios.post(`${baseUrl}/image`, {});
-//     return response;
-//   } catch (error) {
-//     console.error("Error occoured while sending OTP", error);
-//     return {
-//       success: false,
-//       message: error.message,
-//     };
-//   }
-// };
-
-// export const imageUpload = async (tag, file) => {
-//   try {
-//     const token = localStorage.getItem("token");
-//     console.log("imageupload call hua");
-//     console.log("tag:", tag);
-//     console.log("file:", file);
-//     const response = await axios.post(
-//       `${baseUrl}/upload/image`,
-//       { tag, file },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     return response;
-//   } catch (error) {
-//     console.error("Error occurred while uploading image", error);
-//     return {
-//       success: false,
-//       message: error.message,
-//     };
-//   }
-// };
-
 export const imageUpload = async (tag, file, setUser) => {
   try {
     const token = localStorage.getItem("token");
@@ -151,10 +112,10 @@ export const imageUpload = async (tag, file, setUser) => {
     const response = await axios.post(`${baseUrl}/upload/image`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data", // Use multipart/form-data
+        "Content-Type": "multipart/form-data",
       },
     });
-    console.log("Response in backend: ", response);
+    
     if (response.data.success) {
       getUserDetails(setUser);
     }

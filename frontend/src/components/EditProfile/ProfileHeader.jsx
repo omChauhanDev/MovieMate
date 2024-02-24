@@ -10,7 +10,7 @@ import { UpdationModal } from "./UpdationModal";
 
 export const ProfileHeader = () => {
   const user = useAtomValue(userAtom);
-  // console.log(user);
+  
   const navigate = useNavigate();
 
   const [createdAt, setCreatedAt] = useState(null);
@@ -20,7 +20,7 @@ export const ProfileHeader = () => {
   const [friendsCount, setFriendsCount] = useState(null);
 
   useEffect(() => {
-    // console.log("Inside useEffect: ", user);
+    
     if (user) {
       const date = new Date(user.createdAt);
       const months = [

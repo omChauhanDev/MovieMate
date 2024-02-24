@@ -12,7 +12,6 @@ export const Contact = () => {
 
   const [loading, setLoading] = useState(false);
   const submitHandler = async (data) => {
-    // console.log(data);
     setLoading(true);
     const response = await sendContactUsEmail(
       data.email,
