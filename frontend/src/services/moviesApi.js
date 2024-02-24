@@ -17,7 +17,8 @@
 //     "video": false,
 //     "vote_average": 0.0,
 //     "vote_count": 0
-// }import axios from "axios";
+// }
+import axios from "axios";
 //search for upcoming movies
 export const searchUpcomingMovies = async (pages) => {
   const response = await axios.get(

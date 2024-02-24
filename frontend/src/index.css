@@ -75,6 +75,11 @@
   }
 }
 
+.whiteFilter {
+  filter: invert(100%) sepia(60%) saturate(0%) hue-rotate(268deg)
+    brightness(103%) contrast(103%);
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

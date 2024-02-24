@@ -5,6 +5,7 @@ import { Login } from "./components/Auth/Login";
 import { Toaster } from "react-hot-toast";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
 import { Dashboard } from "./components/Dashboard/Dashboard";
+import { PageNotFound } from "./components/PageNotFound/PageNotFound";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
