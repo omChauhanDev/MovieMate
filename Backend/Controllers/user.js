@@ -10,6 +10,7 @@ const emailSchema = require("../Utils/User/emailSchema");
 
 const User = require("../Models/User");
 const transporter = require("../Config/NodeMailerTransporter");
+const { deleteFiles} = require("../Controllers/fileUpload.js");
 
 exports.getDetails = async (req, res) => {
   try {
@@ -264,12 +265,30 @@ exports.updateUser = (req, res) => {
   }
 };
 //not tested
-exports.deleteUser = (req, res) => {
-  User.deleteOne({ _id: req.userId }).then((user) => {
-    res
-      .status(200)
-      .json({ success: true, message: "User deleted successfully" });
-  });
+exports.deleteUser = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await User.findById(userId).populate('files');
+    const userFiles = user.files;
+    const filesDeleted = await deleteFiles(userFiles);
+    if(!filesDeleted.success){
+      return res.status(500).json({
+        success: false,
+        message: "Internal Server Error: While deleting user files.",
+      });
+    }
+    User.deleteOne({ _id: req.userId }).then((user) => {
+      res
+        .status(200)
+        .json({ success: true, message: "User deleted successfully" });
+    });
+  } catch (error) {
+    console.error("Error occurred while deleting user", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
 };
 
 exports.contactUs = async (req, res) => {

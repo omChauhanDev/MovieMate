@@ -133,7 +133,7 @@ exports.imageDelete = async (req, res) => {
 
     const publicId = extractPublicId(imageLink);
     if (publicId) {
-      await cloudinary.uploader.destroy(publicId);
+      await cloudinary.uploader.destroy(publciId);
       user = await User.findByIdAndUpdate(
         userId,
         { $pull: { files: postToDelete._id } },
@@ -153,3 +153,33 @@ exports.imageDelete = async (req, res) => {
     });
   }
 };
+
+exports.deleteFiles = async (userFiles) => {
+  try {
+    const deleteOperations = userFiles.map(async (fileObj) => {
+      const publicId = extractPublicId(fileObj.url);
+      if (publicId) {
+        // Return a promise for each operation
+        await cloudinary.uploader.destroy(publicId);
+        await File.deleteOne({ _id: fileObj._id });
+        const user = await User.findByIdAndUpdate(
+          fileObj.user,
+          { $pull: { files: fileObj._id } },
+          { new: true }
+        );
+      }
+    });
+    // Execute all promises concurrently and wait for all of them to complete
+    await Promise.all(deleteOperations);
+    return {
+      success: true,
+      message: "User Files are deleted successfully",
+    }
+  } catch (error) {
+    console.error("Error occurred while deleting user files", error);
+    return {
+      success: false,
+      message: "Internal Server Error",
+    }
+  }
+}
