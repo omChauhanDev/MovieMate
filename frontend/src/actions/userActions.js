@@ -10,6 +10,7 @@ export const getUserDetails = async (setUser) => {
       },
     });
     if (user.data.success) {
+      console.log("Naya User hai: ", user.data.user);
       setUser(user.data.user);
       return {
         success: true,

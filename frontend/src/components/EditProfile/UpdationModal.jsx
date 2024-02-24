@@ -57,14 +57,20 @@ export const UpdationModal = () => {
 
   const onSubmit = async (data) => {
     const imageData = {};
-    imageData.header = data.header[0];
-    imageData.profile = data.profile[0];
+    if (data.header && data.header[0]) {
+      imageData.header = data.header[0];
+    }
+    if (data.profile && data.profile[0]) {
+      imageData.profile = data.profile[0];
+    }
 
-    const imageResponse = await uploadImages(imageData);
+    if (Object.keys(imageData).length !== 0) {
+      const imageResponse = await uploadImages(imageData);
+    }
     // console.log(data);
     const bioObject = {};
     if ("bio" in data) {
-      bioObject.bio = data.bio;
+      bioObject.bio = data.bio ? data.bio : "";
     }
 
     const bioResponse = await updateUserDetails(bioObject, setUser);
