@@ -35,9 +35,10 @@ exports.imageUpload = async (req, res) => {
     const file = req.files["file"];
 
     // Validation
-    const supportedTypes = ["jpg", "jpeg", "png", "heic"];
-    const fileType = file.name.split(".")[1].toLowerCase();
 
+    const supportedTypes = ["jpg", "jpeg", "png", "heic"];
+    const fileNameParts = file.name.split(".");
+    const fileType = fileNameParts[fileNameParts.length - 1].toLowerCase();
     if (!isSupportedFile(fileType, supportedTypes)) {
       return res.status(415).json({
         success: false,

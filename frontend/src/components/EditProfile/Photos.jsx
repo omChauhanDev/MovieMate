@@ -22,7 +22,7 @@ export const Photos = () => {
       },
     });
     const response = await imageUpload("general", file, setUser);
-    if (response.data.success) {
+    if (response && response.data.success) {
       toast.success("Post created successfully!", {
         style: {
           fontWeight: "bold",

@@ -19,7 +19,7 @@ import { toast } from "react-hot-toast";
 
 export const UpdationModal = ({ headerUrl, profileUrl }) => {
   const [user, setUser] = useAtom(userAtom);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const isDark = useAtomValue(isDarkAtom);
   const [newHeader, setNewHeader] = useState(null);
   const [newProfile, setNewProfile] = useState(null);
@@ -58,13 +58,20 @@ export const UpdationModal = ({ headerUrl, profileUrl }) => {
   };
 
   const onSubmit = async (data) => {
+    console.log(data);
     const imageData = {};
+
+    // Check and assign header image
     if (data?.header?.[0]) {
       imageData.header = data.header[0];
     }
+    // setNewProfile(null);
+
+    // Check and assign profile image
     if (data?.profile?.[0]) {
       imageData.profile = data.profile[0];
     }
+    // setNewProfile(null);
 
     if (Object.keys(imageData).length !== 0) {
       toast("Uploading your images...", {
@@ -89,6 +96,8 @@ export const UpdationModal = ({ headerUrl, profileUrl }) => {
           });
         }
       });
+      reset();
+      console.log(imageData);
     }
 
     if (data.bio != user.bio) {
