@@ -209,64 +209,6 @@ exports.rejectFriendReq = async (req, res) => {
   }
 };
 
-exports.rejectFriendReq = async (req, res) => {
-  try {
-    const userId = req.userId;
-    const friendId = req.body.friendId;
-    if (!userId || !friendId) {
-      return res.status(400).json({
-        success: false,
-        message: "userId and friendId are required",
-      });
-    }
-
-    // Checking if the friend request exists
-    const pendingRequest = await Friendship.findOne({
-      user1: friendId,
-      user2: userId,
-    });
-    if (!pendingRequest) {
-      return res.status(404).json({
-        success: false,
-        message: "No pending friend request found from friend to user.",
-      });
-    }
-
-    // Cancelling Friend Request
-    await Friendship.findByIdAndDelete(pendingRequest._id);
-
-    const updatedUser1 = await User.findByIdAndUpdate(
-      friendId,
-      { $pull: { friends: pendingRequest._id } },
-      { new: true }
-    );
-    const updatedUser2 = await User.findByIdAndUpdate(
-      userId,
-      { $pull: { friends: pendingRequest._id } },
-      { new: true }
-    );
-
-    if (!updatedUser1 || !updatedUser2) {
-      return res.status(500).json({
-        success: false,
-        message:
-          "Error updating users' friends arrays while rejecting friend request.",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: "Friend request rejected successfully.",
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error while rejecting friend request.",
-    });
-  }
-};
-
 exports.removeFriend = async (req, res) => {
   try {
     const userId = req.userId;
