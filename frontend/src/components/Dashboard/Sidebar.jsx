@@ -50,7 +50,7 @@ export const Sidebar = () => {
       >
         <div className="w-[95%] flex flex-col gap-6 justify-center">
           <Link
-            to={"/dashboard"}
+            to={"/"}
             className="text-3xl mx-auto font-Outfit font-black"
             onClick={closeSidebar}
           >
