@@ -8,10 +8,15 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import { PageNotFound } from "./components/PageNotFound/PageNotFound";
 import { getUserDetails } from "./actions/userActions";
 import { userAtom } from "./store/atoms";
-import { useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
+import { useEffect } from "react";
 
 function App() {
-  const setUser = useSetAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   getUserDetails(setUser);
   return (
     <div className="min-h-screen h-full flex flex-col">

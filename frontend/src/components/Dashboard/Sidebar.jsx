@@ -64,15 +64,27 @@ export const Sidebar = () => {
             >
               <FaHome /> Dashboard
             </Link>
-            <button className={buttonTheme} onClick={closeSidebar}>
+            <Link
+              to="/dashboard/mate-requests"
+              className={buttonTheme}
+              onClick={closeSidebar}
+            >
               <FaUserFriends /> Pending Requests
-            </button>
-            <button className={buttonTheme} onClick={closeSidebar}>
+            </Link>
+            <Link
+              to="/dashboard/chat"
+              className={buttonTheme}
+              onClick={closeSidebar}
+            >
               <IoChatboxEllipses /> Chats
-            </button>
-            <button className={buttonTheme} onClick={closeSidebar}>
+            </Link>
+            <Link
+              to="/dashboard/upcoming-meets"
+              className={buttonTheme}
+              onClick={closeSidebar}
+            >
               <BiSolidMoviePlay /> Upcoming Meets
-            </button>
+            </Link>
           </div>
         </div>
 
