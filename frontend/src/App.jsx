@@ -8,15 +8,15 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import { PageNotFound } from "./components/PageNotFound/PageNotFound";
 import { getUserDetails } from "./actions/userActions";
 import { userAtom } from "./store/atoms";
-import { useAtom, useSetAtom } from "jotai";
-import { useEffect } from "react";
+import { useSetAtom } from "jotai";
+import { io } from "socket.io-client";
 
 function App() {
-  const [user, setUser] = useAtom(userAtom);
-  useEffect(() => {
-    console.log(user);
-  }, []);
-
+  const setUser = useSetAtom(userAtom);
+  const socket = io(import.meta.env.VITE_BACKENDURL);
+  socket.on("connect_error", (error) => {
+    console.error("Socket.IO connection error:", error);
+  });
   getUserDetails(setUser);
   return (
     <div className="min-h-screen h-full flex flex-col">
