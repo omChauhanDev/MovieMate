@@ -47,6 +47,9 @@ const login = async (email, password, setUser, setErrorMessage) => {
       return data;
     }
   } catch (error) {
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+    }
     console.error("Error occoured while logging in:", error);
     return {
       data: {

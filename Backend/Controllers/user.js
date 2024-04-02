@@ -10,7 +10,7 @@ const emailSchema = require("../Utils/User/emailSchema");
 
 const User = require("../Models/User");
 const transporter = require("../Config/NodeMailerTransporter");
-const { deleteFiles} = require("../Controllers/fileUpload.js");
+const { deleteFiles } = require("../Controllers/fileUpload.js");
 
 exports.getDetails = async (req, res) => {
   try {
@@ -181,7 +181,7 @@ exports.login = async (req, res) => {
 
     if (await bcrypt.compare(password, user.password)) {
       let token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "15d",
+        expiresIn: "1000",
       });
 
       return res.status(200).json({
@@ -268,10 +268,10 @@ exports.updateUser = (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     const userId = req.userId;
-    const user = await User.findById(userId).populate('files');
+    const user = await User.findById(userId).populate("files");
     const userFiles = user.files;
     const filesDeleted = await deleteFiles(userFiles);
-    if(!filesDeleted.success){
+    if (!filesDeleted.success) {
       return res.status(500).json({
         success: false,
         message: "Internal Server Error: While deleting user files.",

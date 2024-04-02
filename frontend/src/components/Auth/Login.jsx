@@ -32,7 +32,6 @@ export const Login = () => {
       setLoading(true);
       let response = await loginHandler(data);
       if (response.success) {
-        //TODO: set is logged in to true
         resetLogin();
         getUserDetails(setUser);
         toast.success("Logged in successfully!", {
