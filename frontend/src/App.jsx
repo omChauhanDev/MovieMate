@@ -10,16 +10,16 @@ import { getUserDetails } from "./actions/userActions";
 import { userAtom } from "./store/atoms";
 import { useAtom, useSetAtom } from "jotai";
 import { useEffect } from "react";
+import { useAuth } from "./providers/AuthProvider";
+import LoadingScreen from "./components/LoadingScreen";
+import { Navbar } from "./components/Dashboard/Navbar";
 
 function App() {
-  const [user, setUser] = useAtom(userAtom);
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  const { loading } = useAuth();
 
-  getUserDetails(setUser);
   return (
     <div className="min-h-screen h-full flex flex-col">
+      {loading && <LoadingScreen />}
       <Toaster />
       {/* <Navbar /> */}
       <Routes>

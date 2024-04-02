@@ -2,12 +2,9 @@
 import { atomWithStorage } from "jotai/utils";
 import { atom } from "jotai";
 
-const userAtom = atomWithStorage("user", {});
+const userAtom = atom(null);
 const isDarkAtom = atomWithStorage("isDark", false);
-const isLoggedInAtom = atom(localStorage.getItem("user") !== null);
-const resetLoginAtom = atom(null, (_get, set) => {
-  const isLoggedIn = localStorage.getItem("user") !== null;
-  set(isLoggedInAtom, !isLoggedIn);
-});
+const isLoggedInAtom = atom(true);
+// const isLoggedInAtom = atom(localStorage.getItem("user") !== null);
 
-export { userAtom, isDarkAtom, isLoggedInAtom, resetLoginAtom };
+export { userAtom, isDarkAtom, isLoggedInAtom };

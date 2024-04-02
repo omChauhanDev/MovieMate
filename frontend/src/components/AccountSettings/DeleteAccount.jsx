@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
-import { resetLoginAtom, userAtom } from "@/store/atoms";
+import { userAtom } from "@/store/atoms";
 import { useSetAtom } from "jotai";
 import { deleteUser } from "@/actions/userActions";
 import { toast } from "react-hot-toast";
@@ -20,7 +20,6 @@ import { useState } from "react";
 
 export const DeleteAccount = () => {
   const setUser = useSetAtom(userAtom);
-  const resetLogin = useSetAtom(resetLoginAtom);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -28,7 +27,6 @@ export const DeleteAccount = () => {
     setLoading(true);
     const response = await deleteUser(setUser);
     if (response.data.success) {
-      resetLogin();
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       toast(response.data.message, {

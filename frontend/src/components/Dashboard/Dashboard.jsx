@@ -18,6 +18,7 @@ export const Dashboard = () => {
   const isLoggedIn = useAtomValue(isLoggedInAtom);
 
   useEffect(() => {
+    console.log(isLoggedIn);
     if (!isLoggedIn) {
       navigate("/login");
     }

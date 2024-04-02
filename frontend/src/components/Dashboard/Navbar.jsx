@@ -84,7 +84,7 @@ export const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mr-[0rem]">
                 <DropdownMenuLabel className="cursor-pointer px-8">
-                  {user.fullName}
+                  {user?.fullName}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem

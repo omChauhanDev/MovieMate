@@ -10,14 +10,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-hot-toast";
-import { isDarkAtom, resetLoginAtom } from "@/store/atoms";
+import { isDarkAtom } from "@/store/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import { useNavigate } from "react-router-dom";
 export const Logout = () => {
   const navigate = useNavigate();
-  const [, resetLogin] = useAtom(resetLoginAtom);
   const logoutHandler = () => {
-    resetLogin();
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     toast.success("Logged out successfully!", {

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { useAtom, useAtomValue } from "jotai";
-import { isLoggedInAtom, resetLoginAtom, userAtom } from "@/store/atoms";
+import { isLoggedInAtom, userAtom } from "@/store/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/utils/HandleAuth";
 import { getUserDetails } from "@/actions/userActions";
@@ -18,7 +18,6 @@ export const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [, resetLogin] = useAtom(resetLoginAtom);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -33,7 +32,6 @@ export const Login = () => {
       let response = await loginHandler(data);
       if (response.success) {
         //TODO: set is logged in to true
-        resetLogin();
         getUserDetails(setUser);
         toast.success("Logged in successfully!", {
           icon: "🍿",
