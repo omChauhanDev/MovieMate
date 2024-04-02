@@ -9,5 +9,12 @@ const resetLoginAtom = atom(null, (_get, set) => {
   const isLoggedIn = localStorage.getItem("user") !== null;
   set(isLoggedInAtom, !isLoggedIn);
 });
-
-export { userAtom, isDarkAtom, isLoggedInAtom, resetLoginAtom };
+//create a jotai atom to store the selected conversation
+const selectedConversationAtom = atom(null);
+export {
+  userAtom,
+  isDarkAtom,
+  isLoggedInAtom,
+  resetLoginAtom,
+  selectedConversationAtom,
+};

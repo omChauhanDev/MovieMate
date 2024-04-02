@@ -18,7 +18,7 @@ app.use("/api/v1", apiv1Router);
 app.get("/", (req, res) => {
   res.status(200).json({ message: "The backend is up and running" });
 });
-app.use(errorCatching);
+// app.use(errorCatching);
 
 // Connecting with Cloudinary
 cloudinary.cloudinaryConnect();
