@@ -10,10 +10,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-hot-toast";
-import { isDarkAtom } from "@/store/atoms";
-import { useAtom, useAtomValue } from "jotai";
+import { isDarkAtom, isLoggedInAtom } from "@/store/atoms";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
 export const Logout = () => {
+  const setIsLoggedIn = useSetAtom(isLoggedInAtom);
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.removeItem("user");
@@ -24,7 +25,7 @@ export const Logout = () => {
         fontWeight: "bold",
       },
     });
-
+    setIsLoggedIn(false);
     navigate("/login");
   };
   const isDark = useAtomValue(isDarkAtom);

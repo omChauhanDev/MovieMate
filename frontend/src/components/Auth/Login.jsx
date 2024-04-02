@@ -14,7 +14,7 @@ export const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [, setUser] = useAtom(userAtom);
-  const isLoggedIn = useAtomValue(isLoggedInAtom);
+  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -33,12 +33,14 @@ export const Login = () => {
       if (response.success) {
         //TODO: set is logged in to true
         getUserDetails(setUser);
+        setIsLoggedIn(true);
         toast.success("Logged in successfully!", {
           icon: "🍿",
           style: {
             fontWeight: "bold",
           },
         });
+
         setLoading(false);
         navigate("/dashboard");
       }
